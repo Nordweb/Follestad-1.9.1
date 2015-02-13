@@ -1,0 +1,106 @@
+"* Required Fields","* Required Fields"
+"1 star","1 star"
+"2 stars","2 stars"
+"3 stars","3 stars"
+"4 stars","4 stars"
+"5 stars","5 stars"
+"Account Registration Captcha","Account Registration Captcha"
+"Add Recipient","Add Recipient"
+"Address Information","Address Information"
+"After solving one CAPTCHA, a user will not be asked again for this number of CAPTCHA actions. Set to 0 to force CAPTCHA every time.","After solving one CAPTCHA, a user will not be asked again for this number of CAPTCHA actions. Set to 0 to force CAPTCHA every time."
+Back,Back
+"CAPTCHA - Help stop spam","CAPTCHA - Help stop spam"
+City,City
+Comment,Comment
+Company,Company
+Configuration,Configuration
+"Confirm Password","Confirm Password"
+"Contact Information","Contact Information"
+"Contact Us","Contact Us"
+"Contact Us Captcha","Contact Us Captcha"
+"Container CSS","Container CSS"
+Country,Country
+"Create an Account","Create an Account"
+"Custom: Magento Standard","Custom: Magento Standard"
+"Custom: Magento Standard (Inline)","Custom: Magento Standard (Inline)"
+"Custom: Magento Standard (No Header)","Custom: Magento Standard (No Header)"
+Dutch,Dutch
+"E-mail Friend Captcha","E-mail Friend Captcha"
+Email,Email
+"Email Address","Email Address"
+"Email Address:","Email Address:"
+"Email to a Friend","Email to a Friend"
+Email:,Email:
+"Enable for Customer","Enable for Customer"
+"Enable for Customers","Enable for Customers"
+"Enable for Guests","Enable for Guests"
+Enabled,Enabled
+"Enabling this is very important so that users are not annoyed by the CAPTCHA if they are doing several actions that require a CAPTCHA confirmation. If you change this value and want you to test it, you will need to delete your cookies.","Enabling this is very important so that users are not annoyed by the CAPTCHA if they are doing several actions that require a CAPTCHA confirmation. If you change this value and want you to test it, you will need to delete your cookies."
+English,English
+"Enter the letters above","Enter the letters above"
+"Enter the words above","Enter the words above"
+"Enter the words you hear","Enter the words you hear"
+Extendware,Extendware
+"Fallback Enabled","Fallback Enabled"
+French,French
+General,General
+German,German
+"Get an audio CAPTCHA","Get an audio CAPTCHA"
+"Get an image CAPTCHA","Get an image CAPTCHA"
+"Get another CAPTCHA","Get another CAPTCHA"
+Help,Help
+"How do you rate this product?","How do you rate this product?"
+"If enabled then the CAPTCHA will always be accepted if the provider cannot be contacted due to a network issue.","If enabled then the CAPTCHA will always be accepted if the provider cannot be contacted due to a network issue."
+"Info Message","Info Message"
+Language,Language
+"Login Information","Login Information"
+Main,Main
+"Maximum %d email addresses allowed.","Maximum %d email addresses allowed."
+Message:,Message:
+Name,Name
+Name:,Name:
+Nickname,Nickname
+"Only disable this if you do not want your template to be overridden by Spam and Bot Protection","Only disable this if you do not want your template to be overridden by Spam and Bot Protection"
+"Only registered users can write reviews. Please, <a href=""%s"">log in</a> or <a href=""%s"">register</a>","Only registered users can write reviews. Please, <a href=""%s"">log in</a> or <a href=""%s"">register</a>"
+"Open Captcha","Open Captcha"
+Password,Password
+"Personal Information","Personal Information"
+"Please <u>read the help descriptions, field descriptions, fieldset descriptions, and user guides</u> so you may configure this extension to suit your needs.","Please <u>read the help descriptions, field descriptions, fieldset descriptions, and user guides</u> so you may configure this extension to suit your needs."
+"Please select one of each of the ratings above","Please select one of each of the ratings above"
+"Please select region, state or province","Please select region, state or province"
+Portuguese,Portuguese
+"Private Key","Private Key"
+"Product Review Captcha","Product Review Captcha"
+Provider,Provider
+"Public Key","Public Key"
+reCaptcha,reCaptcha
+Recipient:,Recipient:
+"Remove Email","Remove Email"
+Review,Review
+Russian,Russian
+"Select the captcha service provider. reCaptcha is the hardest captcha to solve.","Select the captcha service provider. reCaptcha is the hardest captcha to solve."
+"Send Email","Send Email"
+Sender:,Sender:
+Settings,Settings
+"Sign Up for Newsletter","Sign Up for Newsletter"
+"Spam Protection","Spam Protection"
+Spanish,Spanish
+"Standard: Blackglass (reCaptcha only)","Standard: Blackglass (reCaptcha only)"
+"Standard: Clean (reCaptcha only)","Standard: Clean (reCaptcha only)"
+"Standard: Red (reCaptcha only)","Standard: Red (reCaptcha only)"
+"Standard: White (reCaptcha only)","Standard: White (reCaptcha only)"
+State/Province,State/Province
+"Street Address","Street Address"
+"Street Address %s","Street Address %s"
+Submit,Submit
+"Submit Review","Submit Review"
+"Summary of Your Review","Summary of Your Review"
+Telephone,Telephone
+"Template Enabled","Template Enabled"
+Theme,Theme
+Turkish,Turkish
+"Unlocked Actions","Unlocked Actions"
+"Write Your Own Review","Write Your Own Review"
+"You're reviewing:","You're reviewing:"
+"Your CAPTCHA entry is incorrect. Please try again.","Your CAPTCHA entry is incorrect. Please try again."
+"Zip/Postal Code","Zip/Postal Code"

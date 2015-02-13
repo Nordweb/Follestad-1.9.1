@@ -1,0 +1,30 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.3.0
+ */
+?>
+<?php
+/**
+ * Customer "Remember Me" template
+ *
+ */
+/** @var $this Mage_Persistent_Block_Form_Remember */
+?>
+
+<li>
+    <div id="remember-me-box" class="input-box remember-me">
+        <?php $rememberMeId = 'remember_me' . Mage::helper('core')->getRandomString(10); ?>
+        
+        <input type="checkbox" name="persistent_remember_me" class="input-checkbox" id="<?php echo $rememberMeId; ?>"<?php if ($this->isRememberMeChecked()): ?> checked="checked"<?php endif; ?> />
+        <label for="<?php echo $rememberMeId; ?>"><?php echo $this->__('Remember Me') ?></label>
+        
+        <a href="#" class="remember-me-link"><?php echo $this->__('What&rsquo;s this?') ?></a>
+    </div>
+</li>

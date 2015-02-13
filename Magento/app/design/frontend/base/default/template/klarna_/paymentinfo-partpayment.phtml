@@ -1,0 +1,10 @@
+<?php
+$helper = Mage::helper("klarnaPaymentModule");
+$lang = Mage::helper("klarnaPaymentModule/lang");
+$cCountry = $helper->getCustomerCountry();
+$country = $cCountry ? strtolower($cCountry) : strtolower($this->getInfo()->getOrder()->getShippingAddress()->getCountryId());
+?>
+<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . "frontend/base/default/klarna/logo/{$country}/klarna_account.png"; ?>" style="margin-top: 10px; margin-bottom: 10px;" alt="Klarna" />
+<?php if ($this->getTransactionNumber()): ?>
+<p><b><?php echo $lang->fetch($this->getTransactionLabel(), $country); ?>:</b> <?php echo $this->getTransactionNumber(); ?></p>
+<?php endif; ?>

@@ -1,0 +1,54 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<div class="shipment-tracking-info">
+
+	<?php if($this->trackingInfo): ?>
+	
+		<strong><?php echo $this->trackingInfo->getCarrierTitle() ?></strong> - <?php echo $this->trackingInfo->getTracking() ?>
+	
+		<?php if ($this->trackingInfo->getErrorMessage()): ?>
+			<?php echo $this->trackingInfo->getErrorMessage() ?>
+		<?php else: ?>
+			<?php if ($this->trackingInfo->getUrl()): ?>
+				<?php echo $this->__('Please, visit for more info') ?>: <a href="<?php echo $this->trackingInfo->getUrl() ?>" target="_blank"><?php echo $this->trackingInfo->getCarrierTitle() ?></a><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getStatus()): ?>
+				<?php echo $this->__('Status') ?>: <?php echo $this->trackingInfo->getStatus() ?><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getDeliverydate()): ?>
+				<?php echo $this->__('Delivery Date') ?>: <?php echo $this->trackingInfo->getDeliverydate() ?><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getDeliverytime()): ?>
+				<?php echo $this->__('Delivery Time') ?>: <?php echo $this->trackingInfo->getDeliverytime() ?><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getDeliverylocation()): ?>
+				<?php echo $this->__('Delivery Location') ?>: <?php echo $this->trackingInfo->getDeliverylocation() ?><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getSignedby()): ?>
+				<?php echo $this->__('Signed by') ?>: <?php echo $this->trackingInfo->getSignedby() ?><br />
+			<?php endif; ?>
+	
+			<?php if ($this->trackingInfo->getTrackSummary()): ?>
+				<?php echo $this->__('Tracking summary') ?>: <?php echo $this->trackingInfo->getTrackSummary() ?><br />
+			<?php endif; ?>
+		<?php endif; ?>
+
+	<?php endif; ?>
+
+</div>

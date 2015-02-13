@@ -1,0 +1,215 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<h1><?php echo $this->__('Review Order') ?></h1>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<form id="multiship-review-form" action="<?php echo $this->getPostActionUrl() ?>" method="post" onsubmit="return showLoader();">
+	<div id="multiship-review-billing-info" class="callout">
+		<h2><?php echo $this->__('Billing Information') ?></h2>
+		
+		<div class="grid">
+			<div class="grid_3 alpha">
+				<div class="liner">
+					<?php $_address=$this->getBillingAddress() ?>
+					<h3>
+						<?php echo $this->__('Billing Address') ?>
+						<a href="<?php echo $this->getEditBillingAddressUrl($_address) ?>"><?php echo $this->__('Edit') ?></a>
+					</h3>
+					<p class="address-entry"><?php echo $_address->format('html') ?></p>
+				</div>
+			</div>
+
+			<div class="grid_3 omega">
+				<h3>
+					<?php echo $this->__('Payment Method') ?>
+					<a href="<?php echo $this->getEditBillingUrl() ?>"><?php echo $this->__('Edit') ?></a>
+				</h3>
+				
+				<input type="hidden" name="payment[cc_number]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcNumber())?>" />
+				<input type="hidden" name="payment[cc_cid]" value="<?php echo $this->htmlEscape($this->getPayment()->getCcCid())?>" />
+				<div class="payment-method"><?php echo $this->getPaymentHtml() ?></div>
+			</div>
+		</div>
+	 </div>
+	 
+	<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+	
+	<div class="callout">
+		<h2><?php echo $this->__('Shipping Information') ?></h2>
+		
+		<ul id="multiship-review-shipping-list">
+			<?php foreach ($this->getShippingAddresses() as $_index => $_address): ?>
+				<li>
+					<h3><?php echo $this->__('Address %s of %s', ($_index+1), $this->getShippingAddressCount()) ?></h3>
+					
+					<div class="grid">
+						<div class="grid_3 alpha">
+							<div class="liner">
+								<h4>
+									<?php echo $this->__('Destination') ?>
+									<a href="<?php echo $this->getEditShippingAddressUrl($_address) ?>"><?php echo $this->__('Edit') ?></a>
+								</h4>
+								
+								<p class="address-entry"><?php echo $_address->format('html') ?></p>
+							</div>
+						</div>
+						
+						<div class="grid_3">
+							<h4>
+								<?php echo $this->__('Shipping Method') ?>
+								<a href="<?php echo $this->getEditShippingUrl() ?>"><?php echo $this->__('Edit') ?></a>
+							</h4>
+							
+							<?php if($_rate=$this->getShippingAddressRate($_address)): ?>
+								<p class="shipping-method">
+									<?php echo $_rate->getCarrierTitle() ?> - <?php echo $_rate->getMethodTitle() ?>
+									<?php $_excl = $this->getShippingPriceExclTax($_address); ?>
+									<?php $_incl = $this->getShippingPriceInclTax($_address); ?>
+									<?php echo $_excl; ?>
+									
+									<?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+										(<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+									<?php endif; ?>
+								</p>
+							<?php endif; ?>
+						</div>
+						
+						<div class="grid_6 omega">
+							<h4>
+								<?php echo $this->__('Items') ?>
+								<a href="<?php echo $this->getAddressesEditUrl() ?>"><?php echo $this->__('Edit') ?></a>
+							</h4>
+							
+							<table class="simple multiship-review-table" id="overview-table-<?php echo $_address->getId() ?>">
+								<thead>
+									<tr>
+										<th rowspan="<?php echo $mergedCells; ?>" class="width-full"><?php echo $this->__('Product') ?></th>
+										<th colspan="<?php echo $mergedCells; ?>" class="align-right"><?php echo $this->__('Price') ?></th>
+										<th rowspan="<?php echo $mergedCells; ?>" class="align-right"><abbr title="<?php echo $this->__('Quantity') ?>"><?php echo $this->__('Qty.') ?></abbr></th>
+										<th colspan="<?php echo $mergedCells; ?>" class="align-right"><?php echo $this->__('Subtotal') ?></th>
+									</tr>
+									
+									<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+										<tr>
+											<th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+											<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+											<th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+											<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+										</tr>
+									<?php endif; ?>
+								</thead>
+								
+								<tfoot>
+									<?php echo $this->renderTotals($this->getShippingAddressTotals($_address)); ?>
+								</tfoot>
+								
+								<tbody>
+									<?php foreach ($this->getShippingAddressItems($_address) as $_item): ?>
+										<?php echo $this->getRowItemHtml($_item); ?>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+	
+	<?php if ($this->getQuote()->hasVirtualItems()): ?>
+		<div class="callout">
+			<h2><?php echo $this->__('Other items in your order') ?></h2>
+			<a class="faux-button" href="<?php echo $this->getVirtualProductEditUrl() ?>"><?php echo $this->__('Edit') ?></a>
+				
+			<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+			<table id="virtual-overview-table" class="simple multiship-review-table">
+				<thead>
+					<tr>
+						<th rowspan="<?php echo $mergedCells; ?>" class="width-full"><?php echo $this->__('Product') ?></th>
+						<th colspan="<?php echo $mergedCells; ?>" class="align-right"><?php echo $this->__('Price') ?></th>
+						<th rowspan="<?php echo $mergedCells; ?>" class="align-right"><abbr title="<?php echo $this->__('Quantity') ?>"><?php echo $this->__('Qty.') ?></abbr></th>
+						<th colspan="<?php echo $mergedCells; ?>" class="align-right"><?php echo $this->__('Subtotal') ?></th>
+					</tr>
+					
+					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+						<tr>
+							<th class="align-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+							<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+							<th class="align-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+							<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+						</tr>
+					<?php endif; ?>
+				</thead>
+				
+				<tfoot>
+					<?php echo $this->renderTotals($this->getBillinAddressTotals()); ?>
+				</tfoot>
+				
+				<tbody>
+					<?php foreach ($this->getVirtualItems() as $_item): ?>
+						<?php echo $this->getRowItemHtml($_item); ?>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+	<?php endif; ?>
+
+	<?php echo $this->getChildHtml('items_after'); ?>
+
+	<?php echo $this->getChildHtml('agreements') ?>
+
+	<div id="checkout-review-submit" class="multiship-actions">
+		<a class="faux-button" href="<?php echo $this->getBackUrl() ?>"><?php echo $this->__('Go Back') ?></a>
+		<button type="submit" id="review-button"><?php echo $this->__('Place Order') ?></button>
+		
+		<div class="grand-total">
+			<?php echo $this->__('Grand Total:') ?> <?php echo $this->helper('checkout')->formatPrice($this->getTotal()) ?>
+		</div>
+
+		<span id="review-please-wait" class="multiship-ajax-loading" style="display:none;"><?php echo $this->__('Processing') ?></span>
+	</div>
+</form>
+	
+<script type="text/javascript">
+	//<![CDATA[
+		var submitted = false;
+
+		function showLoader()
+		{
+			if (submitted) {
+				return false;
+			}
+			if ($('checkout-agreements')) {
+				var checkboxes = $$('#checkout-agreements input');
+				for (var i=0, l=checkboxes.length; i<l; i++) {
+					if (!checkboxes[i].checked) {
+						alert("<?php echo $this->__('Please agree to all terms and conditions before placing the orders.')?>");
+						return false;
+					}
+				}
+			}
+
+			submitted = true;
+			var step='review';
+			Element.show(step+'-please-wait');
+			/*  // custom, removed this
+			$(step+'-buttons-container').setStyle({opacity:.5});
+			$(step+'-buttons-container').descendants().each(function(s) {
+				  s.disabled = true;
+			});
+			*/
+			return true;
+		}
+	//]]>
+</script>

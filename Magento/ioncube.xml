@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<ioncube>
+  <encode>
+   <files>
+     <file>app/code/community/Trollweb/Consignor/Helper/Data.php</file>
+   </files>
+   <directories>
+    <directory>app/code/community/Trollweb/Consignor/Model</directory>
+   </directories>
+  </encode>
+</ioncube>

@@ -1,0 +1,2179 @@
+<?xml version="1.0"?>
+<klarna>
+  <string id="street_adress">
+    <description><![CDATA[Street address]]></description>
+    <en>Street address</en>
+    <sv>Gatunamn</sv>
+    <nl>Straat</nl>
+    <de>Straße</de>
+    <nb>Gate/vei</nb>
+    <da>Gade</da>
+    <fi>Katuosoite</fi>
+    <fr>Adresse</fr>
+  </string>
+  <string id="error_klarna_title">
+    <description><![CDATA[Klarna Invoice Error]]></description>
+    <en>Klarna Invoice Error</en>
+    <sv>Klarna Faktura fel</sv>
+    <nl>Klarna Factuur fout</nl>
+    <de>Klarna Rechnung Fehler</de>
+    <nb>Klarna Faktura-feil</nb>
+    <da>Klarna Faktura Fejl</da>
+    <fi>Klarna Lasku  virhe</fi>
+    <fr>Erreur de Facture Klarna</fr>
+  </string>
+  <string id="error_save_inputvalue">
+    <description><![CDATA[Could not save the details you send.]]></description>
+    <en>Could not save the details you send.</en>
+    <sv>Det gick inte att spara de skickade värdena.</sv>
+    <nl>De gegevens konden niet worden opgeslagen.</nl>
+    <de>Die Angaben konnten nicht gespeichert werden.</de>
+    <nb>Verdiene kunne ikke lagres.</nb>
+    <da>Kunne ikke gemme de sendte oplysninger.</da>
+    <fi>Lähettämiäsi tietoja ei voitu tallentaa.</fi>
+    <fr>Les informations envoyées n'ont pas pu être enregistrées.</fr>
+  </string>
+  <string id="error_currency">
+    <description><![CDATA[Invalid currency set]]></description>
+    <en>Invalid currency set</en>
+    <sv>Vald valuta är ogiltig</sv>
+    <nl>Ongeldige valuta gekozen</nl>
+    <de>Ungültige Währung</de>
+    <nb>Ugyldig valuta</nb>
+    <da>Den valgte valuta er ugyldig</da>
+    <fi>Virheellinen valuutta</fi>
+    <fr>Devise incorrecte</fr>
+  </string>
+  <string id="error_title_2">
+    <description><![CDATA[Please check your personal details.]]></description>
+    <en>Please check your personal details.</en>
+    <sv>Var vänlig kontrollera dina personuppgifter.</sv>
+    <nl>Controleert u a.u.b. uw persoonlijke gegevens.</nl>
+    <de>Bitte überprüfen Sie Ihre persönlichen Daten.</de>
+    <nb>Vennligst kontroller dine personlige opplysninger.</nb>
+    <da>Kontrollér venligst dine personoplysninger.</da>
+    <fi>Ystävällisesti tarkista henkilökohtaiset tietosi.</fi>
+    <fr>Merci de vérifier vos informations personnelles.</fr>
+  </string>
+  <string id="error_title_1">
+    <description><![CDATA[Sorry, but we could not verify the following information:]]></description>
+    <en>Sorry, but we could not verify the following information:</en>
+    <sv>Tyvärr, vi kunde inte verifiera följande information:</sv>
+    <nl>Het spijt ons maar we konden onderstaande gegevens niet controleren:</nl>
+    <de>Die folgende Information konnte nicht verifiziert werden:</de>
+    <nb>Vi kan desverre ikke verifisere følgende informasjon:</nb>
+    <da>Vi kan desværre ikke verificere følgende information:</da>
+    <fi>Valitettavasti emme voineet vahvistaa seuraavia tietoja:</fi>
+    <fr>Nous n'avons pas pu vérifier les informations suivantes :</fr>
+  </string>
+  <string id="error_no_address">
+    <description><![CDATA[No address found]]></description>
+    <en>No address found</en>
+    <sv>Inga adresser hittades</sv>
+    <nl>Geen adres gevonden</nl>
+    <de>Keine Adresse gefunden</de>
+    <nb>Ingen adresser ble funnet</nb>
+    <da>Ingen fundne adresser</da>
+    <fi>Osoitetta ei löytynyt</fi>
+    <fr>Adresse introuvable</fr>
+  </string>
+  <string id="error_shipping_must_match_billing">
+    <description><![CDATA[Your shipping address must be the same as your billing address.]]></description>
+    <en>Your shipping address must be the same as your billing address.</en>
+    <sv>Leveransadressen måste vara samma som fakturaadressen.</sv>
+    <nl>Het afleveradres moet hetzelfde zijn als uw factuuradres.</nl>
+    <de>Ihre Lieferadresse muss mit Ihrer Rechnungsadresse übereinstimmen.</de>
+    <nb>Din leveringsadresse må være den samme som faktureringsadressen.</nb>
+    <da>Din leveringsadresse skal være den samme som din faktura adresse.</da>
+    <fi>Toimitusosoitteen on oltava sama kuin laskutusosoite.</fi>
+    <fr>Votre adresse de livraison doit être identique à votre adresse de facturation.</fr>
+  </string>
+  <string id="email_address">
+    <description><![CDATA[Email]]></description>
+    <en>Email</en>
+    <sv>E-post</sv>
+    <nl>E-mail</nl>
+    <de>E-Mail</de>
+    <nb>E-post</nb>
+    <da>E-mail</da>
+    <fi>Sähköpostiosoite</fi>
+    <fr>E-mail</fr>
+  </string>
+  <string id="notice_email_address">
+    <description><![CDATA[Enter Email]]></description>
+    <en>Enter Email</en>
+    <sv>Ange e-postadress</sv>
+    <nl>Vult u a.u.b. uw e-mailadres in.</nl>
+    <de>E-Mail Adresse angeben</de>
+    <nb>Fyll inn e-post</nb>
+    <da>Indtast E-mail</da>
+    <fi>Syötä sähköpostiosoite</fi>
+    <fr>Indiquez votre e-mail</fr>
+  </string>
+  <string id="klarna_personalOrOrganisatio_number">
+    <description><![CDATA[Personal or Company number]]></description>
+    <en>Personal or Company number</en>
+    <sv>Personnr/Orgnr</sv>
+    <nl>Geboortedatum / KvK-nummer</nl>
+    <de>Geburtsdatum / Handelsregnr</de>
+    <nb>Personnummer / Org.nr.</nb>
+    <da>CPR-nr / CVR-nr</da>
+    <fi>Henkilötunnus/ Y-tunnus</fi>
+    <fr>Date de naissance / Numéro de Société</fr>
+  </string>
+  <string id="klarna_module_testmode">
+    <description><![CDATA[(TESTMODE)]]></description>
+    <en>(TESTMODE)</en>
+    <sv>(TESTMODE)</sv>
+    <nl>(TESTMODUS)</nl>
+    <de>(TESTMODUS)</de>
+    <nb>(TESTMODUS)</nb>
+    <da>(TEST-TILSTAND)</da>
+    <fi>(TESTITILA)</fi>
+    <fr>(MODE TEST)</fr>
+  </string>
+  <string id="klarna_campaign_agreement">
+    <description><![CDATA[Campaign terms]]></description>
+    <en>Campaign terms</en>
+    <sv>Villkor för kampanj</sv>
+    <nl>Voorwaarden voor Campaign</nl>
+    <de>Aktionsbedingungen</de>
+    <nb>Kampanjevilkår</nb>
+    <da>Kampagne vilkår</da>
+    <fi>Kampanjaehdot</fi>
+    <fr>Conditions de l'offre</fr>
+  </string>
+  <string id="klarna_account_agreement">
+    <description><![CDATA[Terms and Conditions for Klarna Account]]></description>
+    <en>Terms and Conditions for Klarna Account</en>
+    <sv>Allmänna villkor för Klarna Konto</sv>
+    <nl>Voorwaarden voor Klarna Account</nl>
+    <de>Bedingungen für Klarna Ratenkauf</de>
+    <nb>Delbetalingsvilkår</nb>
+    <da>Vilkår for Klarna Konto</da>
+    <fi>Klarna Tilin ehdot</fi>
+    <fr>Conditions d'utilisation de Klarna Konto</fr>
+  </string>
+  <string id="klarna_invoice_agreement">
+    <description><![CDATA[Invoice terms]]></description>
+    <en>Invoice terms</en>
+    <sv>Fakturavillkor</sv>
+    <nl>Voorwaarden voor Klarna Factuur</nl>
+    <de>Rechnungsbedingungen</de>
+    <nb>Fakturavilkår</nb>
+    <da>Vilkår for faktura</da>
+    <fi>Laskuehdot</fi>
+    <fr>Conditions d'utilisation de Klarna Faktura</fr>
+  </string>
+  <string id="img_logo_account">
+    <description><![CDATA[Klarna Account]]></description>
+    <en>Klarna Account</en>
+    <sv>Klarna Konto</sv>
+    <nl>Klarna  Account</nl>
+    <de>Klarna  Ratenkauf</de>
+    <nb>Klarna  Konto</nb>
+    <da>Klarna  Konto</da>
+    <fi>Klarna  Tili</fi>
+    <fr>Klarna Konto</fr>
+  </string>
+  <string id="first_name">
+    <description><![CDATA[First name]]></description>
+    <en>First name</en>
+    <sv>Förnamn</sv>
+    <nl>Voornaam</nl>
+    <de>Vorname</de>
+    <nb>Fornavn</nb>
+    <da>Fornavn</da>
+    <fi>Etunimi</fi>
+    <fr>Prénom</fr>
+  </string>
+  <string id="notice_firstName">
+    <description><![CDATA[Your first name]]></description>
+    <en>Your first name</en>
+    <sv>Ange ditt förnamn här</sv>
+    <nl>Vult u a.u.b. hier uw voornaam in.</nl>
+    <de>Bitte geben Sie Ihren Vornamen an.</de>
+    <nb>Fyll inn fornavn her</nb>
+    <da>Indtast dit fornavn</da>
+    <fi>Kirjaa tähän etunimesi</fi>
+    <fr>Votre prénom</fr>
+  </string>
+  <string id="last_name">
+    <description><![CDATA[Last name]]></description>
+    <en>Last name</en>
+    <sv>Efternamn</sv>
+    <nl>Achternaam</nl>
+    <de>Nachname</de>
+    <nb>Etternavn</nb>
+    <da>Efternavn</da>
+    <fi>Sukunimi</fi>
+    <fr>Nom de famille</fr>
+  </string>
+  <string id="notice_lastName">
+    <description><![CDATA[Enter your surname here]]></description>
+    <en>Enter your surname here</en>
+    <sv>Ange ditt efternamn här</sv>
+    <nl>Vult u a.ub. hier uw achternaam in.</nl>
+    <de>Bitte geben Sie Ihren Nachnamen an.</de>
+    <nb>Fyll inn etternavn her</nb>
+    <da>Indtast dit efternavn</da>
+    <fi>Kirjaa tähän sukunimesi</fi>
+    <fr>Indiquez votre nom de famille.</fr>
+  </string>
+  <string id="sex">
+    <description><![CDATA[Gender]]></description>
+    <en>Gender</en>
+    <sv>Kön</sv>
+    <nl>Geslacht</nl>
+    <de>Geschlecht</de>
+    <nb>Kjønn</nb>
+    <da>Køn</da>
+    <fi>Sukupuoli</fi>
+    <fr>Sexe</fr>
+  </string>
+  <string id="sex_male">
+    <description><![CDATA[Male]]></description>
+    <en>Male</en>
+    <sv>Man</sv>
+    <nl>Man</nl>
+    <de>Mann</de>
+    <nb>Mann</nb>
+    <da>Mand</da>
+    <fi>Mies</fi>
+    <fr>Masculin</fr>
+  </string>
+  <string id="sex_female">
+    <description><![CDATA[Female]]></description>
+    <en>Female</en>
+    <sv>Kvinna</sv>
+    <nl>Vrouw</nl>
+    <de>Frau</de>
+    <nb>Kvinne</nb>
+    <da>Kvinde</da>
+    <fi>Nainen</fi>
+    <fr>Féminin</fr>
+  </string>
+  <string id="address_street">
+    <description><![CDATA[Street]]></description>
+    <en>Street</en>
+    <sv>Gata</sv>
+    <nl>Straat</nl>
+    <de>Straße</de>
+    <nb>Adresse</nb>
+    <da>Adresse</da>
+    <fi>Kadunnimi</fi>
+    <fr>Rue</fr>
+  </string>
+  <string id="notice_streetaddress">
+    <description><![CDATA[Please note that delivery can only take place to the registered address when paying with Klarna]]></description>
+    <en>Please note that delivery can only take place to the registered address when paying with Klarna</en>
+    <sv>Observera att leverans endast kan ske till folkbokföringsadress vid betalning med Klarna</sv>
+    <nl>Levering bij betaling via Klarna kan alleen plaatsvinden op het adres waar u officieel geregistreerd staat.</nl>
+    <de>Bitte beachten Sie, dass die Lieferung bei einer Zahlung mit Klarna ausschließlich an Ihre Meldeadresse erfolgen kann.</de>
+    <nb>Vær oppmerksom på at varelevering kun kan gjøres til din folkeregistrerte adresse når du velger Klarna som betalingsmåte.</nb>
+    <da>Vær venlig, at specificere din folkeregister adresse</da>
+    <fi>Huomaa, että Klarnan maksutavoilla maksaessasi tilaus toimitetaan ainoastaan väestörekisteröityyn osoitteeseen</fi>
+    <fr>La livraison ne peut se faire qu'à l'adresse enregistrée lors du paiement avec Klarna.</fr>
+  </string>
+  <string id="address_homenumber">
+    <description><![CDATA[Housenumber]]></description>
+    <en>Housenumber</en>
+    <sv>Husnummer</sv>
+    <nl>Huisnummer</nl>
+    <de>Hausnummer</de>
+    <nb>Husnummer</nb>
+    <da>Husnummer</da>
+    <fi>Talonumero</fi>
+    <fr>Numéro</fr>
+  </string>
+  <string id="notice_housenumber">
+    <description><![CDATA[Please submit your house number.]]></description>
+    <en>Please submit your house number.</en>
+    <sv>Vänligen ange ditt husnummer.</sv>
+    <nl>Vult u a.u.b. hier uw huisnummer in.</nl>
+    <de>Bitte geben Sie Ihre Hausnummer an.</de>
+    <nb>Vennligst fyll inn husnummer.</nb>
+    <da>Indtast venligst dit husnummer.</da>
+    <fi>Kirjaa tähän talonumerosi.</fi>
+    <fr>Indiquez le numéro de la rue.</fr>
+  </string>
+  <string id="address_zip">
+    <description><![CDATA[Zip code]]></description>
+    <en>Zip code</en>
+    <sv>Postnummer</sv>
+    <nl>Postcode</nl>
+    <de>Postleitzahl</de>
+    <nb>Postnummer</nb>
+    <da>Postnummer</da>
+    <fi>Postinumero</fi>
+    <fr>Code postal</fr>
+  </string>
+  <string id="notice_zip">
+    <description><![CDATA[Please submit your zip code.]]></description>
+    <en>Please submit your zip code.</en>
+    <sv>Vängligen ange ditt postnummer.</sv>
+    <nl>Vult u a.u.b. hier uw postcode in.</nl>
+    <de>Bitte geben Sie Ihre Postleitzahl an.</de>
+    <nb>Vennligst fyll inn postnummer.</nb>
+    <da>Indtast venligst dit postnummer</da>
+    <fi>Kirjaa tähän postinumerosi</fi>
+    <fr>Indiquez votre code postal.</fr>
+  </string>
+  <string id="address_city">
+    <description><![CDATA[City]]></description>
+    <en>City</en>
+    <sv>Ort</sv>
+    <nl>Woonplaats</nl>
+    <de>Wohnort</de>
+    <nb>Sted</nb>
+    <da>By</da>
+    <fi>Kaupunki</fi>
+    <fr>Ville</fr>
+  </string>
+  <string id="notice_city">
+    <description><![CDATA[Please submit your city.]]></description>
+    <en>Please submit your city.</en>
+    <sv>Vänligen ange din ort.</sv>
+    <nl>Vult u a.u.b. hier uw woonplaats in.</nl>
+    <de>Bitte geben Sie Ihren Wohnort an.</de>
+    <nb>Vennligst fyll inn stedsnavn.</nb>
+    <da>Indtast venligst bynavn</da>
+    <fi>Kirjaa tähän kaupunki</fi>
+    <fr>Indiquez votre ville.</fr>
+  </string>
+  <string id="birthday">
+    <description><![CDATA[Birthday]]></description>
+    <en>Birthday</en>
+    <sv>Födelsedag</sv>
+    <nl>Geboortedatum</nl>
+    <de>Geburtsdatum</de>
+    <nb>Bursdag</nb>
+    <da>Fødselsdag</da>
+    <fi>Syntymäpäivä</fi>
+    <fr>Date de naissance</fr>
+  </string>
+  <string id="date_day">
+    <description><![CDATA[Day]]></description>
+    <en>Day</en>
+    <sv>Dag</sv>
+    <nl>Dag</nl>
+    <de>Tag</de>
+    <nb>Dag</nb>
+    <da>Dag</da>
+    <fi>Päivä</fi>
+    <fr>Jour</fr>
+  </string>
+  <string id="date_month">
+    <description><![CDATA[Month]]></description>
+    <en>Month</en>
+    <sv>Månad</sv>
+    <nl>Maand</nl>
+    <de>Monat</de>
+    <nb>Måned</nb>
+    <da>Måned</da>
+    <fi>Kuukausi</fi>
+    <fr>Mois</fr>
+  </string>
+  <string id="month_1">
+    <description><![CDATA[January]]></description>
+    <en>January</en>
+    <sv>januari</sv>
+    <nl>januari</nl>
+    <de>Januar</de>
+    <nb>Januar</nb>
+    <da>Januar</da>
+    <fi>Tammikuu</fi>
+    <fr>Janvier</fr>
+  </string>
+  <string id="month_2">
+    <description><![CDATA[February]]></description>
+    <en>February</en>
+    <sv>februari</sv>
+    <nl>februari</nl>
+    <de>Februar</de>
+    <nb>Februar</nb>
+    <da>Februar</da>
+    <fi>Helmikuu</fi>
+    <fr>Février</fr>
+  </string>
+  <string id="month_3">
+    <description><![CDATA[March]]></description>
+    <en>March</en>
+    <sv>mars</sv>
+    <nl>maart</nl>
+    <de>März</de>
+    <nb>Mars</nb>
+    <da>Marts</da>
+    <fi>Maaliskuu</fi>
+    <fr>Mars</fr>
+  </string>
+  <string id="month_4">
+    <description><![CDATA[April]]></description>
+    <en>April</en>
+    <sv>april</sv>
+    <nl>april</nl>
+    <de>April</de>
+    <nb>April</nb>
+    <da>April</da>
+    <fi>Huhtikuu</fi>
+    <fr>Avril</fr>
+  </string>
+  <string id="month_5">
+    <description><![CDATA[May]]></description>
+    <en>May</en>
+    <sv>maj</sv>
+    <nl>mei</nl>
+    <de>Mai</de>
+    <nb>Mai</nb>
+    <da>Maj</da>
+    <fi>Toukokuu</fi>
+    <fr>Mai</fr>
+  </string>
+  <string id="month_6">
+    <description><![CDATA[June]]></description>
+    <en>June</en>
+    <sv>juni</sv>
+    <nl>juni</nl>
+    <de>Juni</de>
+    <nb>Juni</nb>
+    <da>Juni</da>
+    <fi>Kesäkuu</fi>
+    <fr>Juin</fr>
+  </string>
+  <string id="month_7">
+    <description><![CDATA[July]]></description>
+    <en>July</en>
+    <sv>juli</sv>
+    <nl>juli</nl>
+    <de>Juli</de>
+    <nb>Juli</nb>
+    <da>Juli</da>
+    <fi>Heinäkuu</fi>
+    <fr>Juillet</fr>
+  </string>
+  <string id="month_8">
+    <description><![CDATA[August]]></description>
+    <en>August</en>
+    <sv>augusti</sv>
+    <nl>augustus</nl>
+    <de>August</de>
+    <nb>August</nb>
+    <da>August</da>
+    <fi>Elokuu</fi>
+    <fr>Août</fr>
+  </string>
+  <string id="month_9">
+    <description><![CDATA[September]]></description>
+    <en>September</en>
+    <sv>september</sv>
+    <nl>september</nl>
+    <de>September</de>
+    <nb>September</nb>
+    <da>September</da>
+    <fi>Syyskuu</fi>
+    <fr>Septembre</fr>
+  </string>
+  <string id="month_10">
+    <description><![CDATA[October]]></description>
+    <en>October</en>
+    <sv>oktober</sv>
+    <nl>oktober</nl>
+    <de>Oktober</de>
+    <nb>Oktober</nb>
+    <da>Oktober</da>
+    <fi>Lokakuu</fi>
+    <fr>Octobre</fr>
+  </string>
+  <string id="month_11">
+    <description><![CDATA[November]]></description>
+    <en>November</en>
+    <sv>november</sv>
+    <nl>november</nl>
+    <de>November</de>
+    <nb>November</nb>
+    <da>November</da>
+    <fi>Marraskuu</fi>
+    <fr>Novembre</fr>
+  </string>
+  <string id="month_12">
+    <description><![CDATA[December]]></description>
+    <en>December</en>
+    <sv>december</sv>
+    <nl>december</nl>
+    <de>Dezember</de>
+    <nb>Desember</nb>
+    <da>December</da>
+    <fi>Joulukuu</fi>
+    <fr>Décembre</fr>
+  </string>
+  <string id="date_year">
+    <description><![CDATA[Year]]></description>
+    <en>Year</en>
+    <sv>År</sv>
+    <nl>Jaar</nl>
+    <de>Jahr</de>
+    <nb>År</nb>
+    <da>År</da>
+    <fi>Vuosi</fi>
+    <fr>Année</fr>
+  </string>
+  <string id="person_number">
+    <description><![CDATA[Person number:]]></description>
+    <en>Person number:</en>
+    <sv>Personnummer:</sv>
+    <nl>Persoonsnummer:</nl>
+    <de>Sozialversicherungsnummer:</de>
+    <nb>Personnummer:</nb>
+    <da>Personnummer:</da>
+    <fi>Henkilötunnus:</fi>
+    <fr>Numéro de Sécurité Sociale</fr>
+  </string>
+  <string id="organisation_number">
+    <description><![CDATA[Organisation number:]]></description>
+    <en>Organisation number:</en>
+    <sv>Organisationsnummer:</sv>
+    <nl>KvK-nummer:</nl>
+    <de>Handelsregisternummer:</de>
+    <nb>Organisasjonsnummer:</nb>
+    <da>CVR-nr:</da>
+    <fi>Yritystunnus:</fi>
+    <fr>Numéro de Société</fr>
+  </string>
+  <string id="invoice_type">
+    <description><![CDATA[Type]]></description>
+    <en>Type</en>
+    <sv>Typ</sv>
+    <nl>Soort</nl>
+    <de>Typ</de>
+    <nb>Type</nb>
+    <da>Type</da>
+    <fi>Tyyppi</fi>
+    <fr>Type</fr>
+  </string>
+  <string id="invoice_type_private">
+    <description><![CDATA[Private person]]></description>
+    <en>Private person</en>
+    <sv>Privatperson</sv>
+    <nl>Privépersoon</nl>
+    <de>Privatperson</de>
+    <nb>Privatperson</nb>
+    <da>Privat</da>
+    <fi>Yksityishenkilö</fi>
+    <fr>Particulier</fr>
+  </string>
+  <string id="invoice_type_company">
+    <description><![CDATA[Company]]></description>
+    <en>Company</en>
+    <sv>Företag</sv>
+    <nl>Bedrijf</nl>
+    <de>Firma</de>
+    <nb>Bedrift</nb>
+    <da>Erhverv</da>
+    <fi>Yritys</fi>
+    <fr>Professionnel</fr>
+  </string>
+  <string id="notice_socialNumber_dk">
+    <description><![CDATA[Please enter your social security number here according to the following example: DDMMYYNNNN]]></description>
+    <en>Please enter your social security number here according to the following example: DDMMYYNNNN</en>
+    <sv>Ange ditt personnummer här enligt följande sätt: DDMMÅÅNNNN.</sv>
+    <nl>Vult u a.u.b. uw persoonsnummer als volgt in: DDMMJJNNNN.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungnummer an: TTMMJJNNNN.</de>
+    <nb>Vennligst fyll inn personnummer i følgende format DDMMÅÅNNNN.</nb>
+    <da>Indtast dit personnummer i overensstemmelse med følgende eksempel: DDMMÅÅNNNN.</da>
+    <fi>Ole hyvä ja anna henkilötunnuksesi seuraavassa muodossa: PPKKVVNNNN </fi>
+    <fr>Indiquez votre numéro de sécurité sociale sous le format : JJMMAANNNN.</fr>
+  </string>
+  <string id="notice_socialNumber_no">
+    <description><![CDATA[Please enter your social security number here according to the following example: DDMMYY-NNNNN]]></description>
+    <en>Please enter your social security number here according to the following example: DDMMYY-NNNNN</en>
+    <sv>Ange ditt personnummer här enligt följande sätt: DDMMÅÅ-NNNNN.</sv>
+    <nl>Vult u a.u.b. uw persoonsnummer als volgt in: DDMMJJ-NNNNN.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungnummer an: TTMMYY-NNNNN.</de>
+    <nb>Vennligst fyll inn personnummer i følgende format DDMMYY-NNNNN.</nb>
+    <da>Indtast dit personnummer i overensstemmelse med følgende eksempel: DDMMÅÅ-NNNNN.</da>
+    <fi>Ole hyvä ja anna henkilötunnuksesi seuraavassa muodossa: PPKKVV-NNNNN </fi>
+    <fr>Indiquez votre numéro de sécurité sociale sous le format : JJMMAA-NNNNN.</fr>
+  </string>
+  <string id="notice_socialNumber_se">
+    <description><![CDATA[Please enter your social security number here according to the following example: YYMMDD-NNNN]]></description>
+    <en>Please enter your social security number here according to the following example: YYMMDD-NNNN</en>
+    <sv>Ange ditt person- / orgnummer här enligt följande sätt: ÅÅMMDD-NNNN.</sv>
+    <nl>Vult u a.u.b. uw persoonsnummer als volgt in: JJMMDD-NNNN.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungnummer an: YYMMTT-NNNN.</de>
+    <nb>Vennligst fyll inn personnummer i følgende format YYMMDD-NNNN.</nb>
+    <da>Indtast dit personnummer i overensstemmelse med følgende eksempel: ÅÅMMDD-NNNN.</da>
+    <fi>Ole hyvä ja anna henkilötunnuksesi seuraavassa muodossa: VVKKPP-NNNN </fi>
+    <fr>Indiquez votre numéro de sécurité sociale sous le format : JJMMAA-NNNN.</fr>
+  </string>
+  <string id="notice_socialNumber_fi">
+    <description><![CDATA[Please enter your social security number here according to the following example: DDMMYY-NNNN]]></description>
+    <en>Please enter your social security number here according to the following example: DDMMYY-NNNN</en>
+    <sv>Ange ditt personnummer här enligt följande sätt: DDMMÅÅ-NNNN.</sv>
+    <nl>Vult u a.u.b. uw persoonsnummer als volgt in: DDMMJJ-NNNN.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungnummer an: TTMMYY-NNNN.</de>
+    <nb>Vennligst fyll inn personnummer i følgende format DDMMYY-NNNN.</nb>
+    <da>Indtast dit personnummer i overensstemmelse med følgende eksempel: DDMMÅÅ-NNNN.</da>
+    <fi>Ole hyvä ja anna henkilötunnuksesi seuraavassa muodossa: PPKKVV-NNNN </fi>
+    <fr>Indiquez votre numéro de sécurité sociale sous le format : JJMMAA-NNNN.</fr>
+  </string>
+  <string id="notice_socialNumber_part_se">
+    <description><![CDATA[Please enter your social security number here.]]></description>
+    <en>Please enter your social security number here.</en>
+    <sv>Ange ditt personnummer här. OBS! Vänligen observera att du inte kan handla som företag vid delbetalning.</sv>
+    <nl>Vult u a.u.b. hier uw persoonsnummer in. NB: Als bedrijf kunt u niet met Klarna Account betalen.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungsnummer hier ein. Bitte beachten Sie, dass Sie als Firma nicht mit Klarna Ratenkauf zahlen können</de>
+    <nb>Vennligst fyll inn ditt personnummer her. MERK: Vær oppmerksom på at du ikke kan benytte delbetaling dersom du handler som bedrift. </nb>
+    <da>Indtast dit personnummer her.</da>
+    <fi>Kirjaa tähän henkilötunnuksesi. HUOM: Huomaa, että yritykset eivät voi tilata osamaksulla.</fi>
+    <fr>Indiquez ici votre numéro de sécurité sociale.</fr>
+  </string>
+  <string id="notice_socialNumber_part_no">
+    <description><![CDATA[Please enter your social security number here.]]></description>
+    <en>Please enter your social security number here.</en>
+    <sv>Ange ditt personnummer här. OBS! Vänligen observera att du inte kan handla som företag vid delbetalning.</sv>
+    <nl>Vult u a.u.b. hier uw persoonsnummer in. NB: Als bedrijf kunt u niet met Klarna Account betalen.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungsnummer hier ein. Bitte beachten Sie, dass Sie als Firma nicht mit Klarna Ratenkauf zahlen können</de>
+    <nb>Vennligst fyll inn ditt personnummer her. MERK: Vær oppmerksom på at du ikke kan benytte delbetaling dersom du handler som bedrift.</nb>
+    <da>Indtast dit personnummer her. </da>
+    <fi>Kirjaa tähän henkilötunnuksesi. HUOM: Huomaa, että yritykset eivät voi tilata osamaksulla.</fi>
+    <fr>Indiquez ici votre numéro de sécurité sociale.</fr>
+  </string>
+  <string id="notice_socialNumber_part_dk">
+    <description><![CDATA[Please enter your social security number here.]]></description>
+    <en>Please enter your social security number here.</en>
+    <sv>Ange ditt personnummer här. OBS! Vänligen observera att du inte kan handla som företag vid delbetalning.</sv>
+    <nl>Vult u a.u.b. hier uw persoonsnummer in. NB: Als bedrijf kunt u niet met Klarna Account betalen.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungsnummer hier ein. Bitte beachten Sie, dass Sie als Firma nicht mit Klarna Ratenkauf zahlen können</de>
+    <nb>Vennligst fyll inn ditt personnummer her. MERK: Vær oppmerksom på at du ikke kan benytte delbetaling dersom du handler som bedrift. </nb>
+    <da>Indtast dit personnummer her.</da>
+    <fi>Kirjaa tähän henkilötunnuksesi. HUOM: Huomaa, että yritykset eivät voi tilata osamaksulla.</fi>
+    <fr>Indiquez ici votre numéro de sécurité sociale.</fr>
+  </string>
+  <string id="notice_socialNumber_part_fi">
+    <description><![CDATA[Please enter your social security number here.]]></description>
+    <en>Please enter your social security number here.</en>
+    <sv>Ange ditt personnummer här. OBS! Vänligen observera att du inte kan handla som företag vid delbetalning.</sv>
+    <nl>Vult u a.u.b. hier uw persoonsnummer in. NB: Als bedrijf kunt u niet met Klarna Account betalen.</nl>
+    <de>Bitte geben Sie Ihre Sozialversicherungsnummer hier ein. Bitte beachten Sie, dass Sie als Firma nicht mit Klarna Ratenkauf zahlen können</de>
+    <nb>Vennligst fyll inn ditt personnummer her. MERK: Vær oppmerksom på at du ikke kan benytte delbetaling dersom du handler som bedrift. </nb>
+    <da>Indtast dit personnummer her. </da>
+    <fi>Kirjaa tähän henkilötunnuksesi. HUOM: Huomaa, että yritykset eivät voi tilata osamaksulla.</fi>
+    <fr>Indiquez ici votre numéro de sécurité sociale.</fr>
+  </string>
+  <string id="company_name">
+    <description><![CDATA[Company name]]></description>
+    <en>Company name</en>
+    <sv>Företagsnamn</sv>
+    <nl>Bedrijfsnaam</nl>
+    <de>Firmenname</de>
+    <nb>Bedriftsnavn</nb>
+    <da>Firmanavn</da>
+    <fi>Yrityksen nimi</fi>
+    <fr>Nom de la société</fr>
+  </string>
+  <string id="notice_companyName">
+    <description><![CDATA[please enter your company name here]]></description>
+    <en>please enter your company name here</en>
+    <sv>Vänligen ange ditt företagsnamn här</sv>
+    <nl>Vult u a.u.b. hier uw bedrijfsnaam in.</nl>
+    <de>Firmenname Info</de>
+    <nb>Vennligst fyll inn bedriftsnavn</nb>
+    <da>Indtast firmanavn her</da>
+    <fi>Syötä yrityksesi nimi tähän</fi>
+    <fr>Inidiquez le nom de la société</fr>
+  </string>
+  <string id="reference">
+    <description><![CDATA[Reference]]></description>
+    <en>Reference</en>
+    <sv>Referens</sv>
+    <nl>Referentie</nl>
+    <de>Referenz</de>
+    <nb>Referanse</nb>
+    <da>Reference</da>
+    <fi>Viite</fi>
+    <fr>Référence</fr>
+  </string>
+  <string id="notice_reference">
+    <description><![CDATA[Please submit the reference for this order]]></description>
+    <en>Please submit the reference for this order</en>
+    <sv>Vänligen fyll i din referens för denna order</sv>
+    <nl>Vult u a.u.b. hier uw referentie in.</nl>
+    <de>Bitte geben Sie Ihre Referenz für diese Bestellung an.</de>
+    <nb>Vennligst oppgi din bestillingsreferanse</nb>
+    <da>Vær venlig, at oplyse reference for denne ordre</da>
+    <fi>Ole hyvä ja syötä viitenumerosi</fi>
+    <fr>Inidiquez la référence de cette commande</fr>
+  </string>
+  <string id="address_housenumber_addition">
+    <description><![CDATA[Extension]]></description>
+    <en>Extension</en>
+    <sv>Tillägg</sv>
+    <nl>Toevoeging</nl>
+    <de>Zusatz</de>
+    <nb>Vedlegg</nb>
+    <da>Tilføjelse</da>
+    <fi>Lisäys</fi>
+    <fr>Numéro complémentaire</fr>
+  </string>
+  <string id="notice_house_extension">
+    <description><![CDATA[Please submit your house extension here. E.g. A, B, C, Red, Blue ect.]]></description>
+    <en>Please submit your house extension here. E.g. A, B, C, Red, Blue ect.</en>
+    <sv>Ange ditt hustillägg här. T.ex. A, B, C, Röd eller Blå osv.</sv>
+    <nl>Vult u a.u.b. hier de toevoeging aan het huisnummer in, bijv. A, 2, III hoog etc.</nl>
+    <de>Geben Sie Ihre Adressergänzungen hier an. Zum Beispiel: A, B, C, Rückgebäude, etc.</de>
+    <nb>Vennligst fyll inn hustilleggene her. F.eks. A, B, C, rød, blå, osv.</nb>
+    <da>Indtast dine hus-tilføjelser. Fx A, B, C, rød eller blå, osv.</da>
+    <fi>Kirjaa tähän talosi lisätiedot. Esim. A, B, C, punainen, sininen jne.</fi>
+    <fr>Informations complémentaires (bâtiment, escalier, porte...)</fr>
+  </string>
+  <string id="languageSetting_note_no">
+    <description><![CDATA[You have chosen the Norwegian method of payment. Please note that this is just a translated representation of the Norwegian payment system's functionality. Change your currency and country, if you want to show payment for your country.]]></description>
+    <en>You have chosen the Norwegian method of payment. Please note that this is just a translated representation of the Norwegian payment system's functionality. Change your currency and country, if you want to show payment for your country.</en>
+    <sv>Du har valt det norska betalningssättet. Observera att detta bara är en översatt representation av det norska betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Noorse betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Noorse betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de>Sie haben die norwegischen Zahlungsmethode ausgewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung des NORKA Zahlung Funktionalität des Systems ist. Ändern Sie Ihre Währung und Land, wenn Sie die Zahlung für Ihr Land zeigen wollen.</de>
+    <nb>Du har valgt en norsk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det norske betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt den norske betalingsmetode. Bemærk, at dette bare en en oversat gengivelse af norske betaling funktion af systemet. Skift valuta og land, hvis du ønsker at vise betalingen for dit land.</da>
+    <fi>Olet valinnut norjalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Norjan maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement norvégien. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement norvégien. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="languageSetting_note_se">
+    <description><![CDATA[You have chosen the Swedish payment method. Please note that this is only a translated representation of the Swedish payment functionality. Change your currency and country if you would like to show the payment option suited for your country.]]></description>
+    <en>You have chosen the Swedish payment method. Please note that this is only a translated representation of the Swedish payment functionality. Change your currency and country if you would like to show the payment option suited for your country.</en>
+    <sv>Du har valt det svenska betalningssättet. Observera att detta bara är en översatt representation av det svenska betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Zweedse betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Zweedse betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de> Sie haben die schwedischen Zahlungsmethode ausgewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung der schwedischen Zahlungsfunktionalität ist. Ändern Sie Währung und Land, wenn Sie die Zahlungsmethode für Ihr Land angezeigt haben wollen.</de>
+    <nb>Du har valgt en svensk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det svenske betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt det svenske betalingsmetode. Bemærk venligst at dette kun er en oversat gengivelse af den svenske betalingsystems funktioner. Skift valuta og land, hvis du gerne vil vise betalingsmuligheder egnet til dit land.</da>
+    <fi>Olet valinnut ruotsalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Ruotsin maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement suédois. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement suédois. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="languageSetting_note_fi">
+    <description><![CDATA[You have chosen the Finish method of payment. Please note that this is just a translated representation of the Finish payment system's functionality. Change your currency and country, if you want to show payment for your country.]]></description>
+    <en>You have chosen the Finish method of payment. Please note that this is just a translated representation of the Finish payment system's functionality. Change your currency and country, if you want to show payment for your country.</en>
+    <sv>Du har valt det finska betalningssättet. Observera att detta bara är en översatt representation av det finska betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Finse betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Finse betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de>Sie haben die finnische Zahlungsart gewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung für die die finnische Zahlungsart ist. Ändern Sie Ihre Währung und das Land, wenn Sie die Zahlungsarten für Ihr Land zeigen wollen.</de>
+    <nb>Du har valgt en finsk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det finske betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt den finske betalingsmetode. Bemærk, at dette bare er en oversat gengivelse af det finske betalingssystems funktioner. Skift valuta og land, hvis du ønsker at vise betaling for dit land.</da>
+    <fi>Olet valinnut suomalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Suomen maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement finlandais. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement finlandais. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="languageSetting_note_nl">
+    <description><![CDATA[You have chosen the Dutch method of payment. Please note that this is just a translated representation of the Dutch payment system's functionality. Change your currency and country, if you want to show payment for your country.]]></description>
+    <en>You have chosen the Dutch method of payment. Please note that this is just a translated representation of the Dutch payment system's functionality. Change your currency and country, if you want to show payment for your country.</en>
+    <sv>Du har valt det nederländska betalningssättet. Observera att detta bara är en översatt representation av det nederländska betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Nederlandse betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Nederlandse betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de>Sie haben die niederländische Zahlungsart gewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung für die die niederlänische Zahlungsart ist. Ändern Sie Ihre Währung und das Land, wenn Sie die Zahlungsarten für Ihr Land zeigen wollen.</de>
+    <nb>Du har valgt en nederlandsk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det nederlandske betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt den hollandske betalingsmetode. Bemærk, at dette bare er en oversat gengivelse af det hollandske betalingssystems funktioner. Skift valuta og land, hvis du ønsker at vise betaling for dit land.</da>
+    <fi>Olet valinnut alankomaalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Alankomaiden maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement néerlandais. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement néerlandais. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="languageSetting_note_de">
+    <description><![CDATA[You have chosen the German method of payment. Please note that this is just a translated representation of the German payment system's functionality. Change your currency and country, if you want to show payment for your country.]]></description>
+    <en>You have chosen the German method of payment. Please note that this is just a translated representation of the German payment system's functionality. Change your currency and country, if you want to show payment for your country.</en>
+    <sv>Du har valt det tyska betalningssättet. Observera att detta bara är en översatt representation av det tyska betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Duitse betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Duitse betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de>Sie haben die deutsche Zahlungsart gewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung für die die deutsche Zahlungsart ist. Ändern Sie Ihre Währung und das Land, wenn Sie die Zahlungsarten für Ihr Land zeigen wollen.</de>
+    <nb>Du har valgt en tysk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det tyske betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt den tyske betalingsmetode. Bemærk, at dette bare er en oversat gengivelse af det tyske betalingssystems funktioner. Skift valuta og land, hvis du ønsker at vise betaling for dit land.</da>
+    <fi>Olet valinnut saksalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Saksan maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement allemand. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement allemand. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="languageSetting_note_dk">
+    <description><![CDATA[You have chosen the Danish method of payment. Please note that this is just a translated representation of the Danish payment system's functionality. Change your currency and country, if you want to show payment for your country.]]></description>
+    <en>You have chosen the Danish method of payment. Please note that this is just a translated representation of the Danish payment system's functionality. Change your currency and country, if you want to show payment for your country.</en>
+    <sv>Du har valt det danska betalningssättet. Observera att detta bara är en översatt representation av det danka betalningssystemet. Ändra din valuta och land, om du vill visa betalningssätt för ditt land.</sv>
+    <nl>U heeft gekozen voor de Deense betaalmethode. Houdt er rekening mee dat dit slechts een vertaling is van de Deense betaalfunctionaliteit. Wijzig valuta en land als u de betaaloptie voor uw land wilt zien.</nl>
+    <de>Sie haben die dänische Zahlungsart gewählt. Bitte beachten Sie, dass dies nur eine übersetzte Darstellung für die die dänische Zahlungsart ist. Ändern Sie Ihre Währung und das Land, wenn Sie die Zahlungsarten für Ihr Land zeigen wollen.</de>
+    <nb>Du har valgt en dansk betalingsmåte. Vær oppmerksom på at dette kun er en oversatt representasjon av det dansk betalingssystemet. Ønsker du å se betalingsmåter for ditt land endrer du valuta og land.</nb>
+    <da>Du har valgt den danske betalingsmetode. Vær opmærksom på, at dette bare er en oversat gengivelse af det danske betalingssystems funktioner. Skift valuta og land, hvis du vil vise betaling for dit eget land.</da>
+    <fi>Olet valinnut tanskalaisen maksutavan. Huomaa, että tämä on vain käännetty esittely Tanskan maksujärjestelmän toimivuudesta. Vaihda valuutta ja maa, jos haluat nähdä oman maasi maksuvaihtoehdot.</fi>
+    <fr>Vous avez choisi le mode de paiement danois. Ceci n'est qu'une version traduite des fonctionnalités du système de paiement danois. Pour obtenir les fonctionnalités pour votre pays, veuillez indiquer votre monnaie et votre pays.</fr>
+  </string>
+  <string id="socialSecurityNumber">
+    <description><![CDATA[Social security number]]></description>
+    <en>Social security number</en>
+    <sv>Personnummer</sv>
+    <nl>Persoonsnummer</nl>
+    <de>Sozialversicherungsnummer</de>
+    <nb>Personnummer</nb>
+    <da>Personnummer</da>
+    <fi>Henkilötunnus</fi>
+    <fr>Numéro de sécurité sociale</fr>
+  </string>
+  <string id="mobile_phone">
+    <description><![CDATA[Mobile phone:]]></description>
+    <en>Mobile phone:</en>
+    <sv>Mobilnummer:</sv>
+    <nl>Mobielnummer:</nl>
+    <de>Mobiltelefonnummer:</de>
+    <nb>Mobilnummer:</nb>
+    <da>Mobiltelefon:</da>
+    <fi>Matkapuhelinnumero:</fi>
+    <fr>Numéro de mobile :</fr>
+  </string>
+  <string id="mobile_phone_number">
+    <description><![CDATA[Mobile phone]]></description>
+    <en>Mobile phone</en>
+    <sv>Mobilnummer</sv>
+    <nl>Mobielnummer</nl>
+    <de>Mobiltelefonnummer</de>
+    <nb>Mobilnummer</nb>
+    <da>Mobilnummer</da>
+    <fi>Matkapuhelinnumero</fi>
+    <fr>Numéro de mobile</fr>
+  </string>
+  <string id="phone_number">
+    <description><![CDATA[Phone number]]></description>
+    <en>Phone number</en>
+    <sv>Telefonnummer</sv>
+    <nl>Telefoonnummer</nl>
+    <de>Telefonnummer</de>
+    <nb>Telefonnummer</nb>
+    <da>Telefonnummer</da>
+    <fi>Puhelinnumero</fi>
+    <fr>Numéro de téléphone</fr>
+  </string>
+  <string id="notice_mobilePhone">
+    <description><![CDATA[Please submit your mobile phone.]]></description>
+    <en>Please submit your mobile phone.</en>
+    <sv>Vänligen ange ditt mobilnummer.</sv>
+    <nl>Vult u a.u.b. hier uw mobielnummer in.</nl>
+    <de>Bitte geben Sie Ihre Mobiltelefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt mobilnummer.</nb>
+    <da>Indtast venligst dit mobilnummer</da>
+    <fi>Ole hyvä ja syötä matkapuhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone mobile.</fr>
+  </string>
+  <string id="notice_phoneNumber_se">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="notice_phoneNumber_dk">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="notice_phoneNumber_no">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="notice_phoneNumber_fi">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="notice_phoneNumber_nl">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="notice_phoneNumber_de">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <da>Indtast venligst dit telefonnummer</da>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <fr>Indiquez votre numéro de téléphone.</fr>
+  </string>
+  <string id="delivery_address">
+    <description><![CDATA[Delivery address]]></description>
+    <en>Delivery address</en>
+    <sv>Leveransadress</sv>
+    <nl>Afleveradres</nl>
+    <de>Lieferadresse</de>
+    <nb>Leveringsadresse</nb>
+    <da>Leveringsadresse</da>
+    <fi>Toimitusosoite</fi>
+    <fr>Adresse de livraison</fr>
+  </string>
+  <string id="part_payment">
+    <description><![CDATA[Part payment options]]></description>
+    <en>Part payment options</en>
+    <sv>Delbetalningsmöjligheter</sv>
+    <nl>Mogelijkheden deelbetaling</nl>
+    <de>Ratenkaufoptionen</de>
+    <nb>Delbetalingsmåter</nb>
+    <da>Delbetalings muligheder</da>
+    <fi>Erämaksuvaihtoehdot</fi>
+    <fr>Options de paiement fractionné</fr>
+  </string>
+  <string id="spec_payment">
+    <description><![CDATA[Campaign options]]></description>
+    <en>Campaign options</en>
+    <sv>Kampanjer</sv>
+    <nl>Campaignopties</nl>
+    <de>Aktionsoptionen</de>
+    <nb>Kampanjer</nb>
+    <da>Kampagne muligheder</da>
+    <fi>Kampanjavaihtoehdot</fi>
+    <fr>Options de l'offre</fr>
+  </string>
+  <string id="company_not_allowed">
+    <description><![CDATA[It seems you have chosen an partpayment option for a company; currently we do not allow any partpayment options for companies.]]></description>
+    <en>It seems you have chosen an partpayment option for a company; currently we do not allow any partpayment options for companies.</en>
+    <sv>Det verkar som du har valt ett delbetalningsalternativ för ett företag, för närvarande tillåter vi inte någon delbetalning för företag.</sv>
+    <nl>U heeft gekozen voor deelbetalen voor een bedrijf; momenteel bieden wij deze mogelijkheid niet aan bedrijven aan.</nl>
+    <de>Sie haben eine Ratenkaufoption für ein Firmen gewählt. Zurzeit sind Ratenkaufbestellungen für Firmen nicht möglich.</de>
+    <nb>Det ser ut som at du har valgt delbetaling for en bedrift. For tilfellet tillater vi desverre ikke delbetaling for bedrifter.</nb>
+    <da>Du har valgt en delbetalings mulighed som erhvervskunde; på nuværende tidspunkt tillader vi ingen delbetalings muligheder for firmaer.</da>
+    <fi>Olet valinnut maksun kuukausierissä yritykselle; tällä hetkellä emme valitettavasti tarjoa erämaksuvaihtoehtoa yrityksille</fi>
+    <fr>Vous semblez avoir choisi un paiement fractionné pour une société. Nous ne proposons pas actuellement le fractionnement du paiement pour les sociétés.</fr>
+  </string>
+  <string id="MODULE_INVOICE_TEXT_TITLE">
+    <description><![CDATA[Klarna Invoice]]></description>
+    <en>Klarna Invoice</en>
+    <sv>Klarna Faktura</sv>
+    <nl>Klarna Factuur</nl>
+    <de>Klarna  Rechnung</de>
+    <nb>Klarna  Faktura</nb>
+    <da>Klarna  Faktura</da>
+    <fi>Klarna  Lasku</fi>
+    <fr>Klarna Faktura</fr>
+  </string>
+  <string id="MODULE_PARTPAY_TEXT_TITLE">
+    <description><![CDATA[Klarna Part Payment]]></description>
+    <en>Klarna Part Payment</en>
+    <sv>Klarna Delbetalningar</sv>
+    <nl>Klarna Account</nl>
+    <de>Klarna  Ratenkauf</de>
+    <nb>Klarna  Delbetaling</nb>
+    <da>Klarna  Delbetaling</da>
+    <fi>Klarna  Tili</fi>
+    <fr>Klarna Paiement fractionné</fr>
+  </string>
+  <string id="MODULE_SPEC_TEXT_TITLE">
+    <description><![CDATA[Klarna Special Campaigns]]></description>
+    <en>Klarna Special Campaigns</en>
+    <sv>Klarna Specialkampanjer</sv>
+    <nl>Klarna Speciale Campaigns</nl>
+    <de>Klarna  Sonderaktion</de>
+    <nb>Klarna  Spesialkampanjer</nb>
+    <da>Klarna  Specielle Kampagner</da>
+    <fi>Klarna  Erikoiskampanjat</fi>
+    <fr>Offres spéciales Klarna</fr>
+  </string>
+  <string id="INVOICE_TITLE">
+    <description><![CDATA[Klarna Invoice - pay in 14 days (+XX) // Title of our payment option, used when there is an invoice fee. static, label]]></description>
+    <en>Klarna Invoice - pay in 14 days (+XX)</en>
+    <sv>Faktura - Betala 14 dagar efter leverans (+XX)</sv>
+    <nl>Klarna Factuur - Betaal binnen 14 dagen (+XX)</nl>
+    <de>Rechnung - Zahlung innerhalb von 14 Tagen (+XX)</de>
+    <nb>Faktura - betal om 14 dager (+XX)</nb>
+    <da>Faktura - Betal om 14 dage (+XX)</da>
+    <fi>Lasku - 14 päivää maksuaikaa (+XX)</fi>
+    <fr>Klarna Faktura (+XX)</fr>
+  </string>
+  <string id="INVOICE_TITLE_NO_PRICE">
+    <description><![CDATA[Klarna - Invoice // Title of our payment option, used when there is NO invoice fee. static, label NOTE "NO_INVOICE_FEE" is always used together with this text..
+]]></description>
+    <en>Klarna - Invoice</en>
+    <sv>Faktura - Betala 14 dagar efter leverans</sv>
+    <nl>Klarna Factuur - Betaal binnen 14 dagen</nl>
+    <de>Rechnung - Zahlung innerhalb von 14 Tagen</de>
+    <nb>Faktura - betal om 14 dager</nb>
+    <da>Faktura - Betal om 14 dage</da>
+    <fi>Lasku - 14 päivää maksuaikaa</fi>
+    <fr>Klarna Faktura - Réglez sous 14 jours après la livraison.</fr>
+  </string>
+  <string id="INVOICE_FEE_TITLE">
+    <description><![CDATA[Invoice fee]]></description>
+    <en>Invoice fee</en>
+    <sv>Faktureringsavgift</sv>
+    <nl>Factuurkosten</nl>
+    <de>Rechnungsgebühr</de>
+    <nb>Fakturagebyr</nb>
+    <da>Fakturagebyr</da>
+    <fi>Laskutusmaksu</fi>
+    <fr>Frais de facturation</fr>
+  </string>
+  <string id="PARTPAY_TITLE">
+    <description><![CDATA[Part payment option from xx/month]]></description>
+    <en>Part payment option from xx/month</en>
+    <sv>Delbetalning - Klarna från xx/mån</sv>
+    <nl>Deelbetalen via Klarna - vanaf xx/maand</nl>
+    <de>Ratenkauf ab xx</de>
+    <nb>Delbetaling via Klarna - betal fra xx i måneden</nb>
+    <da>Delbetaling - Klarna fra xx/måned</da>
+    <fi>Klarna Tili-  alkaen xx/kk</fi>
+    <fr>Option de paiement fractionné à partir du xx/mois</fr>
+  </string>
+  <string id="PARTPAY_TITLE_NOSUM">
+    <description><![CDATA[Part payment option from Klarna]]></description>
+    <en>Part payment option from Klarna</en>
+    <sv>Part payment option from Klarna</sv>
+    <nl>Deelbetalen via Klarna</nl>
+    <de>Ratenzahlung mit Klarna</de>
+    <nb>Delbetalingsalternativ fra Klarna</nb>
+    <da> Delbetalingsmuligheder fra Klarna</da>
+    <fi>Erämaksumahdollisuus Klarnalta</fi>
+    <fr>Option de paiement fractionné par Klarna</fr>
+  </string>
+  <string id="SPEC_TITLE">
+    <description><![CDATA[Special campaign from Klarna]]></description>
+    <en>Special campaign from Klarna</en>
+    <sv>Special campaign from Klarna</sv>
+    <nl>Speciale Campaign van Klarna</nl>
+    <de>Sonderaktion von Klarna</de>
+    <nb>Spesialkampanje fra Klarna</nb>
+    <da> Særlige kampagner fra Klarna</da>
+    <fi>Erikoiskampanja Klarnalta</fi>
+    <fr>Offre spéciale de Klarna</fr>
+  </string>
+  <string id="INVOICE_TEXT_DESCRIPTION">
+    <description><![CDATA[Invoice from Klarna]]></description>
+    <en>Invoice from Klarna</en>
+    <sv>Swedish invoice from Klarna</sv>
+    <nl>Zweedse factuur van Klarna</nl>
+    <de>Schwedische Rechnung von Klarna</de>
+    <nb>Svensk faktura fra Klarna</nb>
+    <da>Svensk faktura fra Klarna</da>
+    <fi>Ruotsalainen lasku Klarnalta</fi>
+    <fr>Facture suédoise de Klarna</fr>
+  </string>
+  <string id="PARTPAY_TEXT_DESCRIPTION">
+    <description><![CDATA[Part payment options from Klarna]]></description>
+    <en>Part payment options from Klarna</en>
+    <sv>Swedish part payment options from Klarna</sv>
+    <nl>Deelbetalen via het Zweedse Klarna</nl>
+    <de>Schwedische Ratenkaufoption von Klarna</de>
+    <nb>Svenske delbetalingsalternativ fra Klarna</nb>
+    <da>Svenske delbetalingsmuligheder fra Klarna</da>
+    <fi>Ruotsalainen erämaksumahdollisuus Klarnalta</fi>
+    <fr>Options de paiement fractionné par Klarna</fr>
+  </string>
+  <string id="SPEC_TEXT_DESCRIPTION">
+    <description><![CDATA[Special Campaigns from Klarna]]></description>
+    <en>Special Campaigns from Klarna</en>
+    <sv>Special Campaigns from Klarna</sv>
+    <nl>Speciale Campaigns van Klarna</nl>
+    <de>Sonderaktion von Klarna AB</de>
+    <nb>Spesialkampanjer fra Klarna</nb>
+    <da>Særlige Kampagner fra Klarna</da>
+    <fi>Erikoiskampanjat Klarnalta</fi>
+    <fr>Offres spéciales de Klarna</fr>
+  </string>
+  <string id="INVOICE_CONFIRM_DESCRIPTION">
+    <description><![CDATA[www.klarna.com]]></description>
+    <en>www.klarna.com</en>
+    <sv>www.klarna.com</sv>
+    <nl>www.klarna.nl</nl>
+    <de>www.klarna.de</de>
+    <nb>www.klarna.no</nb>
+    <da>www.klarna.dk</da>
+    <fi>www.klarna.fi</fi>
+    <fr>www.klarna.fr</fr>
+  </string>
+  <string id="PARTPAY_CONFIRM_DESCRIPTION">
+    <description><![CDATA[www.klarna.com]]></description>
+    <en>www.klarna.com</en>
+    <sv>www.klarna.com</sv>
+    <nl>www.klarna.nl</nl>
+    <de>www.klarna.de</de>
+    <nb>www.klarna.no</nb>
+    <da>www.klarna.dk</da>
+    <fi>www.klarna.fi</fi>
+    <fr>www.klarna.fr</fr>
+  </string>
+  <string id="SPEC_CONFIRM_DESCRIPTION">
+    <description><![CDATA[www.klarna.com]]></description>
+    <en>www.klarna.com</en>
+    <sv>www.klarna.com</sv>
+    <nl>www.klarna.nl</nl>
+    <de>www.klarna.de</de>
+    <nb>www.klarna.no</nb>
+    <da>www.klarna.dk</da>
+    <fi>www.klarna.fi</fi>
+    <fr>www.klarna.fr</fr>
+  </string>
+  <string id="consent">
+    <description><![CDATA[Mit der Ãbermittlung der fÃ¼r die Abwicklung des Rechnungskaufes und einer IdentitÃ¤ts- und BonitÃ¤tsprÃ¼fung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung fÃ¼r die Zukunft widerrufen.]]></description>
+    <en>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</en>
+    <sv>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</sv>
+    <nl>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</nl>
+    <de>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</de>
+    <nb>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</nb>
+    <da>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</da>
+    <fi>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</fi>
+    <fr>Mit der Übermittlung der für die Abwicklung des Rechnungskaufes und einer Identitäts- und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen. </fr>
+  </string>
+  <string id="show_consent">
+    <description><![CDATA[(Show agreement)]]></description>
+    <en>(Show agreement)</en>
+    <sv>(Visa avtal)</sv>
+    <nl>(Toon overeenkomst)</nl>
+    <de>(Vereinbarung anzeigen)</de>
+    <nb>(Vis avtale)</nb>
+    <da>(Vis aftale)</da>
+    <fi>(Näytä sopimus)</fi>
+    <fr>(Montrer l'accord de consentement)</fr>
+  </string>
+  <string id="mobile_mobile_code">
+    <description><![CDATA[XXXX]]></description>
+    <en>XXXX</en>
+    <sv>XXXX</sv>
+    <nl>****</nl>
+    <de>XXXX</de>
+    <nb>XXXX</nb>
+    <da>XXXX</da>
+    <fi>XXXX</fi>
+    <fr>****</fr>
+  </string>
+  <string id="mobile_topInfo">
+    <description><![CDATA[All purchases via Klarna Mobile will be gathered on one bill per month. No costs, No fees.]]></description>
+    <en>All purchases via Klarna Mobile will be gathered on one bill per month. No costs, No fees.</en>
+    <sv>Alla köp via Klarna mobil samlas på en och samma månadsfaktura. Inga räntor, inga aviavgifter.</sv>
+    <nl>Alle aankopen via Klarna Mobile worden per maand verzameld op één factuur. Zonder rente en zonder kosten.</nl>
+    <de>Alle Einkäufe mit Klarna Mobil werden auf einer Monatsrechnung gesammelt. Ohne Zinsen und ohne Gebühren.</de>
+    <nb>Alle kjøp med Klarna mobil samles på en og samme månedsfaktura. Ingen rente, ingen fakturagebyr.</nb>
+    <da>Alle køb via Klarna mobil samles på én og samme månedsfaktura. Ingen renter og ingen indbetalingsafgifter.</da>
+    <fi>Kaikki Klarna matkapuhelintilaukset kootaan samalle kuukausilaskulle. Ei korkoa, ei kuluja.</fi>
+    <fr>Tous les achats via Klarna Mobile seront groupés sur une facture mensuelle, sans frais supplémentaires.</fr>
+  </string>
+  <string id="mobile_agreement">
+    <description><![CDATA[Terms and conditions]]></description>
+    <en>Terms and conditions</en>
+    <sv>Villkor</sv>
+    <nl>Voorwaarden</nl>
+    <de>Bedingungen</de>
+    <nb>Vilkår</nb>
+    <da>Vilkår</da>
+    <fi>Ehdot</fi>
+    <fr>Conditions d'utilisation</fr>
+  </string>
+  <string id="mobile_mobilePhoneNo">
+    <description><![CDATA[Cellphone number]]></description>
+    <en>Cellphone number</en>
+    <sv>Mobilnummer</sv>
+    <nl>Mobielnummer</nl>
+    <de>Mobiltelefonnummer</de>
+    <nb>Mobilnummer</nb>
+    <da>Mobilnummer</da>
+    <fi>Puhelinnumero</fi>
+    <fr>Numéro de mobile</fr>
+  </string>
+  <string id="mobile_pinCode">
+    <description><![CDATA[Enter your Pin Code]]></description>
+    <en>Enter your Pin Code</en>
+    <sv>Fyll i din kod</sv>
+    <nl>Voert u a.u.b. uw pincode in.</nl>
+    <de>Bitte geben Sie Ihren Pinkod an.</de>
+    <nb>Fyll inn kode</nb>
+    <da>Indtast din pinkode</da>
+    <fi>Syötä koodisi</fi>
+    <fr>Entrez votre PIN-code.</fr>
+  </string>
+  <string id="mobile_whoops">
+    <description><![CDATA[Whoops!]]></description>
+    <en>Whoops!</en>
+    <sv>Hoppsan!</sv>
+    <nl>Oeps!</nl>
+    <de>Hoppla!</de>
+    <nb>Obs!</nb>
+    <da>Hovsa</da>
+    <fi>Hups!</fi>
+    <fr>Oups!</fr>
+  </string>
+  <string id="mobile_Close">
+    <description><![CDATA[Close]]></description>
+    <en>Close</en>
+    <sv>Stäng</sv>
+    <nl>Sluiten</nl>
+    <de>Schließen</de>
+    <nb>Lukk</nb>
+    <da>Luk</da>
+    <fi>Sulje</fi>
+    <fr>Fermer</fr>
+  </string>
+  <string id="PPBOX_fromText">
+    <description><![CDATA[From]]></description>
+    <en>From</en>
+    <sv>Från</sv>
+    <nl>Vanaf</nl>
+    <de>Ab</de>
+    <nb>Fra</nb>
+    <da>Fra</da>
+    <fi>Alkaen</fi>
+    <fr>De</fr>
+  </string>
+  <string id="PPBOX_monthText">
+    <description><![CDATA[/month]]></description>
+    <en>/month</en>
+    <sv>/månad</sv>
+    <nl>/maand</nl>
+    <de>Monat</de>
+    <nb>/måned</nb>
+    <da>Måned</da>
+    <fi>/kuukausi</fi>
+    <fr>/mois</fr>
+  </string>
+  <string id="PPBOX_account">
+    <description><![CDATA[Account]]></description>
+    <en>Account</en>
+    <sv>Konto</sv>
+    <nl>Account</nl>
+    <de>Ratenkauf</de>
+    <nb>Konto</nb>
+    <da>Konto</da>
+    <fi>Tili</fi>
+    <fr>Klarna Konto</fr>
+  </string>
+  <string id="PPBOX_th_month">
+    <description><![CDATA[Months]]></description>
+    <en>Months</en>
+    <sv>Mån</sv>
+    <nl>Maanden</nl>
+    <de>Monate</de>
+    <nb>Måned</nb>
+    <da>Måned</da>
+    <fi>Kuukausia</fi>
+    <fr>Mois</fr>
+  </string>
+  <string id="PPBOX_th_sum">
+    <description><![CDATA[Sum/month]]></description>
+    <en>Sum/month</en>
+    <sv>Summa/mån</sv>
+    <nl>Bedrag/maand</nl>
+    <de>Summe/Monat</de>
+    <nb>Sum/måned</nb>
+    <da>Beløb/Måned</da>
+    <fi>Summa/kk</fi>
+    <fr>Somme/Mois</fr>
+  </string>
+  <string id="PPBox_readMore">
+    <description><![CDATA[More information]]></description>
+    <en>More information</en>
+    <sv>Läs mer</sv>
+    <nl>Lees meer</nl>
+    <de>Lesen Sie mehr.</de>
+    <nb>Les mer</nb>
+    <da>Mere information</da>
+    <fi>Lisätietoja</fi>
+    <fr>Plus d'informations</fr>
+  </string>
+  <string id="no_consent">
+    <description><![CDATA[Bitte stimmen Sie den AGB und der DatenschutzerklÃ¤rung zu.]]></description>
+    <en>Bitte stimmen Sie den AGB und der Datenschutzerklärung zu.</en>
+    <sv>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</sv>
+    <nl>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</nl>
+    <de>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</de>
+    <nb>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</nb>
+    <da>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</da>
+    <fi>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung.</fi>
+    <fr>Bitte geben Sie Ihre Einwilligung zur Datenübermittlung. </fr>
+  </string>
+  <string id="ot_klarna_title">
+    <description><![CDATA[Invoice fee // Used in osCommerce backend, it's the button to access the setup for the invoice fee.]]></description>
+    <en>Invoice fee</en>
+    <sv>Faktureringsavgift</sv>
+    <nl>Factuurkosten</nl>
+    <de>Rechnungsgebühr</de>
+    <nb>Fakturagebyr</nb>
+    <da>Faktureringsgebyr</da>
+    <fi>Laskutusmaksu</fi>
+    <fr>Frais de facturation</fr>
+  </string>
+  <string id="ot_klarna_description">
+    <description><![CDATA[Klarna Invoice fee]]></description>
+    <en>Klarna Invoice fee</en>
+    <sv>Klarna Invoice fee (SE)</sv>
+    <nl>Factuurkosten Klarna (NL)</nl>
+    <de>Klarna  Rechnungsgebühr (DE)</de>
+    <nb>Klarna  Fakturagebyr (NO)</nb>
+    <da>Klarna  Fakturagebyr (DK)</da>
+    <fi>Klarna  Laskutuslisä (FI)</fi>
+    <fr>Frais Klarna Faktura (FR)</fr>
+  </string>
+  <string id="comment_purchase_accepted">
+    <description><![CDATA[Purchase accepted by Klarna]]></description>
+    <en>Purchase accepted by Klarna</en>
+    <sv>Ditt köp är accepterat av Klarna</sv>
+    <nl>Aankoop door Klarna goedgekeurd</nl>
+    <de>Der Kauf wurde von Klarna akzeptiert.</de>
+    <nb>Kjøpet er akseptert av Klarna</nb>
+    <da>Købet er accepteret af Klarna</da>
+    <fi>Klarna on hyväksynyt ostoksen</fi>
+    <fr>Paiement accepté par Klarna.</fr>
+  </string>
+  <string id="comment_purchase_pending">
+    <description><![CDATA[Purchase accepted by Klarna]]></description>
+    <en>Purchase accepted by Klarna</en>
+    <sv>Ditt köp är accepterat av Klarna</sv>
+    <nl>Aankoop door Klarna goedgekeurd</nl>
+    <de>Der Kauf wurde von Klarna akzeptiert.</de>
+    <nb>Kjøpet er akseptert av Klarna</nb>
+    <da>Købet er accepteret af Klarna</da>
+    <fi>Klarna on hyväksynyt ostoksen</fi>
+    <fr>Paiement accepté par Klarna.</fr>
+  </string>
+  <string id="comment_purchase_ref">
+    <description><![CDATA[Reference]]></description>
+    <en>Reference</en>
+    <sv>Referens</sv>
+    <nl>Referentie</nl>
+    <de>Referenz</de>
+    <nb>Referanse</nb>
+    <da>Reference</da>
+    <fi>Viite</fi>
+    <fr>Référence</fr>
+  </string>
+  <string id="comment_pay_option">
+    <description><![CDATA[Payment choice]]></description>
+    <en>Payment choice</en>
+    <sv>Betalningssätt</sv>
+    <nl>Keuze betaalmogelijkheid</nl>
+    <de>Zahlungsmethode</de>
+    <nb>Betalingsmåte</nb>
+    <da>Valg af betaling</da>
+    <fi>Maksutapa</fi>
+    <fr>Méthode de paiement</fr>
+  </string>
+  <string id="invoice_string">
+    <description><![CDATA[Invoice]]></description>
+    <en>Invoice</en>
+    <sv>Faktura</sv>
+    <nl>Factuur</nl>
+    <de>Rechnung</de>
+    <nb>Faktura</nb>
+    <da>Faktura</da>
+    <fi>Lasku</fi>
+    <fr>Facture</fr>
+  </string>
+  <string id="year_salary">
+    <description><![CDATA[Your yearly salary]]></description>
+    <en>Your yearly salary</en>
+    <sv>Din årsinkomst</sv>
+    <nl>Uw jaarinkomen</nl>
+    <de>Ihr jährliches Einkommen</de>
+    <nb>Årsinntekt</nb>
+    <da>Din årlige indkomst</da>
+    <fi>Vuositulosi</fi>
+    <fr>Votre salaire annuel</fr>
+  </string>
+  <string id="notice_year_salary_dkk">
+    <description><![CDATA[Your yearly salary in Dansk krone before tax]]></description>
+    <en>Your yearly salary in Dansk krone before tax</en>
+    <sv>Din årsinkomst i Danska kronor före skatt</sv>
+    <nl>Uw jaarinkomen vóór belasting in Deense kronen</nl>
+    <de>Ihr jährliches Bruttoeinkommen in dänischen Kronen</de>
+    <nb>Årsinntekt i danske kroner, før skatt</nb>
+    <da>Din årlige indkomst i DKK før skat</da>
+    <fi>Vuositulosi Tanskan kruunuina ennen veroja</fi>
+    <fr>Votre salaire annuel brut en Couronnes danoises</fr>
+  </string>
+  <string id="notice_year_salary_eur">
+    <description><![CDATA[Your yearly salary in Euro before tax]]></description>
+    <en>Your yearly salary in Euro before tax</en>
+    <sv>Din årsinkomst i Euro före skatt</sv>
+    <nl>Uw jaarinkomen vóór belasting in Euro's</nl>
+    <de>Ihr jährliches Bruttoeinkommen in Euro</de>
+    <nb>Årsinntekt i Euro, før skatt</nb>
+    <da>Din årlige indkomst i Euro før skat</da>
+    <fi>Vuositulosi euroina ennen veroja</fi>
+    <fr>Votre salaire annuel brut en Euros</fr>
+  </string>
+  <string id="notice_year_salary_nok">
+    <description><![CDATA[Your yearly salary in Norwegian Crowns before tax]]></description>
+    <en>Your yearly salary in Norwegian Crowns before tax</en>
+    <sv>Din årsinkomst i Norska kronor före skatt</sv>
+    <nl>Uw jaarinkomen vóór belasting in Noorse kronen</nl>
+    <de>Ihr jährliches Bruttoeinkommen in norwegischen Kronen</de>
+    <nb>Årsinntekt i norske kroner, før skatt</nb>
+    <da>Din årlige indkomst i NOK før skat</da>
+    <fi>Vuositulosi Norjan kruunuina ennen veroja</fi>
+    <fr>Votre salaire annuel brut en Couronnes norvégiennes</fr>
+  </string>
+  <string id="notice_year_salary_sek">
+    <description><![CDATA[Your yearly salary in Swedish Crowns before tax]]></description>
+    <en>Your yearly salary in Swedish Crowns before tax</en>
+    <sv>Din årsinkomst i kronor före skatt</sv>
+    <nl>Uw jaarinkomen vóór belasting in Zweedse kronen</nl>
+    <de>Ihr jährliches Bruttoeinkommen in schwedischen Kronen</de>
+    <nb>Årsinntekt i svenske kroner, før skatt</nb>
+    <da>Din årlige indkomst i SEK før skat</da>
+    <fi>Vuositulosi Ruotsin kruunuina ennen veroja</fi>
+    <fr>Votre salaire annuel brut en Couronnes suédoises</fr>
+  </string>
+  <string id="notice_billing_same_as_shipping">
+    <description><![CDATA[Your billing address will be overwritten with your shipping address]]></description>
+    <en>Your billing address will be overwritten with your shipping address</en>
+    <sv>Din faktureringsadress kommer att skrivas över med din leveransadress</sv>
+    <nl>Het afleveradres zal gebruikt worden als factuuradres</nl>
+    <de>Ihre Lieferadresse wird als Rechnungsadresse benutzt.</de>
+    <nb>Din faktureringsadresse vil være den samme som din leveringsadresse</nb>
+    <da>Din leveringsadresse vil blive anvendt som faktureringsadresse</da>
+    <fi>Laskutusosoitteesi tulee vaihtumaan toimitusosoitteeksesi</fi>
+    <fr>Votre adresse de livraison sera utilisée comme adresse de facturation.</fr>
+  </string>
+  <string id="no_get_address">
+    <description><![CDATA[No address found. Please enter your social security number, this will update your address automatically]]></description>
+    <en>No address found. Please enter your social security number, this will update your address automatically</en>
+    <sv>Ingen adress hittades. Vänligen skriv in ditt personnummer så uppdateras din adress automatiskt</sv>
+    <nl>Er is geen adres gevonden. Vult u a.u.b. uw persoonsnummer in, dan wordt uw adres automatisch gewijzigd.</nl>
+    <de>Keine Adresse gefunden. Bitte geben Sie Ihre Sozialversicherungsnummer an, damit Ihre Adresse automatisch aktualisiert werden kann.</de>
+    <nb>Ingen adresse funnet. Vennligst skriv inn ditt personnummer så oppdateres adressen automatisk</nb>
+    <da>Ingen adresse fundet! Vær venlig, at indtaste dit CPR nummer, så bliver din adresse opdateret automatisk.</da>
+    <fi>Osoitetta ei löytynyt. Ole ystävällinen ja täytä henkilötunnuksesi, niin osoitteesi päivitetään automaattisesti</fi>
+    <fr>Pas d'adresse trouvée. Indiquez votre numéro de sécurité sociale afin de mettre automatiquement à jour votre adresse,</fr>
+  </string>
+  <string id="ilt_chooseAnswer">
+    <description><![CDATA[Choose answer]]></description>
+    <en>Choose answer</en>
+    <sv>Välj svar</sv>
+    <nl>Kies antwoord</nl>
+    <de>Antwort wählen</de>
+    <nb>Velg svar</nb>
+    <da>Vælg svar</da>
+    <fi>Valitse vastaus</fi>
+    <fr>Choisir une réponse</fr>
+  </string>
+  <string id="ilt_title">
+    <description><![CDATA[To complete your purchase, we need to ask you some questions: ]]></description>
+    <en>To complete your purchase, we need to ask you some questions: </en>
+    <sv>För att kunna slutföra Ert köp behöver Ni besvara några frågor.</sv>
+    <nl>Om uw aankoop te voltooien, moeten wij u enkele vragen stellen:</nl>
+    <de>Um Ihren Kauf abzuschließen, beantworten Sie bitte folgende Fragen:</de>
+    <nb>For å fullføre kjøpet, må vi stille deg et par spørsmål </nb>
+    <da>For at færdiggøre dit køb skal du først svare på nogle spørgsmål:</da>
+    <fi>Viedäksemme ostoksesi loppuun, meidän täytyy kysyä sinulta muutama kysymys:</fi>
+    <fr>Pour valider votre achat, nous devons vous poser quelques questions.</fr>
+  </string>
+  <string id="invoice_number_text">
+    <description><![CDATA[Klarna Invoice Number]]></description>
+    <en>Klarna Invoice Number</en>
+    <sv>Klarna OCR-/Fakturanummer</sv>
+    <nl>Klarna referentie-/factuurnummer</nl>
+    <de>Klarna Rechnungsnummer</de>
+    <nb>KID-nummer Klarna</nb>
+    <da>Klarna Fakturanummer</da>
+    <fi>Klarna- laskunumero</fi>
+    <fr>Numéro de Facture Klarna</fr>
+  </string>
+  <string id="INVOICE_CREATED_SUCCESSFULLY">
+    <description><![CDATA[Invoice with invoice number (xx) created successfully at Klarna]]></description>
+    <en>Invoice with invoice number (xx) created successfully at Klarna</en>
+    <sv>Faktura med fakturanummer (xx) är skapad av Klarna</sv>
+    <nl>Factuur met factuurnummer (xx) is succesvol door Klarna aangemaakt</nl>
+    <de>Die Rechunung Nr: (xx) wurde erstellt</de>
+    <nb>Faktura med fakturanummer (xx) er opprettet hos Klarna</nb>
+    <da>Faktura med fakturanummer (xx) blev oprettet hos Klarna</da>
+    <fi>Lasku laskunumerolla (xx) on luotu onnistuneesti Klarnan järjestelmässä</fi>
+    <fr>Création réussie de la Facture Klarna numéro : (xx)</fr>
+  </string>
+  <string id="address_updated_notice">
+    <description><![CDATA[Your shipping address has been updated by Klarna.]]></description>
+    <en>Your shipping address has been updated by Klarna.</en>
+    <sv>Er leveransadress har uppdaterats av Klarna.</sv>
+    <nl>Klarna heeft uw afleveradres aangepast.</nl>
+    <de>Ihre Lieferadresse wurde von Klarna aktualisiert.</de>
+    <nb>Din leveringsadresse er oppdatert av Klarna.</nb>
+    <da>Din leveringsadresse er opdateret af Klarna.</da>
+    <fi>Klarna on päivittänyt toimitusosoitteenne.</fi>
+    <fr>Votre adresse de livraison a été mise à jour par Klarna.</fr>
+  </string>
+  <string id="format_invoicefee_not_included">
+    <description><![CDATA[An Invoice fee of (xx) will be added]]></description>
+    <en>An Invoice fee of (xx) will be added</en>
+    <sv>Fakturaavgift tillkommer med (xx)</sv>
+    <nl>(xx) factuurkosten zullen worden toegevoegd</nl>
+    <de>Die Rechnungsgebühr (xx) wird hinzugefügt.</de>
+    <nb>Fakturaavgift på (xx) vil bli lagt til</nb>
+    <da>Faktura gebyret (xx) er tilføjet</da>
+    <fi>Lisätään laskutuslisä (xx)</fi>
+    <fr>Des frais de facturation de (xx) vont être ajoutés.</fr>
+  </string>
+  <string id="confirm_order">
+    <description><![CDATA[I confirm my order]]></description>
+    <en>I confirm my order</en>
+    <sv>Jag bekräftar beställningen</sv>
+    <nl>Ik bevestig mijn bestelling</nl>
+    <de>Ich stimme meiner Bestellung zu.</de>
+    <nb>Jeg godkjenner min bestilling</nb>
+    <da>Jeg bekræfter min ordre</da>
+    <fi>Vahvistan tilaukseni</fi>
+    <fr>Je confirme ma commande.</fr>
+  </string>
+  <string id="other_payment_methods">
+    <description><![CDATA[Other payment methods]]></description>
+    <en>Other payment methods</en>
+    <sv>Andra betalningsmetoder</sv>
+    <nl>Andere betaalmogelijkheden</nl>
+    <de>Andere Zahlungsoptionen</de>
+    <nb>Andre betalingsmetoder</nb>
+    <da>Andre betalingsmetoder</da>
+    <fi>Muut maksutavat</fi>
+    <fr>Autres méthodes de paiement</fr>
+  </string>
+  <string id="confirm_order_notice">
+    <description><![CDATA[Please confirm your order by clicking 'I confirm my order']]></description>
+    <en>Please confirm your order by clicking 'I confirm my order'</en>
+    <sv>Bekräfta beställningen genom att klicka på 'Jag bekräftar beställningen'</sv>
+    <nl>Bevestig uw bestelling door te klikken op 'Ik bevestig mijn bestelling'</nl>
+    <de>Bitte bestätigen Sie Ihre Bestellung indem Sie auf </de>
+    <nb>Vennligst bekreft din bestilling ved å klikke på </nb>
+    <da>Bekræft venligst din ordre ved at trykke på 'Jeg bekræfter min ordre'</da>
+    <fi>Ole hyvä ja vahvista tilauksesi klikkaamalla `Vahvistan tilaukseni`</fi>
+    <fr>Veuillez confirmer votre commande en cliquant sur </fr>
+  </string>
+  <string id="per_month">
+    <description><![CDATA[/ month NOTE that the "/" is needed to indicate that it's a price per month, ex 21,00 eur "/ month".]]></description>
+    <en>/ month</en>
+    <sv>/månad</sv>
+    <fi>/ kuukausi</fi>
+    <nl>/maand</nl>
+    <de>/ Monat</de>
+    <da>/ Måned</da>
+    <nb>/måned</nb>
+    <fr>/ Mois</fr>
+  </string>
+  <string id="status_pending">
+    <description><![CDATA[Klarna Pending]]></description>
+    <en>Klarna Pending</en>
+    <sv>Klarna Pending</sv>
+    <nl>Klarna Hangend</nl>
+    <de>Klarna Ausstehend</de>
+    <da>Klarna Afventer</da>
+    <fi>Odottava tilaus</fi>
+    <nb>Klarna Avventer</nb>
+    <fr>Attente Klarna</fr>
+  </string>
+  <string id="status_accepted">
+    <description><![CDATA[Klarna Accepted]]></description>
+    <en>Klarna Accepted</en>
+    <sv>Klarna Accepted</sv>
+    <nl>Klarna Geaccepteerd</nl>
+    <de>Klarna Akzeptiert</de>
+    <da>Accepteret af Klarna</da>
+    <fi>Klarnan hyväksymä</fi>
+    <nb>Akseptert av Klarna</nb>
+    <fr>Acceptation Klarna</fr>
+  </string>
+  <string id="click_invoice_to_print">
+    <description><![CDATA[Click on the invoice number to view and print it]]></description>
+    <en>Click on the invoice number to view and print it</en>
+    <sv>Klicka på fakturanumret för att se och skriva ut fakturan</sv>
+    <nl>Klik op het factuurnummer om deze te bekijken of te printen</nl>
+    <de>Klicken Sie auf die Rechnungsnummer um sie anzusehen und auszudrucken.</de>
+    <da>For visning og udskrivning af fakturaen, tryk på fakturanummeret</da>
+    <fi>Klikkaa laskunumeroa nähdäksesi ja tulostaaksesi laskun</fi>
+    <nb>Klikk på fakturanummeret for å se og skrive ut fakturaen</nb>
+    <fr>Cliquez sur le numéro de facture pour visualiser et imprimer une facture.</fr>
+  </string>
+  <string id="activated">
+    <description><![CDATA[Activated]]></description>
+    <en>Activated</en>
+    <sv>Aktiverad</sv>
+    <fi>Aktivoitu</fi>
+    <nl>Geactiveerd</nl>
+    <de>Aktiviert</de>
+    <da>Aktiveret</da>
+    <nb>Aktivert</nb>
+    <fr>Activé</fr>
+  </string>
+  <string id="klarna_invoices">
+    <description><![CDATA[Klarna Invoices]]></description>
+    <en>Klarna Invoices</en>
+    <sv>Klarna Fakturor</sv>
+    <nl>Klarna Facturen</nl>
+    <de>Klarna Rechnungen</de>
+    <da>Klarna Fakturaer</da>
+    <fi>Klarna Laskut</fi>
+    <nb>Klarna Fakturaer</nb>
+    <fr>Factures Klarna</fr>
+  </string>
+  <string id="reservation_number_text">
+    <description><![CDATA[Klarna Reservation Number]]></description>
+    <en>Klarna Reservation Number</en>
+    <sv>Klarnas Reservationsnummer</sv>
+    <nl>Klarna Reserveringsnummer</nl>
+    <de>Klarna Reservierungsnummer</de>
+    <da>Klarna Reservationsnummer</da>
+    <fi>Klarna Varausnumero</fi>
+    <nb>Klarnas reservasjonsnummer</nb>
+    <fr>Numéro de réservation Klarna</fr>
+  </string>
+  <string id="INVOICE_CREATED_SUCCESSFULLY_RETURNOCR">
+    <description><![CDATA[Invoice with reference number (xx) created successfully at Klarna]]></description>
+    <en>Invoice with reference number (xx) created successfully at Klarna</en>
+    <sv>Faktura med referens (xx) är nu skapad hos Klarna</sv>
+    <de>Rechnung mit Referenznummer (xx) erfolgreich bei Klarna erstellt.</de>
+    <nl>De rekening met referentienummer (xx) is succesvol bij Klarna aangemaakt</nl>
+    <da>Faktura med referencenummer (xx) er oprettet hos Klarna</da>
+    <fi>Lasku viitenumerolla (xx) on luotu onnistuneesti Klarnalla</fi>
+    <nb>Faktura med referanse (xx) er nå skapt hos Klarna</nb>
+    <fr>Création réussie de la Facture Klarna numéro (xx)</fr>
+  </string>
+  <string id="NO_INVOICE_FEE">
+    <description><![CDATA[No invoice fee will be charged]]></description>
+    <en>No invoice fee will be charged</en>
+    <sv>Ingen faktureringsavgift tillkommer</sv>
+    <nl>Er worden geen factuurkosten in rekening gebracht</nl>
+    <de>Es werden keine Rechnungsgebühren verlangt.</de>
+    <da>Der vil ikke blive opkrævet fakturagebyr</da>
+    <fi>Laskutusmaksua ei peritä</fi>
+    <nb>Ingen faktureringsavgift tilkommer</nb>
+    <fr>Aucun frais de facturation ne sera ajouté.</fr>
+  </string>
+  <string id="discount">
+    <description><![CDATA[Discount]]></description>
+    <en>Discount</en>
+    <fi>Alennus</fi>
+    <nl>Korting</nl>
+    <da>Rabat</da>
+    <sv>Rabatt</sv>
+    <de>Rabatt</de>
+    <nb>Rabatt</nb>
+    <fr>Réduction</fr>
+  </string>
+  <string id="coupon">
+    <description><![CDATA[Coupon]]></description>
+    <en>Coupon</en>
+    <fi>Kuponki</fi>
+    <nl>Coupon</nl>
+    <da>Kupon</da>
+    <sv>Kupong</sv>
+    <de>Gutschein</de>
+    <nb>Kupong</nb>
+    <fr>Coupon</fr>
+  </string>
+  <string id="gift_wrapping">
+    <description><![CDATA[Gift Wrapping]]></description>
+    <en>Gift Wrapping</en>
+    <fi>Lahjapaketointi</fi>
+    <nl>Geschenkverpakking</nl>
+    <da>Gaveindpakning</da>
+    <sv>Presentinslagning</sv>
+    <de>Geschenkverpackung</de>
+    <nb>Gaveinnpakning</nb>
+    <fr>Emballage cadeau</fr>
+  </string>
+  <string id="module_config">
+    <description><![CDATA[Configuration]]></description>
+    <en>Configuration</en>
+    <sv>Konfiguration</sv>
+    <nl>Configuratie</nl>
+    <de>Konfiguration</de>
+    <nb>Konfigurasjon</nb>
+    <da>Konfiguration</da>
+    <fi>Konfiguraatio</fi>
+    <fr>Configuration</fr>
+  </string>
+  <string id="status">
+    <description><![CDATA[Status]]></description>
+    <en>Status</en>
+    <sv>Status</sv>
+    <nl>Status</nl>
+    <de>Status</de>
+    <nb>Status</nb>
+    <da>Status</da>
+    <fi>Status</fi>
+    <fr>Statut</fr>
+  </string>
+  <string id="status_denied">
+    <description><![CDATA[Denied]]></description>
+    <en>Denied</en>
+    <sv>Nekad</sv>
+    <nl>Geweigerd</nl>
+    <de>verweigert</de>
+    <nb>Avslått</nb>
+    <da>Afvist</da>
+    <fi>Kielletty</fi>
+    <fr>Refusé</fr>
+  </string>
+  <string id="invoice_created_with_id">
+    <description><![CDATA[Klarna transaction created with number : XX]]></description>
+    <en>Klarna transaction created with number : XX</en>
+    <sv>Klarna transaktion skapad med referens : XX</sv>
+    <nl>Klarnatransactie aangemaakt met nummer: XX</nl>
+    <de>Klarna-Transaktion mit der Referenznummer XX erstellt</de>
+    <nb>Klarna-transaksjon skapt med nummer: XX</nb>
+    <da>Klarna-transaktion oprettet med nummer : XX</da>
+    <fi>Klarna-transaktio luotu numerolla: xx</fi>
+    <fr>Transaction Klarna créée sous le numéro : XX</fr>
+  </string>
+  <string id="activated">
+    <description><![CDATA[Activated]]></description>
+    <en>Activated</en>
+    <sv>Aktiverad</sv>
+    <nl>Geactiveerd</nl>
+    <de>aktiviert</de>
+    <nb>Aktivert</nb>
+    <da>Aktiveret</da>
+    <fi>Aktivoitu</fi>
+    <fr>Activé</fr>
+  </string>
+  <string id="check_order_status">
+    <description><![CDATA[Update Order Status]]></description>
+    <en>Update Order Status</en>
+    <sv>Uppdatera orderstatus</sv>
+    <nl>Wijzig orderstatus</nl>
+    <de>Order-Status aktualisieren</de>
+    <nb>Oppdater bestillingsstatus</nb>
+    <da>Opdatér Ordrestatus</da>
+    <fi>Päivitä tilausstatus</fi>
+    <fr>Mettre à jour le statut de la commande</fr>
+  </string>
+  <string id="activate_order">
+    <description><![CDATA[Activate Order]]></description>
+    <en>Activate Order</en>
+    <sv>Aktivera beställning</sv>
+    <nl>Activeer order</nl>
+    <de>Order aktivieren</de>
+    <nb>Aktiver bestilling</nb>
+    <da>Aktivér Ordre</da>
+    <fi>Aktivoi tilaus</fi>
+    <fr>Activer la commande</fr>
+  </string>
+  <string id="new_order_status">
+    <description><![CDATA[Order status successfully updated. New order status:]]></description>
+    <en>Order status successfully updated. New order status:</en>
+    <sv>Orderstatusen har uppdaterats. Ny orderstatus:</sv>
+    <nl>De orderstatus is succesvol gewijzigd. Nieuwe orderstatus:</nl>
+    <de>Order-Status erfolgreich aktualisiert. Neuer Order-Status: </de>
+    <nb>Bestillingsstatus oppdatert. Ny bestillingsstatus:</nb>
+    <da>Ordre status er opdateret. Ny ordrestatus:</da>
+    <fi>Tilausstatus on päivitetty onnistuneesti. Uusi tilausstatus:</fi>
+    <fr>Le statut de la commande a été mis à jour. Nouveau statut :</fr>
+  </string>
+  <string id="not_a_klarna_order">
+    <description><![CDATA[This order is not a Klarna order. // Label/static, showed when you try to view a non-Klarna order.]]></description>
+    <en>This order is not a Klarna order.</en>
+    <sv>Denna beställning är inte en Klarna-beställning.</sv>
+    <nl>Deze bestelling is geen Klarna order.</nl>
+    <de>Diese Order ist keine Klarna-Order.</de>
+    <nb>Denne bestillingen er ingen Klarna-bestilling.</nb>
+    <da>Denne ordre er ikke en Klarna-ordre.</da>
+    <fi>Tämä tilaus ei ole Klarna-tilaus.</fi>
+    <fr>Cette commande n'est pas une commande Klarna.</fr>
+  </string>
+  <string id="settings_saved">
+    <description><![CDATA[The settings have been saved. // Label/temp, showed when you successfully save setting in module backend]]></description>
+    <en>The settings have been saved.</en>
+    <sv>Konfigurationen har sparats.</sv>
+    <nl>De instellingen zijn opgeslagen.</nl>
+    <de>Die Einstellungen wurden gespeichert.</de>
+    <nb>Innstillingene er lagret.</nb>
+    <da>Indstillingerne er gemt.</da>
+    <fi>Asetukset on tallennettu.</fi>
+    <fr>Les modifications ont été enregistrées.</fr>
+  </string>
+  <string id="email_sent_for">
+    <description><![CDATA[Email has been successfully sent for invoice: // Label/temp, after ":" is the invoice number for the invoice that you just sent]]></description>
+    <en>Email has been successfully sent for invoice:</en>
+    <sv>E-postmeddelande har skickats för transaktion med referensnummer:</sv>
+    <de>Die E-Mail wurde verschickt für die Transaktion mit der Referenznummer: </de>
+    <nl>Er is een e-mail verstuurd voor factuur:</nl>
+    <nb>Mail er sendt for faktura:</nb>
+    <da>Email er blevet sendt for faktura:</da>
+    <fi>Sähköposti on lähetetty onnistuneesti koskien laskua:</fi>
+    <fr>Un email de confirmation a bien été envoyé pour la Facture Klarna numéro :</fr>
+  </string>
+  <string id="email_sent">
+    <description><![CDATA[Invoice sent through email: // Label/static, after the ":" is a date stamp (the date when you last sent the invoice with email)]]></description>
+    <en>Invoice sent through email:</en>
+    <sv>Fakturan skickades med e-post:</sv>
+    <nl>Factuur is via e-mail verstuurd:</nl>
+    <de>Die Rechnung wurde per E-Mail verschickt</de>
+    <nb>Faktura sendt via mail:</nb>
+    <da>Faktura er sendt via email:</da>
+    <fi>Lasku on lähetetty sähköpostitse:</fi>
+    <fr>Facture envoyée par mail le :</fr>
+  </string>
+  <string id="email_invoice">
+    <description><![CDATA[Email Invoice // Button, when pressed the invoice is sent through email to the customer]]></description>
+    <en>Email Invoice</en>
+    <sv>E-posta fakturan</sv>
+    <nl>E-mail Factuur</nl>
+    <de>E-Mail-Rechnung</de>
+    <nb>Mailfaktura</nb>
+    <da>Email Faktura</da>
+    <fi>Sähköpostilasku</fi>
+    <fr>Envoyer la Facture par mail</fr>
+  </string>
+  <string id="admin_order_address_notice">
+    <description><![CDATA[Text to be shown in the backend to inform merchants that they should not change the address of a Klarna order. // Infotext/static]]></description>
+    <en>Upon purchase Klarna will do a risk assessment of the order. Among other things this includes verifying that the address is an approved address for delivery.  We strongly recommend that you do not change the address that was approved at the time of purchase. Changing the address may lead to Klarna not accepting the risk of the order.</en>
+    <sv>Vid köptillfället kommer Klarna att göra en riskbedömning av ordern. Bland annat så kontrollerar man att adressen är en godkänd leveransadress. Vi rekommenderar starkt att du inte ändrar adressen som godkändes vid köptillfället. Om adressen ändras kan det leda till att Klarna inte står för risken för ordern.</sv>
+    <nl>Op het moment van aankoop beoordeelt Klarna het risico van de order. Onder andere wordt gecontroleerd of het adres een goedgekeurd afleveradres is. Wij raden u ten zeerste af het adres te wijzigen dat op het moment van aankoop is goedgekeurd. Het wijzigen van het adres kan tot gevolg hebben dat Klarna niet langer het risico van de order accepteert.</nl>
+    <de>Klarna wird eine Risikobewertung der Bestellung beim Kauf vornehmen. Unter anderem wird überprüft, ob die Lieferadresse gültig ist. Wir empfehlen daher sehr, die zum Zeitpunkt des Kaufes akzeptierte Adresse nicht mehr zu ändern. Eine Änderung der Adresse kann dazu führen, dass Klarna das Risiko der Bestellung nicht  übernimmt.</de>
+    <fi>Ostotapahtuman yhteydessä Klarna tekee riskiarvion tilauksesta. Tämä tarkoittaa muun muassa sen varmistamista, että osoite on hyväksytty toimitusosoite. Suosittelemme vahvasti, että et muuttaisi osoitetta, joka hyväksyttiin ostotapahtuman yhteydessä. Osoitteen muuttaminen voi johtaa siihen, että Klarna ei kanna riskiä tilauksesta. </fi>
+    <da>Ved køb hos Klarna foretages en risikovurdering af ordren. Det inkludere bl.a. at kontroller om adressen er en godkendt leveranceadresse. Vi anbefaler derfor, at du ikke ændre den adresse som blev godkendt på købstidspunktet. At ændre adressen kan føre til, at Klarna ikke godkender købet.</da>
+    <nb>Ved kjøpstilfellet foretar Klarna en risikovurdering av bestillingen. Klarna kontrollerer blant annet at den oppgitte adressen er en godkjent leveringsadresse. Vi anbefaler at adressen som ble godkjent ved kjøpstilfellet ikke endres. En endring av adressen kan føre til at Klarna fraskriver seg risikoansvaret for bestillingen.</nb>
+    <fr>Lors de l'achat Klarna effectuera une évaluation des risques pour cette commande. Ceci inclut entre autres de vérifier si l'adresse indiquée est valable pour la livraison. Nous vous recommandons de ne pas modifier l'adresse qui a été approuvée au moment de l'achat. Toute modification pourrait entraîner un refus de l'acceptation du risque par Klarna.</fr>
+  </string>
+  <string id="magento_config_hint">
+    <description><![CDATA[Text shown in the menu. Words surrounded by underscore will be replaced with a clickable link. // Infotext/static]]></description>
+    <en>_Configuration_ can be found in the menu on the left.</en>
+    <da>_Konfiguration_ finder du i menuen til venstre.</da>
+    <nl>_Configuration_ vindt u in het menu aan de linkerkant.</nl>
+    <fi>_Konfiguraatio_ löytyy valikosta vasemmalla.</fi>
+    <sv>_Konfigurationen_ hittar du i menyn till vänster.</sv>
+    <nb>_Konfigurasjonen_ finner du i menyen til venstre.</nb>
+    <de>_Die Konfiguration_ finden Sie im linken Menu.</de>
+    <fr>_Configuration_ se trouve dans le menu de gauche.</fr>
+  </string>
+  <string id="KLARNA_ADMIN_SORT_ORDER_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of an input field that controls the sorting of the module. // Infotext/static]]></description>
+    <en>Sort order</en>
+    <da>Sorteringsrækkefølge</da>
+    <nl>Sorteervolgorde</nl>
+    <fi>Lajittelujärjestys</fi>
+    <sv>Sorteringsordning</sv>
+    <de>Sortierungsfolge</de>
+  </string>
+  <string id="KLARNA_ADMIN_SORT_ORDER_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of an input field that controls the sorting of the module // Infotext/static]]></description>
+    <en>Sort order of dislay. A lower number means Klarna is displayed higher up.</en>
+    <da>Sorteringsrækkefølge af visning. Et lavere nummer betyder at Klarna viser dette højere oppe på siden.</da>
+    <nl>Sorteervolgorde voor weergave. Een lager nummer betekent dat Klarna eerder op de pagina wordt getoond.</nl>
+    <fi>Näytettävä lajittelujärjestys. Mitä matalampi numero, sitä korkeammalla Klarna esitetään.</fi>
+    <sv>Sorteringsordning för visning. En lägre siffra betyder att Klarna visas högre upp.</sv>
+    <de>Sortierungsfolge der Anzeige. Eine kleinere Zahl bedeutet, dass Klarna weiter oben angezeigt wird.</de>
+  </string>
+  <string id="KLARNA_ADMIN_TAX_CLASS_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose tax class. // Infotext/static]]></description>
+    <en>Tax Class</en>
+    <da>Momsrate</da>
+    <nl>BTW-klasse</nl>
+    <fi>Veroluokka</fi>
+    <sv>Momsklass</sv>
+    <de>Mehrwertsteuerklasse</de>
+  </string>
+  <string id="KLARNA_ADMIN_TAX_CLASS_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose tax class // Infotext/static]]></description>
+    <en>Select a Tax Class to use.</en>
+    <da>Vælg den momsrate du ønsker at bruge.</da>
+    <nl>Kies de te gebruiken BTW-klasse.</nl>
+    <fi>Valitse käytettävä veroluokka.</fi>
+    <sv>Välj den momsklass du vill använda.</sv>
+    <de>Wählen Sie die gewünschte Mehrwertsteuerklasse.</de>
+  </string>
+  <string id="KLARNA_ADMIN_STATUS_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can enable or disable the Klarna module (settings are true or false). // Infotext/static]]></description>
+    <en>Enable Klarna module</en>
+    <da>Aktivér Klarna modul</da>
+    <nl>Activeer Klarnamodule</nl>
+    <fi>Aktivoi Klarna-moduuli</fi>
+    <sv>Aktivera Klarna-modul</sv>
+    <de>Klarna-Modul aktivieren</de>
+  </string>
+  <string id="KLARNA_ADMIN_STATUS_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can enable or disable the Klarna module (settings are true or false). // Infotext/static]]></description>
+    <en>Use this to enable the Klarna payment module.</en>
+    <da>Anvend for at aktivere Klarna betalingsmodul.</da>
+    <nl>Activeer hier de betaalmodule van Klarna</nl>
+    <fi>Aktivoi Klarnan maksutapamoduuli tästä.</fi>
+    <sv>Använd detta för att aktivera Klarna-betalningsmodul.</sv>
+    <de>Dies benutzen um das Klarna-Modul zu aktivieren.</de>
+  </string>
+  <string id="KLARNA_ADMIN_ORDER_STATUS_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose an order status. // Infotext/static]]></description>
+    <en>Set Order Status</en>
+    <da>Sæt ordrestatus</da>
+    <nl>Zet orderstatus</nl>
+    <fi>Aseta tilausstatus</fi>
+    <sv>Sätt orderstatus</sv>
+    <de>Bestellungsstatus einstellen</de>
+  </string>
+  <string id="KLARNA_ADMIN_ORDER_STATUS_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose an order status. // Infotext/static]]></description>
+    <en>Select the status of orders made with this payment module. Visible to customers.</en>
+    <da>Vælg ordrestatus for ordrer betalt med dette betalingsmodul. Synligt for kunder.</da>
+    <nl>Kies de status voor orders met deze betaalmodule. Zichtbaar voor klanten.</nl>
+    <fi>Valitse tällä maksutapamoduulilla maksettujen tilausten status. Näytetään asiakkaalle.</fi>
+    <sv>Välj orderstatus för beställningar som har gjorts med denna betalningsmodul. Synligt för kunder.</sv>
+    <de>Wählen Sie den Bestellungsstatus für Bestellungen, die mit diesem Zahlungsmodul gemacht worden sind. Sichtbar für Kunden. </de>
+  </string>
+  <string id="KLARNA_ADMIN_ORDER_STATUS_PENDING_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose an order status. // Infotext/static]]></description>
+    <en>Set Pending Order Status</en>
+    <da>Sæt status til Afventende ordre</da>
+    <nl>Zet de status Klarna Hangend</nl>
+    <fi>Aseta Pending-tilausstatus.</fi>
+    <sv>Ställ in beställningsstatus under avvaktan.</sv>
+    <de>Bestellungsstatus Ausstehend einstellen.</de>
+  </string>
+  <string id="KLARNA_ADMIN_ORDER_STATUS_PENDING_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose an order status. // Infotext/static]]></description>
+    <en>Some orders might recieve a Pending Status, here you select the status of those orders. Should be visible to Admin only. Do not set this to an Order Status with Public Flag enabled.</en>
+    <da>Nogle ordrer vil få statusen og her kan du ændre ordrestatus på disse ordrer. Skal ikke være synlig for andre end admin. Sæt ikke disse ordrerstatus med Public Flag</da>
+    <nl>Sommige orders kunnen de status Hangend krijgen. Hier kiest u de status van deze orders. Is alleen zichtbaar voor Beheerder. Zet dit niet voor Orderstatussen als de Public Flag geactiveerd is.</nl>
+    <fi>Jotkut tilaukset saattavat saada Pending-statuksen. Tässä voit valita statuksen näille tilauksille. Tämän statuksen tulisi näkyä vain ylläpitäjille. Aseta tilausstatus niin, että Public Flag ei ole sallittu.</fi>
+    <sv>Vissa beställningar kan få en status under avvaktan. Här kan du välja en orderstatus för dessa beställningar. Bör endast vara synligt för admin. Sätt inte denna orderstatus med Public Flag aktiverat.</sv>
+    <de>Bestimmte Bestellungen können den Status Ausstehend bekommen. Hier ändern Sie den Status dieser Bestellungen. Setzen Sie diesen Bestellungsstatus nicht bei aktiviertem Public Flag.</de>
+  </string>
+  <string id="KLARNA_ADMIN_ARTNO_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can select an article number variant. // Infotext/static]]></description>
+    <en>Article Number attribute</en>
+    <da>Varenummer</da>
+    <nl>Kenmerk Artikelnummer</nl>
+    <fi>Tuotenumero </fi>
+    <sv>Kännetecken artikelnummer</sv>
+    <de>Kennzeichen Artikelnummer</de>
+  </string>
+  <string id="KLARNA_ADMIN_ARTNO_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can select an article number variant. // Infotext/static]]></description>
+    <en>Select a product attribute to use as article number when sending data to Klarna (will be shown on the invoice)</en>
+    <da>Vælg et produktattribut som artikelnummer når du sender data til Klarna (vil blive vist på fakturaen)</da>
+    <nl>Kies een productkenmerk om als artikelnummer te gebruiken wanneer gegevens naar Klarna worden verstuurd (wordt op de factuur getoond)</nl>
+    <fi>Valitse tuotteen määrite käytettäväksi tuotenumerona, kun tiedot lähetetään Klarnalle (näytetään laskussa)</fi>
+    <sv>Välj ett produktkännetecken som används som artikelnummer när du skickar data till Klarna (kommer att visas på fakturan)</sv>
+    <de>Wählen Sie ein Produktkennzeichen als Artikelnummer, wenn Sie Daten an Klarna schicken (wird auf der Rechnung gezeigt)</de>
+  </string>
+  <string id="KLARNA_ADMIN_ZONE_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can select a payment zone. // Infotext/static]]></description>
+    <en>Payment Zone</en>
+    <da>Betalingszone</da>
+    <nl>Betaalzone</nl>
+    <fi>Maksuvyöhyke</fi>
+    <sv>Betalningszon</sv>
+    <de>Zahlungszone</de>
+  </string>
+  <string id="KLARNA_ADMIN_ZONE_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can select a payment zone. // Infotext/static]]></description>
+    <en>If a zone is selected, only enable this payment method for that zone.</en>
+    <da>Hvis en zone allerede er valgt, skal betalingsmetoden kun aktiveres for denne zone.</da>
+    <nl>Als er een betaalzone is gekozen, activeer deze betaalmethode dan alleen voor die zone.</nl>
+    <fi>Jos vyöhyke valitaan, salli vain tämä maksutapa kyseiselle vyöhykkeelle.</fi>
+    <sv>Om en zon har valts, aktivera endast betalningsmetod för denna zon.</sv>
+    <de>Wenn eine Zone gewählt worden ist, aktivieren Sie nur Zahlungsmethode für diese Zone.</de>
+  </string>
+  <string id="KLARNA_ADMIN_LATEST_VERSION_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose whether to check for updates (true) or not (false) // Infotext/static]]></description>
+    <en>Check for latest version</en>
+    <da>Kontrollér for seneste version</da>
+    <nl>Controleren op de laatste versie</nl>
+    <fi>Tarkista viimeisin versio</fi>
+    <sv>Kontrollera senaste version</sv>
+    <de>Kontrollieren Sie die neueste Version</de>
+  </string>
+  <string id="KLARNA_ADMIN_LATEST_VERSION_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose whether to check for updates (true) or not (false) // Infotext/static]]></description>
+    <en>Do you want show an notification message on the module page when a newer version of this module is available?</en>
+    <da>Ønsker du at vælge at en notificeringsbesked skal vises på modulsiden når en nyere version af modulet er tilgængelig?</da>
+    <nl>Wilt u dat er een melding wordt getoond op de modulepagina als er een nieuwere versie van deze module beschikbaar is?</nl>
+    <fi>Haluatko, että moduulisivulla näytetään ilmoitus, kun uudempi versio moduulista on saatavilla?</fi>
+    <sv>Vill du visa ett meddelande på modulsidan när en nyare version av denna modul finns tillgänglig?</sv>
+    <de>Wollen Sie auf der Modulseite eine Mitteilung zeigen, wenn es eine neuere Version von diesem Modul gibt?</de>
+  </string>
+  <string id="KLARNA_ADMIN_MERCHANT_ID_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you can enter your merchant id. // Infotext/static]]></description>
+    <en>Merchant ID</en>
+    <da>Merchant ID</da>
+    <nl>Webwinkel-ID</nl>
+    <fi>Kauppa-ID</fi>
+    <sv>Butiks-ID</sv>
+    <de>Shop-ID</de>
+  </string>
+  <string id="KLARNA_ADMIN_MERCHANT_ID_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you can enter your merchant id. // Infotext/static]]></description>
+    <en>Merchant ID to use for the Klarna service (provided by Klarna).</en>
+    <da>Merchant ID for at bruge til Klarna tjenesten (udleveret af Klarna)</da>
+    <nl>Het webwinkel-ID voor de services van Klarna (uitgegeven door Klarna).</nl>
+    <fi>Kauppa-ID Klarnan palvelujen käyttöä varten (Klarnan antama).</fi>
+    <sv>Butiks-ID att använda för Klarna-tjänsten (tillhandahålls av Klarna).</sv>
+    <de>Shop-ID zum verwenden mit Klarna-Diensten (von Klarna vergeben)</de>
+  </string>
+  <string id="KLARNA_ADMIN_SECRET_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you can enter your shared secret. // Infotext/static]]></description>
+    <en>Shared Secret</en>
+    <da>Shared Secret</da>
+    <nl>Gedeeld wachtwoord</nl>
+    <fi>Shared Secret (jaettu salasana)</fi>
+    <sv>Shared secret</sv>
+    <de>Shared Secret</de>
+  </string>
+  <string id="KLARNA_ADMIN_SECRET_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you can enter your shared secret. // Infotext/static]]></description>
+    <en>Shared Secret to use for the Klarna service (provided by Klarna).</en>
+    <da>Shared Secret for Klarna tjenesten (udleveret af Klarna)</da>
+    <nl>Het gedeelde wachtwoord voor de services van Klarna (uitgegeven door Klarna).</nl>
+    <fi>Shared Secret (jaettu salasana) Klarnan palvelujen käyttöä varten (Klarnan antama).</fi>
+    <sv>Shared secret för Klarna-tjänsten (tillhandahålls av Klarna).</sv>
+    <de>Shared Secret für Klarna-Dienste (von Klarna vergeben)</de>
+  </string>
+  <string id="KLARNA_ADMIN_TAC_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you can enter the url to the stores terms and conditions (AGB in Germany) // Infotext/static]]></description>
+    <en>Terms and Conditions Link</en>
+    <da>Link til Vilkår</da>
+    <nl>Link Algemene Voorwaarden</nl>
+    <fi>Linkki ehtoihin</fi>
+    <sv>Länk till användarvillkor</sv>
+    <de>Link zu den Allgemeinen Geschäftsbedingungen</de>
+  </string>
+  <string id="KLARNA_ADMIN_TAC_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you can enter the url to the stores terms and conditions (AGB in Germany) // Infotext/static]]></description>
+    <en>Full URL to your stores Terms and Conditions page.</en>
+    <da>Fuld URL til siden for Vilkår for din butik</da>
+    <nl>De volledige URL naar de pagina met de Algemene Voorwaarden van uw webwinkel.</nl>
+    <fi>Kauppasi ehtosivujen täysi URL-osoite</fi>
+    <sv>Fullständig URL till din butiks allmänna användarvillkor.</sv>
+    <de>Vollständiger URL zu den Allgemeinen Geschäftsbedingungen Ihres Shops.</de>
+  </string>
+  <string id="KLARNA_ADMIN_SERVER_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you choose between Live (true) and Beta (false) server. // Infotext/static]]></description>
+    <en>Live Server</en>
+    <da>Live Server</da>
+    <nl>Live Server</nl>
+    <fi>Live -palvelin</fi>
+    <sv>Live-server</sv>
+    <de>Live-Server</de>
+  </string>
+  <string id="KLARNA_ADMIN_SERVER_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you choose between Live (true) and Beta (false) server. // Infotext/static]]></description>
+    <en>This will decide if you want to use the LIVE or BETA server. If you are testing our services and are using a test account, choose our BETA server.</en>
+    <da>Her skal du vælge om du vil kører med LIVE eller BETA server. Hvis du vil teste vores tjenester og bruger en test-konto, skal du vælge vores BETA server.</da>
+    <nl>Dit bepaalt of u gebruik maakt van de LIVE of de BETA server. Als u onze services test en een testaccount gebruikt, kies dan onze BETA server.</nl>
+    <fi>Tässä voit valita, käytätkö LIVE- vai BETA-palvelinta. Jos testaat palveluitamme ja käytät testitiliä, valitse BETA-palvelin.</fi>
+    <sv>Detta kommer att bestämma om du vill använda LIVE- eller BETA-servern. Om du testar vår tjänster och använder ett testkonto, använd vår BETA-server.</sv>
+    <de>Dies entscheidet, ob Sie den LIVE- oder BETA-Server verwenden wollen. Wenn Sie unsere Dienste testen und ein Test-Konto haben, verwenden Sie unseren BETA-server.</de>
+  </string>
+  <string id="KLARNA_ADMIN_ACTIVATED_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you can choose enabled countries. // Infotext/static]]></description>
+    <en>Activated Countries</en>
+    <da>Aktiverede lande</da>
+    <nl>Geactiveerde landen</nl>
+    <fi>Aktivoidut maat</fi>
+    <sv>Aktiverade länder</sv>
+    <de>Aktivierte Länder</de>
+  </string>
+  <string id="KLARNA_ADMIN_ACTIVATED_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you can choose enabled countries. // Infotext/static]]></description>
+    <en>Comma-separated list of countries you wish to enable Klarna payments for (uppercase ISO-2 code, for example DE,SE,NO).</en>
+    <da>Komma-separeret liste over lande, du ønsker at aktivere Klarna betaling i (store bogstaver ISO-2 koder f.eks DE,SE,NO).</da>
+    <nl>Een door komma's gescheiden lijst met landen waarvoor u de betaalmogelijkheden van Klarna wilt activeren (hoofdletters ISO-2 code, bijvoorbeeld NL, SE, DE).</nl>
+    <fi>Pilkulla erotettu lista maista, joissa haluat tarjota Klarnan maksutapoja (ISO-2 koodit isoilla kirjaimilla, esim. FI, SE, NO).</fi>
+    <sv>Kommaseparerad lista över länder som du vill aktivera Klarna-betalningar för (ISO-2-kod med stora bokstäver, t.ex. DE,SE,NO).</sv>
+    <de>Kommaseparierte Liste mit Ländern, die Sie für Klarna-Zahlungen aktivieren wollen (ISO-2-Kod mit großen Buchstaben, z.B. DE, SE, NO).</de>
+  </string>
+  <string id="KLARNA_FEE_STATUS_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose whether to enable the invoice fee module. // Infotext/static]]></description>
+    <en>Enable invoice fee</en>
+    <da>Aktivér fakturagebyr</da>
+    <nl>Activeer factuurkosten</nl>
+    <fi>Aktivoi laskutusmaksu</fi>
+    <sv>Aktivera fakturaavgifter</sv>
+    <de>Rechnungsgebühren aktivieren</de>
+  </string>
+  <string id="KLARNA_FEE_STATUS_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose whether to enable the invoice fee module. // Infotext/static]]></description>
+    <en>Do you wish to enable invoice fees? (optional)</en>
+    <da>Ønsker du at aktivere fakturagebyrer? (valgfrit)</da>
+    <nl>Wilt u factuurkosten activeren? (optioneel)</nl>
+    <fi>Haluatko aktivoida laskutusmaksun? (valinnainen)</fi>
+    <sv>Vill du aktivera fakturaavgifter? (valfritt)</sv>
+    <de>Wollen Sie Rechnungsgebühren aktivieren? (optional)</de>
+  </string>
+  <string id="KLARNA_FEE_MODE_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a selector where you can choose whether to use fixed or table based invoice fee. // Infotext/static]]></description>
+    <en>Invoice fee type</en>
+    <da>Type af fakturagebyr</da>
+    <nl>Soort factuurkosten</nl>
+    <fi>Laskutusmaksun tyyppi</fi>
+    <sv>Typ av fakturaavgift</sv>
+    <de>Art von Rechnungsgebühr</de>
+  </string>
+  <string id="KLARNA_FEE_MODE_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a selector where you can choose whether to use fixed or table based invoice fee. // Infotext/static]]></description>
+    <en>Should the invoice fee be fixed or based on the order total?</en>
+    <da>Skal fakturagebyrer være et fast beløb eller baseret på det totale beløb?</da>
+    <nl>Dienen de factuurkosten een vast bedrag te zijn, of zijn ze gebaseerd op het totale factuurbedrag?</nl>
+    <fi>Tulisiko laskutusmaksun olla kiinteä vai tilaukseen perustuva?</fi>
+    <sv>Ska fakturaavgiften vara fast eller baserad på den totala beställningssumman?</sv>
+    <de>Soll die Rechnungsgebühr fest sein oder auf der Totalsumme der Rechnung basiert sein?</de>
+  </string>
+  <string id="KLARNA_FEE_FIXED_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you enter a fixed invoice fee. // Infotext/static]]></description>
+    <en>Fixed invoice fee</en>
+    <da>Fast fakturagebyr</da>
+    <nl>Vaste factuurkosten</nl>
+    <fi>Kiinteä laskutusmaksu</fi>
+    <sv>Fast fakturaavgift</sv>
+    <de>Feste Rechnungsgebühr</de>
+  </string>
+  <string id="KLARNA_FEE_FIXED_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you enter a fixed invoice fee. // Infotext/static]]></description>
+    <en>Fixed invoice fee (inc. VAT)</en>
+    <da>Fast fakturagebyr (inkl. VAT)</da>
+    <nl>Vaste factuurkosten (incl. BTW)</nl>
+    <fi>Kiinteä laskutusmaksu (sis. ALV)</fi>
+    <sv>Fasta fakturaavgifter (inkl. moms)</sv>
+    <de>Feste Rechnungsgebühr (inkl. MwSt)</de>
+  </string>
+  <string id="KLARNA_FEE_TABLE_TITLE">
+    <description><![CDATA[Text shown in the administration menu. Brief title of a text field where you enter a table based invoice fee. // Infotext/static]]></description>
+    <en>Fee Table</en>
+    <da>Tabel for gebyr</da>
+    <nl>Tabel factuurkosten</nl>
+    <fi>Maksutaulukko</fi>
+    <sv>Avgiftstabell</sv>
+    <de>Gebührentabelle</de>
+  </string>
+  <string id="KLARNA_FEE_TABLE_DESC">
+    <description><![CDATA[Text shown in the administration menu. Description of a text field where you enter a table based invoice fee. // Infotext/static]]></description>
+    <en>The invoice fee is based on the total cost (inc. VAT). Example: 200:20,500:10,1000:5,etc.. Up to 200 charge 20, from there to 500 charge 10, etc.</en>
+    <da>Fakturagebyret er baseret på det totale beløb (inkl.VAT). F.eks 200:20,500:10,1000:5,osv..Op til 200:20, derfra 500:10 osv.</da>
+    <nl>De factuurkosten zijn gebaseerd op het totale factuurbedrag (incl. BTW). Bijvoorbeeld: 200:20,500:10,1000:5, etc.. Tot een factuurbedrag van 200 wordt 20 in rekening gebracht, tussen 200 en 500 wordt 10 in rekening gebracht, etc.</nl>
+    <fi>Laskutusmaksu perustuu tilauksen kokonaissummaan (sis. ALV). Esimerkiksi: 200:20,500:10,1000:5,jne.. 200:n asti maksu on 20,  500:n asti 10, jne.</fi>
+    <sv>Fakturaavgiften är baserad på den totala kostnaden (inkl. moms). Exempel: 200:20,500:10,1000:5,osv. Upp till 200 debitera 20, därifrån till 500 debitera 10, osv.</sv>
+    <de>Die Rechnungsgebühr basiert sich auf die Totalkosten (inkl. MwSt). Beispiel: 200:20, 500:10, 1000:5,usw.. Bis 200 berechnen Sie 20, von da bis 500 berechnen Sie 10, usw.</de>
+  </string>
+  <string id="DISPLAY_IN">
+    <description><![CDATA[Text shown above the translation selection in the frontend. Shown to customers in the checkout. Title above a list of languages. // Infotext/static]]></description>
+    <en>Display in</en>
+    <da>Vis i</da>
+    <nl>Toon in</nl>
+    <fi>Näytä</fi>
+    <sv>Visa på</sv>
+    <nb>Vis som</nb>
+    <de>Zeigen auf</de>
+    <fr>Voir en</fr>
+  </string>
+  <string id="notice_phoneNumber">
+    <description><![CDATA[Please submit your phone number]]></description>
+    <en>Please submit your phone number</en>
+    <da>Indtast venligst dit telefonnummer</da>
+    <de>Bitte geben Sie Ihre Telefonnummer an.</de>
+    <nl>Vult u a.u.b. hier uw telefoonnummer in.</nl>
+    <nb>Vennligst fyll inn ditt telefonnummer</nb>
+    <fi>Ole hyvä ja ilmoita puhelinnumerosi</fi>
+    <sv>Vänligen ange ditt telefonnummer</sv>
+  </string>
+</klarna>

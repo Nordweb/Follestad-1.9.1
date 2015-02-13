@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Follestad</title>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <script type="text/javascript" src="http://use.typekit.com/rmp3jvx.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+			background-color: #FFF;
+			font-family: "futura-pt" ,sans-serif;
+			color: #242021;
+			font-size: 25px;
+			line-height: 30px;
+		}
+		p {
+			margin: 0 0 30px 15px;
+
+		}
+		h1 {
+			padding: 0;
+			margin: 0 0 30px;
+		}
+		.top-bar {
+			background-color: #000;
+			height: 20px;
+		}
+		.center {
+			width: 757px;
+			margin: 20% auto 0;
+		}
+		a {
+			color: #242021;
+			text-decoration: underline;
+		}
+		a:hover {
+			color: #242021;
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="top-bar"></div>
+	<div class="center">
+		<h1><img src="img/logo.png" alt="Follestad" /></h1>
+		<p>- Vi er straks oppe med ny butikk. Velkommen om noen timer...</p>
+		<p>I mellomtiden kan du besøke <a href="http://blogg.follestad.no">bloggen vår her...</a></p>
+		<p>Eller Lik oss p&aring; <a href="http://www.facebook.com/pages/Follestad/127893900556720">Facebook</a></p>
+	</div>
+
+</body>
+</html>

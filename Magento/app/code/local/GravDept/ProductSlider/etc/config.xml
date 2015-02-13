@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<GravDept_ProductSlider>
+			<version>1.0.0</version>
+		</GravDept_ProductSlider>
+	</modules>
+	
+	<global>
+		<blocks>
+			<gravdept_productslider>
+				<class>GravDept_ProductSlider_Block</class>
+			</gravdept_productslider>
+		</blocks>
+	</global>
+</config>

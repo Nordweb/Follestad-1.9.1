@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+
+-->
+<layout version="0.1.0">
+	<default>
+		<!-- Mage_Reports -->
+		
+		<!--
+		<reference name="right">
+			<block type="reports/product_viewed" before="right.permanent.callout" name="right.reports.product.viewed" template="reports/product_viewed.phtml" />
+			<block type="reports/product_compared" before="right.permanent.callout" name="right.reports.product.compared" template="reports/product_compared.phtml" />
+		</reference>
+		-->
+	</default>
+	
+	<catalog_category_layered_nochildren translate="label">
+        <label>Catalog Category (Without Subcategories)</label>
+        <remove name="right.reports.product.viewed" />
+        
+        <!-- GravDept, hide -->
+        <!--
+        <reference name="right">
+            <block type="reports/product_viewed" before="right.permanent.callout" name="left.reports.product.viewed" template="reports/product_viewed.phtml" />
+        </reference>
+        -->
+    </catalog_category_layered_nochildren>
+</layout>

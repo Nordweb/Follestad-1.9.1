@@ -1,0 +1,67 @@
+<!-- -->
+<?php
+$cache = Mage::getSingleton('core/cache');
+$bestseller = $cache->load('bestseller');
+
+if (strlen($bestseller)==0){
+    //echo 'no cache';
+    /*
+     * here we create cache
+     */
+    $_productCollection = $_products = $this->getProductCollection();
+//$_productCollection = $bestseller;
+    $_collectionSize = $_productCollection->count();
+    if ($_collectionSize === 0) {
+        $label = ($this->getLabel()) ? $this->getLabel() : $this->__('Mest solgte produkter');
+        $output = '<h2>' . $label . '</h2><p>' . $this->__("No products found.") . '</p>';
+    } else {
+        $_columnCount = 4;
+        $output = '<div class="product-slider-bestseller cols_' . $_columnCount . '">';
+        $label = ($this->getLabel()) ? $this->getLabel() : $this->__('Mest solgte produkter');
+        $output .= '<h2>' . $label . '</h2>';
+        if ($_collectionSize > $_columnCount) {
+            $output .= '<div class="slides-controls"><a href="#" title="' . $this->__("Previous") . '" class="prev">' . $this->__("Previous") . '</a>
+        <a href="#" title="' . $this->__("Next") . '" class="next">' . $this->__("Next") . '</a></div>';
+            $output .= '<div class="slides-container">';
+            $i = 0;
+            foreach ($_productCollection as $_product) {
+                if ($i++ % $_columnCount == 0) {
+                    $output .= '<div class="slide">';
+                    $output .= ' <ol class="slide-product-list">';
+                }
+                $output .= '<li>
+        <a class="product-image" href="' . $_product->getProductUrl() . '"><img
+                src="' . $this->helper('catalog/image')->init($_product, 'small_image')->resize(200) . '"
+                alt="' . $this->htmlEscape($this->getImageLabel($_product, 'small_image')) . '" /></a>
+        <a class="product-name"
+           href="' . $_product->getProductUrl() . '">' . $this->htmlEscape($_product->getName()) . '</a>
+        ' . $this->getReviewsSummaryHtml($_product, 'short') . $this->getPriceHtml($_product, TRUE) . '
+    </li>';
+                if ($i % $_columnCount == 0 && $i != $_collectionSize) {
+                    $output .= '</ol></div>';
+                }
+            }
+        }
+        for ($i; $i % $_columnCount != 0; $i++) {
+        }
+        if ($i % $_columnCount == 0) {
+            $output .= '</ol>
+    </div>';
+        }
+        $output .= '</div>
+</div>';
+    }
+    /*
+     * here we stop creating cache;
+     */
+
+    $cache->save($output, 'bestseller', array(), 86400);
+    $bestseller = $output;
+}
+
+
+
+
+
+echo $bestseller;
+?>

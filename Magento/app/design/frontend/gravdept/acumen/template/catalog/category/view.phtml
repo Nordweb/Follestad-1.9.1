@@ -1,0 +1,37 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+
+/**
+ * Modified to place category title block above sidebar filter and product list
+ *
+ * derived functionality from: /template/catalog/category/view.phtml
+ * some functionality moved to:  /template/catalog/category/gravdept_title.phtml
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if($this->isContentMode()): ?>
+	<div class="catalog-static-block"><?php echo $this->getCmsBlockHtml() ?></div>
+<?php elseif($this->isMixedMode()): ?>
+	<div class="catalog-static-block"><?php echo $this->getCmsBlockHtml() ?></div>
+	<?php echo $this->getProductListHtml() ?>
+<?php else: ?>
+	<?php echo $this->getProductListHtml() ?>
+<?php endif; ?>

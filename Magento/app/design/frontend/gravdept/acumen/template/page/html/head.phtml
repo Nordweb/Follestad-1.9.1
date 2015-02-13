@@ -1,0 +1,56 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+
+<?php /* GravDept - use simpler declaration */ ?>
+<?php /*<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />*/ ?>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" >
+<title><?php
+// see: http://www.magentocommerce.com/boards/viewthread/69268/
+// see: http://inchoo.net/ecommerce/magento/change-any-page-title-in-magento/
+	
+if (Mage::getSingleton('cms/page')->getTitle()=="Home") { echo $this->getDefaultTitle(); }
+elseif ($this->getForcedTitle()) { echo Mage::getStoreConfig('design/head/title_prefix').' '.$this->getForcedTitle().' '.Mage::getStoreConfig('design/head/title_suffix'); }
+elseif ($this->getHeaderTitle()) { echo Mage::getStoreConfig('design/head/title_prefix').' '.$this->getHeaderTitle().' '.Mage::getStoreConfig('design/head/title_suffix'); }
+else { echo $this->getTitle(); }
+?></title>
+
+<!-- Meta -->
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+
+<!-- CSS + JS -->
+<?php echo $this->getCssJsHtml() /*?>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('mage/translate.js') ?>"></script>
+    <?php echo $this->helper('core/js')->getTranslatorScript()*/ ?> 
+
+<?php /*   // Magento trash
+<script type="text/javascript">
+	//<![CDATA[
+	var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+	var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+	//]]>
+</script>
+*/ ?>
+
+<!-- other -->
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<script type="text/javascript" src="http://use.typekit.com/rmp3jvx.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addCss"><stylesheet>klarna/checkout/style.css</stylesheet></action>
+            <action method="addJs"><script>checkout/all.js</script></action>
+            <action method="addJs"><script>klarnavalidate.js</script></action>
+            <action method="addJs"><script>klarnaselection.js</script></action>
+        </reference>
+    </checkout_onepage_index>
+
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addJs"><script>klarnavalidate.js</script></action>
+            <action method="addJs"><script>klarnaosc.js</script></action>
+            <action method="addCss"><stylesheet>klarna/oscstyle.css</stylesheet></action>
+            <block type="page/html_head" name="klarna_head" as="klarna_head" template="klarna/terms.phtml" />
+        </reference>
+    </onestepcheckout_index_index>
+
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs"><script>productprice/productprice.js</script></action>
+            <action method="addCss"><stylesheet>klarna/productprice/style.css</stylesheet></action>
+        </reference>
+    </catalog_product_view>
+
+    <sales_order_print>
+        <reference name="order_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/order_totals_fee" before="tax"/>
+        </reference>
+    </sales_order_print>
+
+    <sales_order_view>
+        <reference name="order_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/order_totals_fee" before="tax"/>
+        </reference>
+    </sales_order_view>
+
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/invoice_totals_fee" before="tax"/>
+        </reference>
+    </sales_order_invoice>
+
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/invoice_totals_fee" before="tax"/>
+        </reference>
+    </sales_order_printinvoice>
+
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/order_totals_fee" before="tax"/>
+        </reference>
+    </sales_email_order_items>
+
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block name="invoice_fee" type="klarnaPaymentModule/invoice_totals_fee" before="tax"/>
+        </reference>
+    </sales_email_order_invoice_items>
+
+    <klarna_address_getaddresses>
+        <block type="klarnaPaymentModule/checkout_address_list" name="root" output="toHtml" template="klarna/checkout/address/list.phtml"/>
+    </klarna_address_getaddresses>
+</layout>

@@ -1,0 +1,10 @@
+<?php
+$storeid = Mage::app()->getStore()->getId();
+$api = Mage::helper('klarnaPaymentModule/api');
+$api->loadConfig($storeid, 'klarna_specpayment');
+?>
+<ul id="payment_form_klarna_specpayment" class="form-list" style="display: none;">
+    <li>
+        <?php echo $api->getCheckoutHTML('spec'); ?>
+    </li>
+</ul>

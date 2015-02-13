@@ -1,0 +1,35 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+<?php
+/**
+ * @see Mage_Page_Block_Html_Notices
+ */
+?>
+
+<?php if ($this->displayNoscriptNotice()): ?>
+	<noscript>
+		<div class="noscript">
+			<div id="noscript-notice" class="magento-notice">
+				<p><strong><?php echo $this->__('Attention!'); ?></strong>
+				<?php echo $this->__('We detected that JavaScript is disabled. You must have JavaScript enabled in your browser for some features of this website to work correctly.'); ?></p>
+			</div>
+		</div>
+	</noscript>
+<?php endif; ?>
+
+<?php if ($this->displayDemoNotice()): ?>
+	<div id="demo-notice" class="magento-notice">
+		<p><strong><?php echo $this->__('Attention!'); ?></strong>
+		<?php echo $this->__('This is a demo store. Any orders placed through this store will not be honored or fulfilled.'); ?></p>
+	</div>
+<?php endif; ?>

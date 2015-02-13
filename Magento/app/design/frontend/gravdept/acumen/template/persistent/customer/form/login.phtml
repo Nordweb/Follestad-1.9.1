@@ -1,0 +1,76 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+<?php
+/**
+ * Customer login form template
+ *
+ * @see app/design/frontend/base/default/template/customer/form/login.phtml
+ */
+/** @var $this Mage_Customer_Block_Form_Login */
+?>
+
+<div class="block">
+	<h1><?php echo $this->__('Log In') ?></h1>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+</div>
+
+
+<div id="account-login" class="grid">
+	<div class="grid_6 suffix_2">
+	    <form id="login-form" class="scaffold" action="<?php echo $this->getPostActionUrl() ?>" method="post">
+	    	<h2><?php echo $this->__('Registered Customers') ?></h2>
+	    	
+	    	<ul class="struts">
+	    		<li>
+	    			<label for="email" class="required"><?php echo $this->__('Email') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+	    			<input type="text" id="email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>" class="required-entry validate-email" />
+	    		</li>
+	    		
+	    		<li>
+	    			<label for="pass" class="required"><?php echo $this->__('Password') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+	    			<input type="password" id="pass" name="login[password]" class="required-entry validate-password" />
+	    		</li>
+	    		
+	    		<?php echo $this->getChildHtml('persistent.remember.me'); ?>
+	    	</ul>
+	    	
+	    	<?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
+	    	
+	    	<button type="submit"><?php echo $this->__('Log In') ?></button>
+	    	<a class="alt-action" href="<?php echo $this->getForgotPasswordUrl() ?>"><?php echo $this->__('Forgot Your Password?') ?></a>
+	    	
+	    	<?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+	    	    <input name="context" type="hidden" value="checkout" />
+	    	<?php endif; ?>
+	    </form>
+	    
+	    <script type="text/javascript">
+	    	//<![CDATA[
+	    		var dataForm = new VarienForm('login-form', true);
+	    	//]]>
+	    </script>
+	</div>
+    
+    <div class="grid_4">
+    	<h2><?php echo $this->__('Sign Up For An Account') ?></h2>
+    	
+    	<ul class="bullet">
+    		<li><?php //echo $this->__('Checkout faster') ?>Fullf&oslash;r kj&oslash;p raskere</li>
+			<li><?php //echo $this->__('Create wish lists') ?>Lagre fler-adresse forsendelses valg</li>
+			<li><?php //echo $this->__('Store multiple shipping addresses') ?>Se ordrehistorikk og sporing av forsendelser</li>
+			<li><?php //echo $this->__('View order history') ?>Lagre produkter i din &oslash;nskeliste</li>
+    	</ul>
+    	
+    	<a class="faux-button" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><?php echo $this->__('Sign Up') ?></a>
+    </div>
+</div>

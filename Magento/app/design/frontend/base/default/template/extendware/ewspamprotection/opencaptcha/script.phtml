@@ -1,0 +1,8 @@
+<script>
+<?php echo $this->getJsObject(); ?> = {
+	'reload': function(id) {
+		var e = $(id);
+		if (e) e.src = e.src + Math.random();
+	}
+}
+</script>

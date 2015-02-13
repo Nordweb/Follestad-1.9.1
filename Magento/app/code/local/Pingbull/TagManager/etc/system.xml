@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+	  <sections>
+		<google  translate="label" module="tagmanager">            
+			<groups>
+		      <tagmanager translate="label">
+			  <label>Google tag manager</label>
+			  <frontend_type>text</frontend_type>
+			  <sort_order>0</sort_order>
+			  <show_in_default>1</show_in_default>
+			  <show_in_website>1</show_in_website>
+			  <show_in_store>1</show_in_store>
+		       <fields>
+                  <script translate="label">
+                    <label>Google tag manager script</label>
+					<frontend_type>textarea</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<comment>Insert code here</comment>
+                  </script>
+			   </fields>
+			   </tagmanager>
+			</groups>
+		</google>
+	  </sections>
+</config>

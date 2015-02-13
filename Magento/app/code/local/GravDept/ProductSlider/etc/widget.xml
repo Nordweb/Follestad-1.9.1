@@ -1,0 +1,24 @@
+<widgets>
+	<gravdept_productslider_slider type="gravdept_productslider/slider">
+		<name>GravDept: Product Slider Example Widget</name>
+		<description type="desc">Show products from a category in a slider.</description>
+		
+		<parameters>
+			<template>
+				<required>1</required>
+				<visible>0</visible>
+				<value>gravdept/widget/productslider/slider.phtml</value>
+				<label>Frontend Template</label>
+				<type>text</type>
+			</template>
+			
+			<video_id>
+				<required>1</required>
+				<visible>1</visible>
+				<value>Type ID here</value>
+				<label>YouTube Video ID</label>
+				<type>text</type>
+			</video_id>
+		</parameters>
+	</gravdept_productslider_slider>
+</widgets>

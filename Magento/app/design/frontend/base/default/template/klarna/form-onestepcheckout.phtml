@@ -1,0 +1,184 @@
+<fieldset class="form-list">
+    <ul id="payment_form_<?php echo $code; ?>" style="display:none">
+        <li>
+            <span class="<?php echo $logo;?>"> </span>
+        </li>
+        <li>
+            <div id="<?php echo $code;?>_terms"></div>
+        </li>
+        <?php /*-- is it a PNO country? ------------------------------------*/?>
+        <?php if (isset($showPno)): ?>
+        <li>
+            <label class="required" for="id_klarna_personalnumber"><?php echo $pnoLabel; ?></label>
+            <div class="input-box" style="width: 100%">
+            <input type="text" name="payment[<?php echo $code; ?>_personalnumber]"  id="<?php echo $code; ?>_personalnumber" class="input-text klarna-validate-text" value="<?php echo $pno; ?>" />
+            </div>
+        </li>
+        <?php endif; ?>
+
+        <?php /*-- should we show PClasses? --------------------------------*/?>
+        <?php if (isset($pclasses)): ?>
+        <li>
+        <ul id="<?php echo $code; ?>_pclasses" style="width: 200px;">
+        <?php
+            foreach ($pclasses as $pclass) {
+        ?>
+            <li>
+                <label for="pclass_<?php echo $pclass['id']?>">
+                <input
+                    id="pclass_<?php echo $pclass['id']?>"
+                    type="radio" name="payment[<?php echo $code; ?>_pclass]"
+                    value='<?php echo $pclass['id']; ?>'
+                    <?php if ($pclass['default'] === true) :?>
+                        checked="checked"
+                    <?php endif; ?>
+                />
+                <?php
+                    echo $pclass['description'];
+                    if ($pclass['cost']) {
+                        echo " - {$pclass['cost']} /{$monthLabel}";
+                    }
+                ?>
+                </label>
+            </li>
+        <?php
+            }
+        ?>
+        </ul>
+        </li>
+        <?php endif; ?>
+
+        <?php /*-- is it a Gender country? ---------------------------------*/?>
+        <?php if (isset($showGender)): ?>
+        <li>
+            <label><?php echo $genderLabel; ?></label>
+            <div class="input-box">
+                <?php if ($gender === 1 || $gender === '1'): ?>
+                    <input type="radio" name="payment[<?php echo $code; ?>_gender]" value="1" id="id_klarna_gender_male_<?php echo $code; ?>" checked="checked" />
+                <?php else: ?>
+                    <input type="radio" name="payment[<?php echo $code; ?>_gender]" value="1" id="id_klarna_gender_male_<?php echo $code; ?>" />
+                <?php endif; ?>
+                <label style="float: none;" for="id_klarna_gender_male_<?php echo $code; ?>"><?php echo $maleLabel; ?></label>
+                &nbsp;&nbsp;
+                <?php if ($gender === 0 || $gender === '0'): ?>
+                    <input type="radio" name="payment[<?php echo $code; ?>_gender]" value="0" id="id_klarna_gender_female_<?php echo $code; ?>" class="validate-one-required" checked="checked" />
+                <?php else: ?>
+                    <input type="radio" name="payment[<?php echo $code; ?>_gender]" value="0" id="id_klarna_gender_female_<?php echo $code; ?>" class="validate-one-required" />
+                <?php endif; ?>
+                <label style="float: none;" for="id_klarna_gender_female_<?php echo $code; ?>"><?php echo $femaleLabel; ?></label>
+            </div>
+        </li>
+        <?php endif; ?>
+
+        <?php /*-- is it a Date Of Birth country? --------------------------*/?>
+        <?php if (isset($dob)): ?>
+        <li>
+            <label for=""><?php echo $dobLabel; ?></label>
+            <div class="input-box">
+                <select name="payment[<?php echo $code; ?>_dob_day]" class="klarna-validate-select" style="width: 60px !important; margin-right: 5px;">
+                    <option value="00" disabled="disabled"
+                    <?php if ($day_disabled): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                    >
+                        <?php echo $dayLabel; ?>
+                    </option>
+
+                    <?php for ($x=1; $x <= 31; $x++): ?>
+                        <option
+                        <?php if ($dob_day == $x): ?>
+                            selected="selected"
+                        <?php endif; ?>
+                        value="<?php echo $x; ?>">
+                            <?php echo $x; ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+
+                <select name="payment[<?php echo $code; ?>_dob_month]" class="klarna-validate-select" style="width: 60px !important; margin-right: 5px;">
+                    <option value="00" disabled="disabled"
+                    <?php if ($month_disabled): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                    >
+                        <?php echo $monthLabel; ?>
+                    </option>
+
+                    <?php for ($x=1; $x <= 12; $x++): ?>
+                        <option
+                        <?php if ($dob_month == $x): ?>
+                            selected="selected"
+                        <?php endif; ?>
+                        value="<?php echo $x; ?>">
+                            <?php echo $x; ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+
+                <select name="payment[<?php echo $code; ?>_dob_year]" class="klarna-validate-select" style="width: 65px !important;">
+                    <option value="00" disabled="disabled"
+                    <?php if ($year_disabled): ?>
+                    selected="selected"
+                    <?php endif; ?>
+                    >
+                        <?php echo $yearLabel; ?>
+                    </option>
+
+                    <?php for ($x=date('Y'); $x > (date('Y')-100); $x--): ?>
+                        <option
+                        <?php if ($dob_year == $x): ?>
+                             selected="selected"
+                         <?php endif; ?>
+                         value="<?php echo $x; ?>">
+                            <?php echo $x; ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+        </li>
+        <?php endif; ?>
+
+        <?php /*-- is it a country that needs Consent? ---------------------*/?>
+        <?php if (isset($consent)): ?>
+        <li>
+            <div class='klarna_box_bottom_input_combo' style='width: 100%'>
+                <input type='checkbox' name='payment[<?php echo $code; ?>_consent]'
+                   id='box_<?php echo $code; ?>_consent'
+                   style='float: left; margin-right: 3px'
+                   class='klarna-validate-checkbox'/>
+                <script type='text/javascript'>
+                    function _klarna_<?php echo $method; ?>_openAgreement() {
+                        openAgreement('de');
+                        ShowKlarnaConsentPopup('<?php echo $merchant_id;?>', '<?php echo $method;?>');
+                    }
+                </script>
+                <div class='klarna_box_bottom_title' style='width: 80%; margin-top: 3px'>
+                    Mit der &Uuml;bermittlung der f&uuml;r die Abwicklung des
+                    Rechnungskaufes und einer Identit&auml;ts- und
+                    Bonit&auml;tspr&uuml;fung erforderlichen Daten an Klarna bin
+                    ich einverstanden. Meine
+                    <a onClick='_klarna_<?php echo $method; ?>_openAgreement(); return false;'
+                    href='https://online.klarna.com/consent_de.yaws' target='_blank'>
+                    Einwilligung</a> kann ich jederzeit mit Wirkung f&uuml;r
+                    die Zukunft widerrufen. Es gelten die <a href='<?php echo $agblink; ?>' target='_blank'>
+                    AGB</a> des H&auml;ndlers.</div>
+            </div>
+        </li>
+        <?php endif; ?>
+        <?php /*-- load some javascripts -----------------------------------*/?>
+        <script type="text/javascript">
+            Klarna.Checkout.OSC.init(
+                '<?php echo $country; ?>',
+                '<?php echo $this->getUrl("klarna/address/dispatch"); ?>'
+            )
+            <?php echo $terms; ?>
+            <?php if (isset($showLetOp)): ?>
+                new Klarna.LetOp.Banner({
+                    advert: Klarna.util.$("<?php echo $code; ?>_pclasses"),
+                    eid: "<?php echo $merchant_id; ?>",
+                    width: 200
+                });
+            <?php endif; ?>
+        </script>
+    </ul>
+</fieldset>

@@ -1,0 +1,25 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+<?php 
+/**
+ * Mustishipping state
+ * 
+ * @see Mage_Checkout_Block_Multishipping_State
+ */
+?>
+
+<ul class="multiship-progress">
+	<?php foreach ($this->getSteps() as $_step): ?>
+		<li <?php if($_step->getIsActive()): ?>class="active"<?php endif; ?>><?php echo $_step->getLabel() ?></li>
+	<?php endforeach; ?>
+</ul>

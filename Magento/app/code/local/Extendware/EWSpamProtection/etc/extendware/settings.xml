@@ -1,0 +1,365 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+        <Extendware_EWSpamProtection>
+        	<extendware>
+	        	<settings>
+	        		<scopes>
+		        		<main>
+							<tabs>
+						        <main translate="label comment ewhelp" module="ewspamprotection">
+						            <label>Spam Protection</label>
+						            <sort_order>100</sort_order>
+						        </main>
+						    </tabs>
+							<sections>
+								<ewspamprotection translate="label comment ewhelp" module="ewspamprotection">
+									<class>separator-top</class>
+									<label>General</label>
+									<tab>main</tab>
+									<frontend_type>text</frontend_type>
+									<sort_order>100</sort_order>
+									<show_in_default>1</show_in_default>
+									<show_in_website>1</show_in_website>
+									<show_in_store>1</show_in_store>
+									<groups>
+						                <general translate="label comment ewhelp">
+						                    <label>General</label>
+						                    <frontend_type>text</frontend_type>
+						                    <sort_order>1</sort_order>
+						                    <show_in_default>1</show_in_default>
+						                    <show_in_website>1</show_in_website>
+						                    <show_in_store>1</show_in_store>
+						                    <fields>
+						                    	<enabled translate="label comment ewhelp">
+						                            <label>Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>1</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </enabled>
+						                        <provider translate="label comment ewhelp">
+						                            <label>Provider</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_provider</source_model>
+						                            <sort_order>2</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment>Select the captcha service provider. reCaptcha is the hardest captcha to solve.</comment>
+						                        </provider>
+						                        <public_key translate="label comment ewhelp">
+						                            <label>Public Key</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>3</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <depends><provider>recaptcha</provider></depends>
+						                        </public_key>
+						                        <private_key translate="label comment ewhelp">
+						                            <label>Private Key</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>4</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <depends><provider>recaptcha</provider></depends>
+						                        </private_key>
+						                        <language translate="label comment ewhelp">
+						                            <label>Language</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_language</source_model>
+						                            <sort_order>5</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <depends><provider>recaptcha</provider></depends>
+						                        </language>
+						                        <num_unlocked_actions translate="label comment ewhelp">
+						                            <label>Unlocked Actions</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>6</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>0</show_in_website>
+						                            <show_in_store>0</show_in_store>
+						                            <validators>
+						                            	<validator>
+						                            		<model>ewcore/data_validator_integer</model>
+						                            		<options>
+						                            			<min_value>0</min_value>
+						                            		</options>
+						                            	</validator>
+						                            </validators>
+						                            <validate>required-entry validate-zero-or-greater</validate>
+						                            <comment><![CDATA[After solving one CAPTCHA, a user will not be asked again for this number of CAPTCHA actions. Set to 0 to force CAPTCHA every time.]]></comment>
+						                        	<ewhelp><![CDATA[Enabling this is very important so that users are not annoyed by the CAPTCHA if they are doing several actions that require a CAPTCHA confirmation. If you change this value and want you to test it, you will need to delete your cookies.]]></ewhelp>
+						                        </num_unlocked_actions>
+						                        <fallback_enabled translate="label comment ewhelp">
+						                            <label>Fallback Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>7</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment><![CDATA[If enabled then the CAPTCHA will always be accepted if the provider cannot be contacted due to a network issue.]]></comment>
+						                        </fallback_enabled>
+						                    </fields>
+						                </general>
+						                <contact_us translate="label comment ewhelp">
+						                    <label>Contact Us Captcha</label>
+						                    <frontend_type>text</frontend_type>
+						                    <sort_order>2</sort_order>
+						                    <show_in_default>1</show_in_default>
+						                    <show_in_website>1</show_in_website>
+						                    <show_in_store>1</show_in_store>
+						                    <fields>
+						                    	<guest_enabled translate="label comment ewhelp">
+						                            <label>Enable for Guests</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>1</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <sort_order>1</sort_order>
+						                        </guest_enabled>
+						                    	<customer_enabled translate="label comment ewhelp">
+						                            <label>Enable for Customers</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>2</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </customer_enabled>
+						                        <template_enabled translate="label comment ewhelp">
+						                            <label>Template Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>3</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment>Only disable this if you do not want your template to be overridden by Spam and Bot Protection</comment>
+						                        </template_enabled>
+						                        <theme translate="label comment ewhelp">
+						                            <label>Theme</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_theme</source_model>
+						                            <sort_order>4</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </theme>
+						                        <info_message translate="label comment ewhelp">
+						                            <label>Info Message</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>5</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </info_message>
+						                        <container_css translate="label comment ewhelp">
+						                            <label>Container CSS</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>6</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </container_css>
+						                    </fields>
+						                </contact_us>
+										<account_registration translate="label comment ewhelp">
+						                    <label>Account Registration Captcha</label>
+						                    <frontend_type>text</frontend_type>
+						                    <sort_order>3</sort_order>
+						                    <show_in_default>1</show_in_default>
+						                    <show_in_website>1</show_in_website>
+						                    <show_in_store>1</show_in_store>
+						                    <fields>
+						                    	<guest_enabled translate="label comment ewhelp">
+						                            <label>Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>1</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </guest_enabled>
+						                        <template_enabled translate="label comment ewhelp">
+						                            <label>Template Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>2</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment>Only disable this if you do not want your template to be overridden by Spam and Bot Protection</comment>
+						                        </template_enabled>
+						                        <theme translate="label comment ewhelp">
+						                            <label>Theme</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_theme</source_model>
+						                            <sort_order>3</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </theme>
+						                        <info_message translate="label comment ewhelp">
+						                            <label>Info Message</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>4</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </info_message>
+						                        <container_css translate="label comment ewhelp">
+						                            <label>Container CSS</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>5</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </container_css>
+						                    </fields>
+						                </account_registration>
+						                <product_review translate="label comment ewhelp">
+						                    <label>Product Review Captcha</label>
+						                    <frontend_type>text</frontend_type>
+						                    <sort_order>4</sort_order>
+						                    <show_in_default>1</show_in_default>
+						                    <show_in_website>1</show_in_website>
+						                    <show_in_store>1</show_in_store>
+						                    <fields>
+						                    	<guest_enabled translate="label comment ewhelp">
+						                            <label>Enable for Guests</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>1</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </guest_enabled>
+						                    	<customer_enabled translate="label comment ewhelp">
+						                            <label>Enable for Customer</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>2</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </customer_enabled>
+						                        <template_enabled translate="label comment ewhelp">
+						                            <label>Template Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>3</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment>Only disable this if you do not want your template to be overridden by Spam and Bot Protection</comment>
+						                        </template_enabled>
+						                        <theme translate="label comment ewhelp">
+						                            <label>Theme</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_theme</source_model>
+						                            <sort_order>4</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </theme>
+						                        <info_message translate="label comment ewhelp">
+						                            <label>Info Message</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>5</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </info_message>
+						                        <container_css translate="label comment ewhelp">
+						                            <label>Container CSS</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>6</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </container_css>
+						                    </fields>
+						                </product_review>
+						                <email_friend translate="label comment ewhelp">
+						                    <label>E-mail Friend Captcha</label>
+						                    <frontend_type>text</frontend_type>
+						                    <sort_order>5</sort_order>
+						                    <show_in_default>1</show_in_default>
+						                    <show_in_website>1</show_in_website>
+						                    <show_in_store>1</show_in_store>
+						                    <fields>
+						                    	<guest_enabled translate="label comment ewhelp">
+						                            <label>Enable for Guests</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>1</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </guest_enabled>
+						                    	<customer_enabled translate="label comment ewhelp">
+						                            <label>Enable for Customer</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>2</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </customer_enabled>
+						                        <template_enabled translate="label comment ewhelp">
+						                            <label>Template Enabled</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>adminhtml/system_config_source_yesno</source_model>
+						                            <sort_order>3</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                            <comment>Only disable this if you do not want your template to be overridden by Spam and Bot Protection</comment>
+						                        </template_enabled>
+						                        <theme translate="label comment ewhelp">
+						                            <label>Theme</label>
+						                            <frontend_type>select</frontend_type>
+						                            <source_model>ewspamprotection/adminhtml_data_option_theme</source_model>
+						                            <sort_order>4</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </theme>
+						                        <info_message translate="label comment ewhelp">
+						                            <label>Info Message</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>5</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </info_message>
+						                        <container_css translate="label comment ewhelp">
+						                            <label>Container CSS</label>
+						                            <frontend_type>text</frontend_type>
+						                            <sort_order>6</sort_order>
+						                            <show_in_default>1</show_in_default>
+						                            <show_in_website>1</show_in_website>
+						                            <show_in_store>1</show_in_store>
+						                        </container_css>
+						                    </fields>
+						                </email_friend>
+						            </groups>
+								</ewspamprotection>
+							</sections>
+						</main>
+					</scopes>
+				</settings>
+			</extendware>
+		</Extendware_EWSpamProtection>
+	</modules>
+</config>

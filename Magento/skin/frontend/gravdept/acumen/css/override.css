@@ -1,0 +1,87 @@
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.1.0
+ */
+
+/*--------------------------------------------------------------------------------------------------*/
+/*  CUSTOM OVERRIDES FOR BASE.CSS
+/*--------------------------------------------------------------------------------------------------*/
+
+@font-face {
+    font-family:'lacuna_regularregular';
+    src:url('../fonts/lacuna-webfont.eot');
+    src:url('../fonts/lacuna-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/lacuna-webfont.woff') format('woff'),
+        url('../fonts/lacuna-webfont.ttf') format('truetype'),
+        url('../fonts/lacuna-webfont.svg#lacuna_regularregular') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face {
+    font-family:'lacuna_italicregular';
+    src:url('../fonts/lacuna-italic-webfont.eot');
+    src:url('../fonts/lacuna-italic-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/lacuna-italic-webfont.woff') format('woff'),
+        url('../fonts/lacuna-italic-webfont.ttf') format('truetype'),
+        url('../fonts/lacuna-italic-webfont.svg#lacuna_italicregular') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+input#search { font-family:'lacuna_italicregular', sans-serif; }
+
+a.top { font-size:14px; }
+
+#header #header-bar { background:transparent; }
+#header #header-bar input::-webkit-input-placeholder { color:#fff; background:#4d4d4d; text-transform:uppercase; font-size:15px; line-height:24px; font-family:'lacuna_regularregular', sans-serif; font-style:italic; }
+#header #header-bar #header-menu-bar { background:#4d4d4d; box-shadow:inset 2px 2px 4px rgba(255, 255, 255, 0.5); width:700px; height:100%; float:left; }
+#header #header-bar #header-search-bar { background:#4d4d4d; box-shadow:inset 2px 2px 4px rgba(255, 255, 255, 0.5); width:210px; height:100%; float:left; margin-left:20px; }
+
+#search-form { -webkit-border-radius:0; border-radius:0; background:#4d4d4d; }
+#search-form input { color:#fff; float:right; width:150px; padding-left:10px; font-size:14px; line-height:24px; }
+#search-form button, #search-form button:hover { background:url(../img/icon/sprite.png) 0 -90px no-repeat #4d4d4d; float:left; margin-left:5px; }
+
+#nav { padding-left:0; font-family:'lacuna_regularregular', sans-serif; font-weight:normal; }
+#nav ul.level0 { width:auto !important; text-align:center; padding:0; margin:0; }
+#nav ul.level0 a { color:#fff; font-size:12px; }
+#nav ul.level0 a:hover { color:#f78f61; }
+#nav ul.level0 .view-all { display:none; }
+
+#nav ul.level1 li.active a { color:#fff; }
+
+#nav li.level0 { text-align:center; }
+#nav li.level0.parent { width:130px; padding:0; margin:0; }
+#nav li.level0:hover { background-color:#000; border-bottom:1px solid #4d4d4d; margin-bottom:1px; height:39px; }
+#nav li.level0:hover > a { color:#fff; font-size:14px; }
+#nav li.level0 > a span { font-size:14px; }
+#nav li.level0,
+#nav li.level0 div.menu,
+#nav li.level0 div.menu { -webkit-box-shadow:3px 0 5px rgba(50, 50, 50, 0.25); -moz-box-shadow:3px 0 5px rgba(50, 50, 50, 0.25); box-shadow:3px 0 5px rgba(50, 50, 50, 0.25); }
+
+#nav li.level1 { padding-bottom:0; }
+#nav li.level1 > a:first-child { color:#fff; text-decoration:none; text-align:left; padding-left:10px; font-size:14px; font-weight:normal; }
+#nav li.level1 > a:first-child:hover { color:#f78f61; }
+
+#nav li.level2 { text-align:left; padding-left:20px; font-weight:normal; text-transform:none; }
+
+#nav li.nav-4 div.menu .level2,
+#nav li.border-block { display:none; }
+
+.menu { border:0; padding:0; }
+.menu ul.level0 { background:#000; }
+.menu ul.level0 li { border-right:0 !important; }
+
+.arrow-up { border-left:0; border-right:0; border-bottom:0; }
+
+.newsletter form label { font-size:14px; }
+.newsletter form input { font-size:14px; line-height:18px; }
+
+#footer-bar { font-family:'lacuna_regularregular', sans-serif; }
+#footer-bar input { font-family:'lacuna_regularregular', sans-serif; }

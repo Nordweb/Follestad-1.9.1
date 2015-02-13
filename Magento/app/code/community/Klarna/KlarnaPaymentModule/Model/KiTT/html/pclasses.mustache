@@ -1,0 +1,20 @@
+<div class="klarna_box_bottom_title klarna_translate" data-t-key="part_payment">{{lang.part_payment}}</div>
+<div style="clear: both;"></div>
+<ol class="paymentPlan">
+{{#pclasses.table}}
+    <li>
+        <label for="klarna_pclass_{{id}}">
+            <input name="{{input.paymentPlan}}" value="{{id}}" type="radio" id="klarna_pclass_{{id}}" {{#default}}checked="checked"{{/default}}>
+            <div>
+                <span>
+                    <img src="{{config.web.img}}checkout/ok.gif" border="0" alt="Chosen">
+                    {{{description}}}{{#cost}} - {{cost}} {{lang.per_month}}{{/cost}}
+                </span>
+            </div>
+        </label>
+    </li>
+{{/pclasses.table}}
+</ol>
+{{#config.nlBanner}}
+    <img class="nlbanner" src="{{config.nlBanner}}" />
+{{/config.nlBanner}}

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.4
+ */
+?>
+
+<?php if(count($this->getItemCollection()->getItems())): ?>
+	<div id="upsell" class="block callout">
+		<h2><?php echo $this->__('Customers Also Bought') ?></h2>
+		
+		<table class="product-grid" cellspacing="0">
+			<?php /* $this->setColumnCount(5); // Sets number of columns. Can also define in XML layout. */ ?>
+			<?php $this->resetItemsIterator() ?>
+			
+			<?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+				<tr>
+				<?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+					<?php if($_link=$this->getIterableItem()): ?>
+						<td>
+							<a class="product-image" href="<?php echo $_link->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize(200, 200) ?>" alt="<?php echo $this->htmlEscape($_link->getName()) ?>" /></a>
+							<?php echo $this->getPriceHtml($_link, true) ?>
+							<a class="product-name" href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->htmlEscape($_link->getName()) ?></a>
+							<?php /* echo $this->getReviewsSummaryHtml($_link) */ ?>
+						</td>
+					<?php else: ?>
+						<td class="empty">&nbsp;</td>
+					<?php endif; ?>
+				<?php endfor; ?>
+				</tr>
+			<?php endfor; ?>
+		</table>
+	</div>
+<?php endif ?>

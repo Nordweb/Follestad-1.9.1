@@ -1,0 +1,133 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.8
+ */
+?>
+
+<div class="block">
+	<h1><?php echo $this->__('Success!') ?></h1>
+	
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+	<?php if ($this->getOrderId()): ?>		
+		<p><?php echo $this->__('Thanks for your purchase! We sent you an order summary email and when your order ships we\'ll forward the tracking number.') ?></p>
+		
+		<p><?php echo $this->__('Order #: %s', $this->escapeHtml($this->getOrderId())) ?></p>
+		
+		<?php if ($this->getCanViewOrder()): ?>
+			<p><a href="<?php echo $this->escapeHtml($this->getViewOrderUrl()) ?>"><?php echo $this->__('View Order') ?></a></p>
+		<?php endif; ?>
+				
+		<?php if ($this->getViewOrder() && $this->getCanPrintOrder()) :?>
+			<p><a href="<?php echo $this->getPrintUrl() ?>"><?php echo $this->__('Print Confirmation') ?></a></p>
+			<p><?php echo $this->getChildHtml() ?></p>
+		<?php endif; ?>
+	<?php endif; ?>
+	
+	<?php if ($this->getAgreementRefId()): ?>
+		<p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId()))) ?></p>
+	<?php endif; ?>
+		
+	<?php if ($profiles = $this->getRecurringProfiles()): ?>
+		<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+		
+		<ul>
+			<?php foreach($profiles as $profile): ?>
+				<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+				<li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+</div>
+
+
+<?php
+/*
+* TradeDoubler tracking pixel URL generator
+*
+*
+*/
+// pre-defined settings for tracking pixel
+$secretCode='752103633';
+$eventId='256477';
+$organisationId='1699947';
+
+$_customerId = Mage::getSingleton('customer/session')->getCustomerId();
+$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+$order = Mage::getSingleton('sales/order');
+$order->load($lastOrderId);
+
+// getting current order data (currency, grand total including tax and shipment)
+$_totalData =$order->getData();
+
+
+// getting purchased items info array
+$items = $order->getAllItems();
+$itemcount=count($items);
+
+$orderValue=$_totalData['grand_total'];
+$orderNumber=$_totalData['increment_id'];
+$orderCurrency=$_totalData['order_currency_code'];
+
+$reportInfo='';
+//building items description url from items array (getting names, SKUs, prices and quantity)
+foreach ($items as $itemId => $item)
+{
+    $reportInfo.=urlencode('f1='.$item->getSku());
+	$reportInfo.=urlencode('&f2='.$item->getName());
+	$reportInfo.=urlencode('&f3='.$item->getPrice());	
+    $reportInfo.=urlencode('&f4='.$item->getQtyToInvoice());
+	if ($itemcount>1) {
+		$reportInfo.=urlencode('|');
+	}
+	$itemcount--;
+}
+
+// TD checksum generation
+$checksum = "v04" . md5($secretcode . $_totalData['increment_id'] . $orderValue);
+
+
+session_start();
+// Getting TD UID from sessoin/cookie or creating new UID and saving it to cookie and session
+// if no TD cookie present
+if (!isset($_COOKIE['TRADEDOUBLER'])){
+	// and no TD session
+	if(!isset($_SESSION['TRADEDOUBLER'])){
+		// if 'frontend' (magento's front-end user unique id) cookie exists
+		if(isset($_COOKIE['frontend'])){
+			// we create UID based on 'frontend' hash
+			$tdUid= md5($_COOKIE['frontend']);
+		}
+		// if no cookie, or cookies disabled
+		else {
+			$tdUid= md5(time().rand(0,9999));
+		}
+		// renew session and cookie TD marker
+		$_SESSION['TRADEDOUBLER']=$tdUid;
+		setcookie('TRADEDOUBLER', $tdUid, (time()+3600*24*365), "/"/*, ".follestad.no"*/);
+	}
+	else {
+	// if session TD marker exists, renew TD cookie
+	$tdUid=$_SESSION['TRADEDOUBLER'];
+	setcookie('TRADEDOUBLER', $tdUid, (time()+3600*24*365), "/"/*, ".follestad.no"*/);
+	}
+}
+else {
+	// if TD cookie exists - renew session marker
+	$tdUid=$_COOKIE['TRADEDOUBLER'];
+	$_SESSION['TRADEDOUBLER']=$tdUid;
+}
+
+// tracking pixel resulting URL 
+$itemUrl='https://tbs.tradedoubler.com/report?organization='.$organisationId.'&event='.$eventId.'&orderNumber='.$orderNumber.'&orderValue='.$orderValue.'&currency='.$orderCurrency.'&checksum='.$checksum.'&reportInfo='.$reportInfo.'&tduid='.$tdUid;
+
+
+echo "<img src=\"".$itemUrl."\" border=\"0\" style=\"margin:0px;padding:0px;border:0px none;\" alt=\"\" />";
+?>

@@ -1,0 +1,88 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com All rights reserved.
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+
+<?php $_order = $this->getOrder() ?>
+
+<h1><?php echo $this->__('Order') ?> # <?php echo $_order->getRealOrderId() ?></h1>
+
+<div class="order-view-actions">
+    <?php echo $this->getChildHtml('buttons') ?>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="callout">
+	<h2><?php echo $this->__('Order Information') ?></h2>
+	
+	<div class="liner">
+		<div id="order-view-details" class="grid">
+			<div class="grid_2 alpha">
+				<h3><?php echo $this->__('Date') ?></h3>
+				<p><?php echo $this->formatDate($_order->getCreatedAtStoreDate(), 'long') ?></p>
+				
+				<h3><?php echo $this->__('Status') ?></h3>
+				<p><?php echo $_order->getStatusLabel() ?></p>
+			</div>
+			
+			<?php if (!$_order->getIsVirtual()): ?>
+				<div class="grid_3">
+					<h3><?php echo $this->__('Shipping Address') ?></h3>
+					
+					<p class="address-entry"><?php echo $_order->getShippingAddress()->format('html') ?></p>
+				
+					<h3><?php echo $this->__('Shipping Method') ?></h3>
+					
+					<p>
+						<?php if ($_order->getShippingDescription()): ?>
+							<?php echo $_order->getShippingDescription() ?>
+						<?php else: ?>
+							<?php echo $this->__('No shipping information available.') ?>
+						<?php endif; ?>
+						
+						<?php if ($_order->getTracksCollection()->count()) : ?>
+							<br/><a href="<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>" onclick="this.target='_blank'"><?php echo $this->__('Tracking Info') ?></a>
+							
+						<?php /*	<a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopUpUrlByOrderId($_order->getId()) ?>','trackorder','top=50,left=50,width=800,height=600,resizable=yes,scrollbars=yes'); return false;"><?php echo $this->__('Tracking Info') ?></a>
+						<?php*/ endif; ?>
+					</p>
+				</div>
+			<?php endif; ?>
+		
+			<div class="grid_3">
+				<h3><?php echo $this->__('Billing Address') ?></h3>
+				<p class="address-entry"><?php echo $_order->getBillingAddress()->format('html') ?></p>
+			
+				<h3><?php echo $this->__('Payment Method') ?></h3>
+				<?php echo $this->getPaymentInfoHtml() ?>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php /*
+// tabs for: items, invoice, shipment, creditmemo
+// not included because lots of duplicate content is confusing
+
+<h3><?php echo $this->__('About This Order') ?></h3>
+
+<?php $_links = $this->getLinks(); ?>
+<ul>
+	<?php foreach ($_links as $_link): ?>
+		<?php if($_link->getUrl()): ?>
+			<li><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+		<?php else: ?>
+			<li class="current"><?php echo $_link->getLabel() ?></li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</ul>
+*/ ?>

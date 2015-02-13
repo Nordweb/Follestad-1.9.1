@@ -1,0 +1,29 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.4
+ */
+?>
+<?php
+/**
+ * Product description template
+ *
+ * @see Mage_Catalog_Block_Product_View_Description
+ */
+?>
+
+<div class="callout">
+	<h2><?php echo $this->__('Description') ?></h2>
+	<div class="long-description">
+		<?php
+		/*echo $this->helper('catalog/output')->productAttribute($this->getProduct(), nl2br($this->getProduct()->getDescription()), 'description');*/  /* remove nl2br() */
+		echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $this->getProduct()->getDescription(), 'description');
+		?>
+	</div>
+</div>

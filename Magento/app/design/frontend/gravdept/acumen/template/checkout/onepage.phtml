@@ -1,0 +1,51 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/opcheckout.js') ?>"></script>
+<script type="text/javascript">countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?></script>
+
+<ol id="opc-steps">
+	<?php $i=0; ?>
+	<?php foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+		<?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+		
+		<li id="opc-<?php echo $_stepId ?>" class="<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+			<div class="step-title">
+				<h2><span class="number"><?php echo $i ?>.</span> <?php echo $_stepInfo['label'] ?></h2>
+				<?php /*<a href="#"><?php echo $this->__('Edit') ?></a>*/ ?>
+			</div>
+			
+			<div id="checkout-step-<?php echo $_stepId ?>" class="step-content a-item" style="display:none;">
+				<?php echo $this->getChildHtml($_stepId) ?>
+			</div>
+		</li>
+	<?php endforeach; ?>
+</ol>
+
+<script type="text/javascript">
+	//<![CDATA[
+		var accordion = new Accordion('opc-steps', '.step-title', true);
+		
+		<?php if($this->getActiveStep()): ?>
+			accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+		<?php endif; ?>
+		
+		var checkout = new Checkout(accordion,{
+			progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+			review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+			saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+			failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+		);
+	//]]>
+</script>

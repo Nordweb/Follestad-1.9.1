@@ -1,0 +1,64 @@
+<!-- KLARNA BOX -->
+<!--[if IE 6 ]> <div class="klarna_box_container ie6"> <![endif]-->
+<!--[if IE 7 ]> <div class="klarna_box_container ie7"> <![endif]-->
+<!--[if IE 8 ]> <div class="klarna_box_container ie8"> <![endif]-->
+<!--[if IE 9 ]> <div class="klarna_box_container ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <div class="klarna_box_container"> <!--<![endif]-->
+    <div class="klarna_box" id="klarna_box_invoice">
+        <div class="klarna_box_top">
+            <div id="klarna_box_invoice_top_right" class="klarna_box_top_right">
+                <div class="language">
+                    {{>flags}}
+                    <div class="klarna_box_bottom_languageInfo">
+                        <img src="{{config.web.img}}checkout/notice.png"
+                            alt="{{lang.languageSetting_note_de}}" />
+                        <div class="klarna_language_notice">
+                            <span class="klarna_translate" data-t-key="languageSetting_note_de">{{lang.languageSetting_note_de}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="klarna_box_top_agreement"></div>
+            </div>
+            <span class="klarna_logo_invoice_de"> </span>
+        </div>
+        <div class="klarna_box_bottom">
+            <div class="klarna_box_bottom_contents">
+                <div class="klarna_box_bottom_left">
+                    {{>error}}
+                </div>
+                <div class="klarna_box_bottom_right">
+                    <div class="klarna_box_bottom_content">
+                        {{>input}}
+                        <div class="klarna_box_bottom_input_combo" style="width: 100%">
+                            <div class="klarna_box_bottom_title" style="width: 90%; margin-top: 3px;">
+                                <em class="klarna_translate" data-t-key="notice_billing_same_as_shipping">
+                                    {{lang.notice_billing_same_as_shipping}}
+                                </em>
+                            </div>
+                        </div>
+                        <div class="klarna_additional_information">
+                            {{>additional_information}}
+                        </div>
+                        <div class="klarna_box_bottom_input_combo" style="width: 100%; margin-top: 18px;">
+                            <input type="checkbox" name="{{input.consent}}"
+                                id="box_{{input.consent}}"
+                                style="float: left; margin-right: 3px"
+                                class="klarna-validate-checkbox"/>
+                                <script type="text/javascript">
+                                    function _klarna_invoice_openAgreement() {
+                                        openAgreement('de');
+                                        ShowKlarnaConsentPopup('{{config.eid}}', 'invoice');
+                                    }
+                                </script>
+                                <div class="klarna_box_bottom_title" style="width: 80%;">Mit der &Uuml;bermittlung der f&uuml;r die Abwicklung des Rechnungskaufes und einer Identit&auml;ts- und Bonit&auml;tspr&uuml;fung erforderlichen Daten an Klarna bin ich einverstanden. Meine <a onClick="_klarna_invoice_openAgreement(); return false;" href="https://online.klarna.com/consent_de.yaws" target="_blank">Einwilligung</a> kann ich jederzeit mit Wirkung f&uuml;r die Zukunft widerrufen. Es gelten die <a href="{{config.agb_link}}" target="_blank">AGB</a> des H&auml;ndlers.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="{{input.emailAddress}}"
+    value="{{value.emailAddress}}" />
+{{>invoice_head}}
+<!-- END KLARNA BOX -->

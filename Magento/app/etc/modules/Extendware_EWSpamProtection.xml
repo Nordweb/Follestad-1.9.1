@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+   <modules>
+      <Extendware_EWSpamProtection>
+         <active>true</active>
+         <codePool>local</codePool>
+         <depends>
+            <Extendware_EWCore/>
+         </depends>
+         <extendware>
+            <name>Spam Protection</name>
+         </extendware>
+      </Extendware_EWSpamProtection>
+   </modules>
+</config>

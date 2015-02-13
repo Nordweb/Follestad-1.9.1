@@ -1,0 +1,55 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<h1><?php echo $this->__('Change Billing Address') ?></h1>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div class="grid">
+	<div class="grid_7 suffix_1 alpha">
+		<ul class="multiship-change-billing-address">
+			<?php foreach ($this->getAddressCollection() as $_address): ?>
+				<li>
+					<div class="grid">
+						<div class="grid_3 alpha">
+							<p class="address-entry"><?php echo $_address->format('html') ?></p>
+						</div>
+						
+						<div class="grid_4 omega">
+							<p>
+								<a class="faux-button" href="<?php echo $this->getSetAddressUrl($_address) ?>"><?php echo $this->__('Select Address') ?></a>
+								<a class="alt-action" href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a>
+							</p>
+						
+							<?php if($this->isAddressDefaultBilling($_address)): ?>
+							   <p class="is-default"><?php echo $this->__('This is your default billing address.') ?></p>
+							<?php endif; ?>
+							
+							<?php if($this->isAddressDefaultShipping($_address)): ?>
+								<p class="is-default"><?php echo $this->__('This is your default shipping address.') ?></p>
+							<?php endif; ?>
+						</div>
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+	
+	<div class="grid_4 omega">
+		<h2><?php echo $this->__('Create A New Address') ?></h2>
+		<a class="faux-button" href="<?php echo $this->getAddNewUrl() ?>"><?php echo $this->__('Add New Address') ?></a>
+	</div>
+</div>
+
+<div class="multiship-actions">
+	<a class="faux-button" href="<?php echo $this->getBackUrl() ?>"><?php echo $this->__('Go Back') ?></a>
+</div>

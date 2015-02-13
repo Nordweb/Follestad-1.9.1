@@ -1,0 +1,330 @@
+<?php
+
+/**
+ * Dibs AB
+ * Dibs Payment Extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category   Payments & Gateways Extensions
+ * @package    Dibs_DibsModule
+ * @author     Dibs AB
+ * @copyright  Copyright (c) 2010 Dibs AB. (http://www.Dibs.se)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>DIBS Payment</title>
+        <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+        <script type="text/javascript">           
+            function encode(){
+                var obj = document.getElementById('structuredOrderInformation');
+                var unencoded = obj.value;
+                obj.value = encodeURIComponent(unencoded);
+				alert ("encode called");
+				return true;
+            }
+        </script>
+	</head>
+     <!-- <body onload="encode();payment.submit()"> -->
+	<!-- <body onload="payment.submit()"> -->
+	<body>
+
+	<h2> You will be redirected to DIBS in a few seconds...</h2>
+
+	<?php
+	$paymate = Mage::getModel('dibs/Dibs');
+	$dibsparmeter = $paymate->getCheckoutFormFields();
+	$order = Mage::getModel('sales/order')->loadByIncrementId($dibsparmeter['orderid']);
+	$orderitems = $order->getAllItems();
+	$VerifiedOrderSum = $dibsparmeter['amount'];
+	$Delta1 = 0;
+	$Delta2 = 0;
+	$Delta3 = 0;
+	$Delta4 = 0;
+
+	$i = 1;
+	
+	
+/*	foreach($orderitems as $orderitem) {
+		echo ('<br>' . 'OrderLine: ' . $i . '<br>');
+		echo ('================================== <br>');
+		echo ('ItemID: ' . $orderitem->getProductId() . '<br>');
+		echo ('SKU: ' . $orderitem->getSku() . '<br>');
+		echo ('ItemDescription: ' . $orderitem->getName() . '<br>');
+		echo ('orderRowNumber: ' . $i . '<br>');
+		echo ('price: ' . round($orderitem->getPrice(),2) . '<br>');
+		echo ('totprice: ' . round($orderitem->getQtyOrdered() * $orderitem->getPrice(),2) . '<br>');
+		echo ('quantity: ' . round($orderitem->getQtyOrdered(),2) . '<br>');
+		echo ('unitCode: ' . 'pcs' . '<br>');
+		echo ('VATPercent: ' . round($orderitem->getTaxPercent(),2) . '<br>');
+		echo ('VATAmount: ' . round(($orderitem->getTaxPercent())*(0.01)*($orderitem->getPrice())) . '<br>');
+        $i++;
+	}
+
+	echo ' <br>Orderid Got As DIBS Parameter:<br>';
+	echo '===================================<br>';
+	echo $dibsparmeter['orderid'] . '<br>';
+	
+	echo ' <br>Order Sum Got As DIBS Parameter:<br>';
+	echo '======================================<br>';
+	echo $dibsparmeter['amount'] . '<br>';
+	
+    echo ('<ui>');
+	echo ('Order Class Methods <br>');
+	echo ('------------------- <br>');
+	foreach (get_class_methods(get_class($order)) as $method) {
+		echo ('<li>' . $method . '</li>');
+	}
+	echo ('</ui>');
+	
+	exit();
+*/
+
+	// create a new XML document
+	$doc = new DomDocument("1.0","UTF-8");
+	$doc->preserveWhiteSpace = true;
+	$doc->formatOutput = true;
+
+	// create root node
+	$root = $doc->createElement("orderInformation");
+	$root = $doc->appendChild($root);
+	// $pbbstr = '<orderInformation>' . "\n";
+	
+	// add node and value for orderid
+	$occ = $doc->createElement("yourRef");
+	$occ = $root->appendChild($occ);
+		$value = $doc->createTextNode($dibsparmeter['orderid']);
+		$value = $occ->appendChild($value);
+	// $pbbstr = $pbbstr . '<yourRef>' . $dibsparmeter['orderid'] . '</yourRef>' . "\n";
+
+	$i = 1;
+	foreach($orderitems as $orderitem) {
+		$occ = $doc->createElement("orderItem");
+		$occ = $root->appendChild($occ);
+	// $pbbstr = $pbbstr . '<orderItem';
+	
+		// add orderItem attributes
+		//-------------------------
+
+			$itemIDattr = $doc->createAttribute("itemID");
+				$occ->appendChild($itemIDattr);
+				// $itemID = $doc->createTextNode(htmlentities($orderitem->getProductId()));
+				$itemID = $doc->createTextNode($orderitem->getProductId());
+				$itemIDattr->appendChild($itemID);
+	// $pbbstr = $pbbstr . ' itemID="' . htmlentities($orderitem->getProductId()) . '"';
+		
+			$itemdescattr = $doc->createAttribute("itemDescription");
+				$occ->appendChild($itemdescattr);
+				$itemdesc = $doc->createTextNode($orderitem->getName());
+				$itemdescattr->appendChild($itemdesc);
+	// $pbbstr = 	$pbbstr . ' itemDescription="' . htmlentities($orderitem->getName()) . '"';
+			$itemcommentattr = $doc->createAttribute("comments");
+				$occ->appendChild($itemcommentattr);
+				$itemcomment = $doc->createTextNode('SKU: ' . $orderitem->getSku());
+				$itemcommentattr->appendChild($itemcomment);
+	// $pbbstr = $pbbstr . ' comments="SKU: ' . htmlentities($orderitem->getSku()) . '"';
+
+			$orderRowNumberattr = $doc->createAttribute("orderRowNumber");
+				$occ->appendChild($orderRowNumberattr);
+				$orderRowNumber = $doc->createTextNode($i);
+				$orderRowNumberattr->appendChild($orderRowNumber);
+	// $pbbstr = $pbbstr . ' orderRowNumber="' . $i . '"';
+	
+				$quantityattr = $doc->createAttribute("quantity");
+				$occ->appendChild($quantityattr);
+				$quantity = $doc->createTextNode(round($orderitem->getQtyOrdered(),2));
+				$quantityattr->appendChild($quantity);
+	// $pbbstr = $pbbstr . ' quantity="' . round($orderitem->getQtyOrdered(),2) . '"';
+
+			$priceattr = $doc->createAttribute("price");
+				$occ->appendChild($priceattr);
+				$price = $doc->createTextNode(100*round($orderitem->getPrice(),2));
+				$priceattr->appendChild($price);
+	// $pbbstr = $pbbstr . ' price="' . 100*round($orderitem->getPrice(),2) . '"';
+			$Delta1 = 100*(round($orderitem->getQtyOrdered(),2))*(round($orderitem->getPrice(),2));
+			$VerifiedOrderSum = $VerifiedOrderSum - $Delta1;
+			 
+			$unitCodeattr = $doc->createAttribute("unitCode");
+				$occ->appendChild($unitCodeattr);
+				$unitCode = $doc->createTextNode("pcs");
+				$unitCodeattr->appendChild($unitCode);
+	// $pbbstr = $pbbstr . ' unitCode="pcs"';
+				
+			$vatattr = $doc->createAttribute("VATAmount");
+				$occ->appendChild($vatattr);
+				$vatvalue = $doc->createTextNode(100*round(($orderitem->getTaxPercent())*(0.01)*($orderitem->getPrice()),2));
+				$vatattr->appendChild($vatvalue);
+	// $pbbstr = $pbbstr . ' VATAmount="' . (100*round(($orderitem->getTaxPercent())*(0.01)*($orderitem->getPrice()),2)) . '"';
+			$Delta2 = 100*round($orderitem->getQtyOrdered(),2)*(round(($orderitem->getTaxPercent())*(0.01)*($orderitem->getPrice()),2));
+			$VerifiedOrderSum =  $VerifiedOrderSum - $Delta2;
+				
+			/* $vatattr = $doc->createAttribute("VATPercent");
+				$occ->appendChild($vatattr);
+				$vatvalue = $doc->createTextNode(round($orderitem->getTaxPercent(),2));
+				$vatattr->appendChild($vatvalue);
+	// $pbbstr = $pbbstr . ' VATPercent="' . 100*round($orderitem->getTaxPercent(),2) . '"'; */
+				
+	// $pbbstr = $pbbstr . '/>' . "\n";
+        $i++;
+	}
+	
+	// add Shipping orderItem
+	//=======================
+	$occ = $doc->createElement("orderItem");
+	$occ = $root->appendChild($occ);
+	// $pbbstr = $pbbstr . '<orderItem';
+
+		// add Shipping attributes
+		//------------------------
+		$itemIDattr = $doc->createAttribute("itemID");
+			$occ->appendChild($itemIDattr);
+			$itemID = $doc->createTextNode("ShippingCost");
+			$itemIDattr->appendChild($itemID);
+	// $pbbstr = $pbbstr . ' itemID="ShippingCost"';
+		
+		$itemdescattr = $doc->createAttribute("itemDescription");
+			$occ->appendChild($itemdescattr);
+			$itemdesc = $doc->createTextNode($order['shipping_description']);
+			$itemdescattr->appendChild($itemdesc);
+	// $pbbstr = $pbbstr . ' itemDescription="' . htmlentities($order['shipping_description']) . '"';
+
+		$orderRowNumberattr = $doc->createAttribute("orderRowNumber");
+			$occ->appendChild($orderRowNumberattr);
+			$orderRowNumber = $doc->createTextNode($i);
+			$orderRowNumberattr->appendChild($orderRowNumber);
+	// $pbbstr = $pbbstr . ' orderRowNumber="' . $i . '"';
+	
+		$quantityattr = $doc->createAttribute("quantity");
+			$occ->appendChild($quantityattr);
+			$quantity = $doc->createTextNode(1);
+			$quantityattr->appendChild($quantity);
+	// $pbbstr = $pbbstr . ' quantity="1"';
+
+		$priceattr = $doc->createAttribute("price");
+			$occ->appendChild($priceattr);
+			$price = $doc->createTextNode(100*round($order['shipping_amount'],2));
+			$priceattr->appendChild($price);
+	// $pbbstr = $pbbstr . ' price="' . 100*round($order['shipping_amount'],2) . '"';
+		$Delta3 = 100*round($order['shipping_amount'],2);
+		$VerifiedOrderSum =  $VerifiedOrderSum - $Delta3;
+
+		$unitCodeattr = $doc->createAttribute("unitCode");
+			$occ->appendChild($unitCodeattr);
+			$unitCode = $doc->createTextNode("pcs");
+			$unitCodeattr->appendChild($unitCode);
+	// $pbbstr = $pbbstr . ' unitCode="pcs"';
+			
+		$vatattr = $doc->createAttribute("VATAmount");
+			$occ->appendChild($vatattr);
+			$vatvalue = $doc->createTextNode(100*round($order['shipping_tax_amount'],2));
+			$vatattr->appendChild($vatvalue);
+	// $pbbstr = $pbbstr . ' VATAmount="' . 100*round($order['shipping_tax_amount'],2) . '"';
+		$Delta4 = 100*round($order['shipping_tax_amount'],2);
+		$VerifiedOrderSum =  $VerifiedOrderSum - $Delta4;
+				
+		/*$vatattr = $doc->createAttribute("VATPercent");
+			$occ->appendChild($vatattr);
+			$vatvalue = $doc->createTextNode("0");
+			$vatattr->appendChild($vatvalue);
+		*/
+	// $pbbstr = $pbbstr . ' VATPercent="0"';
+			
+	// $pbbstr = $pbbstr . '/>' . "\n";
+	
+		if ($VerifiedOrderSum >= 0.01 || $VerifiedOrderSum <= -0.01) {
+		// add ordersum-compensation orderItem
+		//=====================================
+		
+			$occ = $doc->createElement("orderItem");
+				$occ = $root->appendChild($occ);
+			// $pbbstr = $pbbstr . '<orderItem';
+
+			// add ordersum-compensation attributes
+			//-------------------------------------
+			$itemIDattr = $doc->createAttribute("itemID");
+				$occ->appendChild($itemIDattr);
+				$itemID = $doc->createTextNode("RoundingErrComp");
+				$itemIDattr->appendChild($itemID);
+			// $pbbstr = $pbbstr . ' itemID="RoundingErrorCompensation"';
+		
+			$itemdescattr = $doc->createAttribute("itemDescription");
+				$occ->appendChild($itemdescattr);
+				$itemdesc = $doc->createTextNode("Compensation For Rounding Errors");
+				$itemdescattr->appendChild($itemdesc);
+			// $pbbstr = $pbbstr . ' itemDescription="Compensation For Rounding Errors"';
+		
+			$orderRowNumberattr = $doc->createAttribute("orderRowNumber");
+				$occ->appendChild($orderRowNumberattr);
+				$i++;
+				$orderRowNumber = $doc->createTextNode($i);
+				$orderRowNumberattr->appendChild($orderRowNumber);
+			// $pbbstr = $pbbstr . ' orderRowNumber="' . $i . '"';
+
+			$priceattr = $doc->createAttribute("price");
+				$occ->appendChild($priceattr);
+				$price = $doc->createTextNode(round($VerifiedOrderSum,2));
+				$priceattr->appendChild($price);
+			// $pbbstr = $pbbstr . ' price="' . round($VerifiedOrderSum,2) . '"';
+
+			$quantityattr = $doc->createAttribute("quantity");
+				$occ->appendChild($quantityattr);
+				$quantity = $doc->createTextNode(1);
+				$quantityattr->appendChild($quantity);
+			// $pbbstr = $pbbstr . ' quantity="1"';
+
+			$unitCodeattr = $doc->createAttribute("unitCode");
+				$occ->appendChild($unitCodeattr);
+				$unitCode = $doc->createTextNode("pcs");
+				$unitCodeattr->appendChild($unitCode);
+			// $pbbstr = $pbbstr . ' unitCode="pcs"';
+			
+			$vatattr = $doc->createAttribute("VATAmount");
+				$occ->appendChild($vatattr);
+				$vatvalue = $doc->createTextNode(0);
+				$vatattr->appendChild($vatvalue);
+			// $pbbstr = $pbbstr . ' VATAmount="0"';
+			
+			// $pbbstr = $pbbstr . '/>' . "\n";
+		
+		}
+	
+	// $pbbstr = $pbbstr . '</orderInformation>' . "\n";
+
+	?>
+
+	<form method="post" name="payment" id="payment" action ="<? echo $paymate->getDibsUrl() ?>">
+
+		<? if (( $paymate->getConfigData('paymentwindow') == '1') || ( $paymate->getConfigData('paymentwindow') == '2' )) {
+			// Handle FlexWin Or Payment Window ?>
+			<? foreach ($dibsparmeter as $field=>$value) {?> <input type="hidden" name="<? echo $field ?>" value="<? echo $value ?>" /> <?}?>
+			<input type="hidden" name="structuredOrderInformation" value="<? echo htmlentities($doc->saveXML($root)) ?>" id="structuredOrderInformation"/>
+			<!-- <input type="hidden" name="structuredOrderInformation" value="<? /* echo htmlentities($pbbstr) */ ?>" id="structuredOrderInformation"/> -->
+		<? } else { ?>
+			<? throw new exception("Exception: Invalid DIBS Payment Metod Called"); ?>
+		<? } ?>
+	
+	</form>
+	
+	<?
+	// Save the order into the dibs_order_status table
+	//=================================================
+	$paymate->storeDIBSorderdata($dibsparmeter['orderid']);
+	?>
+	
+	<script type="text/javascript">
+		setTimeout("document.getElementById('payment').submit();",1000);
+	</script>
+	
+   </body>
+</html>

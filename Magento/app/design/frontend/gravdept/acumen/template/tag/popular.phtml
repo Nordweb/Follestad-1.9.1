@@ -1,0 +1,24 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<div id="popular-tags" class="callout">
+	<h2><?php echo $this->__('Popular Tags'); ?></h2>
+	
+	<ul class="tags-list">
+		<?php foreach ($this->getTags() as $_tag): ?>
+			<li><a href="<?php echo $_tag->getTaggedProductsUrl() ?>" <?php /* style="font-size:<?php echo $_tag->getRatio()*70+75 ?>%;" */ ?>><?php echo $this->htmlEscape($_tag->getName()) ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+
+	<a class="all-tags" href="<?php echo $this->getUrl('tag/list') ?>"><?php echo $this->__('View All Tags') ?></a>
+</div>

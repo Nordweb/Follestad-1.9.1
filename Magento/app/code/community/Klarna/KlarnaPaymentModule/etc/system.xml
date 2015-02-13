@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <klarna>
+            <label>Klarna</label>
+            <tab>sales</tab>
+            <class>klarna_label</class>
+            <header_css>klarna</header_css>
+            <frontend_type>text</frontend_type>
+            <sort_order>350</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Settings</label>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <host translate="label">
+                            <label>Server</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>klarnaPaymentModule/source_servermode</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>Choose what server to make calls to.</comment>
+                        </host>
+
+                        <integration translate="label">
+                            <label>Integration mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>klarnaPaymentModule/source_integrationmode</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </integration>
+
+                        <tax_class translate="label">
+                            <label>Invoice fee tax class</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_shipping_taxclass</source_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The tax class to use to calculate the invoice fee tax</comment>
+                        </tax_class>
+
+                        <activated_countries>
+                            <label>Activated Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>klarnaPaymentModule/source_countries</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </activated_countries>
+
+                        <check_on_login translate="label">
+                            <label>I want to check for updates when logging in to the backend</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>Uncheck if you don't wish to check everytime you log into the backend</comment>
+                        </check_on_login>
+
+                        <updates translate="label">
+                            <label>Check for updates</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>klarnaPaymentModule/adminhtml_updates</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>Check to see if there's a new version available for the Klarna module</comment>
+                        </updates>
+                    </fields>
+                </general>
+
+                <pclasses>
+                    <label>PClasses</label>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <comment>This will fetch PClasses for every Store View in your shop.</comment>
+                    <fields>
+                        <buttons translate="label">
+                            <label>PClasses</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>klarnaPaymentModule/adminhtml_pclasses</frontend_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>Submit the form and view or update your PClasses.</comment>
+                        </buttons>
+                    </fields>
+                </pclasses>
+
+                <payments>
+                    <label>Payment Options</label>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <invoice_enabled>
+                            <label>Invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>klarnaPaymentModule/source_methodstatus</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </invoice_enabled>
+                        <invoice_sort_order>
+                            <label>Invoice Sort Order</label>
+                            <sort_order>45</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <value>-100</value>
+                            <comment>Weight of the option. Lower value means higher placement.</comment>
+                        </invoice_sort_order>
+                        <partpay_enabled>
+                            <label>PartPayment</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>klarnaPaymentModule/source_methodstatus</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </partpay_enabled>
+                        <partpay_sort_order>
+                            <label>PartPayment Sort Order</label>
+                            <sort_order>55</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <value>-100</value>
+                            <comment>Weight of the option. Lower value means higher placement.</comment>
+                        </partpay_sort_order>
+                        <speccamp_enabled>
+                            <label>Special Campaigns</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>klarnaPaymentModule/source_methodstatus</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </speccamp_enabled>
+                        <speccamp_sort_order>
+                            <label>Special Campaigns Sort Order</label>
+                            <sort_order>65</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <value>-100</value>
+                            <comment>Weight of the option. Lower value means higher placement.</comment>
+                        </speccamp_sort_order>
+                    </fields>
+                </payments>
+
+                <se>
+                    <label>Swedish Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in SEK</comment>
+                        </invoice_fee>
+                    </fields>
+                </se>
+
+                <de>
+                    <label>German Settings</label>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in EUR</comment>
+                        </invoice_fee>
+
+                        <agblink translate="label">
+                            <label>Complete URL to your AGB page</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                        </agblink>
+                    </fields>
+                </de>
+
+                <fi>
+                    <label>Finnish Settings</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in EUR</comment>
+                        </invoice_fee>
+                    </fields>
+                </fi>
+
+                <no>
+                    <label>Norwegian Settings</label>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in NOK</comment>
+                        </invoice_fee>
+                    </fields>
+                </no>
+
+                <nl>
+                    <label>Dutch Settings</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in EUR</comment>
+                        </invoice_fee>
+                    </fields>
+                </nl>
+
+                <dk>
+                    <label>Danish Settings</label>
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_store>1</show_in_store>
+                    <show_in_website>1</show_in_website>
+                    <fields>
+                        <merchant_id translate="label">
+                            <label>Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The merchant id that you have received from Klarna</comment>
+                        </merchant_id>
+
+                        <shared_secret translate="label">
+                            <label>Shared secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>The shared secret that you have received from Klarna</comment>
+                        </shared_secret>
+
+                        <invoice_fee translate="label">
+                            <label>Invoice fee</label>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Invoice Fee in DKK</comment>
+                        </invoice_fee>
+                    </fields>
+                </dk>
+
+                <advanced>
+                    <label>Advanced</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <altcredtime translate="label">
+                            <label>I want to use an alternative credit time for company purchases</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>Only check this if you have an agreement with Klarna</comment>
+                        </altcredtime>
+
+                        <send_by_email translate="label">
+                            <label>Send invoice by email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_store>1</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <comment>If you enable this the invoice from Klarna will
+                                be sent by email automatically when activating via
+                                Magento.</comment>
+                        </send_by_email>
+                    </fields>
+                </advanced>
+            </groups>
+        </klarna>
+        <payment>
+            <groups>
+                <klarna_settings translate="label" module="klarnaPaymentModule">
+                    <frontend_model>klarnaPaymentModule/adminhtml_config_hint</frontend_model>
+                    <sort_order>-50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </klarna_settings>
+            </groups>
+        </payment>
+    </sections>
+</config>

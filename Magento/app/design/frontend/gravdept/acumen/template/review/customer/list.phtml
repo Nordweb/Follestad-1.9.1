@@ -1,0 +1,60 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+
+<h1><?php echo $this->__('My Reviews') ?></h1>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if( $this->getCollection() && $this->count()): ?>
+	<div id="dashboard-top-bar" class="toolbar">
+		<?php echo $this->getToolbarHtml() ?>
+	</div>
+	
+	<table id="my-reviews-table" class="flex">
+		<tbody>
+			<?php foreach ($this->getCollection() as $_review): ?>
+				<tr>
+					<td>
+						<?php if($_review->getSum()): ?>
+							<div class="rating-box">
+								<div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+							</div>
+						<?php else: ?>
+							&nbsp;
+						<?php endif; ?>
+					</td>
+					
+					<td class="width-full">
+						<a class="product-name" href="<?php echo $this->getProductLink() ?>id/<?php echo $_review->getEntityPkValue() ?>"><?php echo $this->htmlEscape($_review->getName()) ?></a>
+						<?php /*<?php echo $this->helper('review')->getDetailHtml($_review->getDetail()) ?>*/ ?>
+					</td>
+					
+					<td class="nobr">
+						<span class="date">
+							<?php echo date( 'M. j, Y', strtotime( $this->dateFormat($_review->getReviewCreatedAt()) ) ); /* custom */ ?>
+							<?php /* echo $this->dateFormat($_review->getReviewCreatedAt()) */  /* original */ ?>
+						</span>
+					</td>
+					
+					<td><a class="faux-button" href="<?php echo $this->getReviewLink() ?>id/<?php echo $_review->getReviewId() ?>"><?php echo $this->__('View My Review') ?></a></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<div id="dashboard-bottom-bar" class="toolbar">
+		<?php echo $this->getToolbarHtml() ?>
+	</div>
+<?php else: ?>
+	<p><?php echo $this->__('You have not written any reviews.') ?></p>
+<?php endif; ?>

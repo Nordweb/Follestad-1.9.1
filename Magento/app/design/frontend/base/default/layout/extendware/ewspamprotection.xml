@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<layout version="1.1.0">
+	<sendfriend_product_send>
+		<update handle="ewspamprotection_sendfriend_product_send_handle" ewifhelper="ewspamprotection/layout/isSendFriendFormEnabled"/>
+	</sendfriend_product_send>
+
+	<contacts_index_index>
+		<update handle="ewspamprotection_contacts_index_index_handle" ewifhelper="ewspamprotection/layout/isContactFormEnabled"/>
+	</contacts_index_index>
+
+	<customer_account_create>
+		<update handle="ewspamprotection_customer_account_create_handle" ewifhelper="ewspamprotection/layout/isRegisterFormEnabled"/>
+	</customer_account_create>
+	
+	<review_product_list translate="label">
+        <update handle="ewspamprotection_review_product_list_handle" ewifhelper="ewspamprotection/layout/isReviewFormEnabled"/>
+    </review_product_list>
+
+
+	<ewspamprotection_sendfriend_product_send_handle>
+		<reference name="sendfriend.send">
+			<action method="setTemplate">
+				<template>extendware/ewspamprotection/sendfriend/send.phtml</template>
+			</action>
+			<block type="ewspamprotection/captcha" name="ewspamprotection" as="ewspamprotection">
+				<action method="setConfigScope"><scope>email_friend</scope></action>
+				<block type="ewspamprotection/captcha_script" name="ewspamprotection.script" as="ewspamprotection_script"/>
+			</block>
+		</reference>
+	</ewspamprotection_sendfriend_product_send_handle>
+
+	<ewspamprotection_contacts_index_index_handle>
+		<reference name="contactForm">
+			<action method="setTemplate">
+				<template>extendware/ewspamprotection/contacts/form.phtml</template>
+			</action>
+			<block type="ewspamprotection/captcha" name="ewspamprotection" as="ewspamprotection">
+				<action method="setConfigScope"><scope>contact_us</scope></action>
+				<block type="ewspamprotection/captcha_script" name="ewspamprotection.script" as="ewspamprotection_script"/>
+			</block>
+		</reference>
+	</ewspamprotection_contacts_index_index_handle>
+
+	<ewspamprotection_customer_account_create_handle>
+		<reference name="customer_form_register">
+			<action method="setTemplate">
+				<template>extendware/ewspamprotection/customer/form/register.phtml</template>
+			</action>
+			<block type="ewspamprotection/captcha" name="ewspamprotection" as="ewspamprotection">
+				<action method="setConfigScope"><scope>account_registration</scope></action>
+				<block type="ewspamprotection/captcha_script" name="ewspamprotection.script" as="ewspamprotection_script"/>
+			</block>
+		</reference>
+	</ewspamprotection_customer_account_create_handle>
+	
+	<ewspamprotection_review_product_list_handle>
+        <reference name="product.review.form">
+			<action method="setTemplate">
+				<template>extendware/ewspamprotection/review/form.phtml</template>
+			</action>
+			<block type="ewspamprotection/captcha" name="ewspamprotection" as="ewspamprotection">
+				<action method="setConfigScope"><scope>product_review</scope></action>
+				<block type="ewspamprotection/captcha_script" name="ewspamprotection.script" as="ewspamprotection_script"/>
+			</block>
+		</reference>
+    </ewspamprotection_review_product_list_handle>
+</layout>

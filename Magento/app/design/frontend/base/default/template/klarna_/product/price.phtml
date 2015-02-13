@@ -1,0 +1,41 @@
+<?php
+
+// For some reason inline translation doesnt work
+// when this is enabled so we skip it when using inline translation
+if(Mage::getStoreConfig("dev/translate_inline/active") == 1)
+	return false;
+
+$storeID = Mage::app()->getStore()->getId();
+$eid = Mage::getStoreConfig('payment/klarna_partpayment/merchant_id', $storeID);
+
+$imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
+$tulip = $imgPath . 'frontend/base/default/klarna/logo/klarna_tulip.gif';
+$nlBanner = $imgPath . 'frontend/base/default/klarna/checkout/notice_nl.jpg';
+$tulip = $imgPath . 'frontend/base/default/klarna/logo/klarna_tulip.gif';
+
+$lang = Mage::helper('klarnaPaymentModule/lang');
+$fromText = $lang->fetch('PPBOX_fromText', $this->getLang());
+$cost = Mage::helper("core")->formatPrice($this->getMonthlycost());
+$monthText = $lang->fetch('PPBOX_monthText', $this->getLang());
+$asterisk = ($this->getLang() == 'DE') ? '*' : '';
+?>
+<script type="text/javascript"
+    src="https://static.klarna.com/external/js/klarnaConsentNew.js"></script>
+<script type="text/javascript">
+    openAgreement('<?php echo strtolower($this->getLang()); ?>');
+</script>
+<div class="klarna_pp_text">
+    <span style="font-weight: bold;" class="klarna_pp_cost">
+        <a href="javascript:ShowKlarnaPopup('<?php echo $eid; ?>', '<?php echo $this->getSum(); ?>', 'part')">
+            <img src="<?php echo $tulip; ?>" />
+        <?php
+        echo "{$fromText} {$cost}{$monthText}{$asterisk}";
+        ?>
+        </a>
+        <?php if ($this->getLang() == 'nl'): ?>
+            <div class="nlBanner">
+                <img width="100%" src="<?php echo $nlBanner; ?>" />
+            </div>
+        <?php endif; ?>
+    </span>
+</div>

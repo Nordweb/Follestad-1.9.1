@@ -1,0 +1,89 @@
+<?php
+$configScope = $this->getConfigScope();
+$key = Mage::getSingleton('ewspamprotection/provider_opencaptcha')->getKey($this->getUniqueId());
+$width = 300;
+$height = 57;
+
+$theme = $infoMessage = $containerCSS = $noteMessage = '';
+if ($this->getMode() == 'custom') {
+	$theme = $this->getTheme();
+	$infoMessage = $this->getInfoMessage();
+	$containerCss = $this->getContainerCss();
+} else {
+	$theme = $this->getCaptcha()->getTheme();
+	$infoMessage = $this->getCaptcha()->getInfoMessage();
+	$containerCSS = $this->getCaptcha()->getContainerCss();
+}
+?>
+
+<?php if($theme == 'magento_standard'): ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" class="fieldset wide" style="<?php echo $containerCSS; ?>">
+        <h2 class="legend" style="background-image: none;">CAPTCHA</h2>
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px;"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: <?php echo (int)($width + 5); ?>px">
+                <div style="border: 1px solid #BBAFA0; text-align: center; background-color: white; width: <?php echo (int)$width; ?>px; height: <?php echo (int)$height; ?>px;">
+                	<img src="<?php echo Mage::getSingleton('ewspamprotection/provider_opencaptcha')->getImageUrl($key, $width, $height); ?>" width="<?php echo (int)$width; ?>" height="<?php echo (int)$height; ?>" id="<?php echo $this->getUniqueId('ewspamprotection_image'); ?>">
+                </div>
+                <div style="text-align: left; margin-top: 10px;">
+                    <span class="ewspamprotection_only_if_image"><?php echo $this->__('Enter the letters above'); ?>:</span>
+                    <input type="text" name="ewspamprotection_response_field" class="input-text required-entry" id="ewspamprotection_response_field" style="width: 150px;"/>
+                	<input type="hidden" name="ewspamprotection_challenge_field" id="ewspamprotection_challenge_field" value="<?php echo $key; ?>"/>
+                	<input type="hidden" name="ewspamprotection_width_field" id="ewspamprotection_width_field" value="<?php echo $width; ?>"/>
+                	<input type="hidden" name="ewspamprotection_height_field" id="ewspamprotection_height_field" value="<?php echo $height; ?>"/>
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:<?php echo $this->getUniqueId('ewspamprotection'); ?>.reload('<?php echo $this->getUniqueId('ewspamprotection_image'); ?>');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div>
+    <?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php elseif($theme == 'magento_box'): ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" class="fieldset wide" style="<?php echo $containerCSS; ?>">
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: <?php echo (int)($width + 5); ?>px">
+				<div style="border: 1px solid #BBAFA0; text-align: center; background-color: white; width: <?php echo (int)$width; ?>px; height: <?php echo (int)$height; ?>px;">
+                	<img src="<?php echo Mage::getSingleton('ewspamprotection/provider_opencaptcha')->getImageUrl($key, $width, $height); ?>" width="<?php echo (int)$width; ?>" height="<?php echo (int)$height; ?>" id="<?php echo $this->getUniqueId('ewspamprotection_image'); ?>">
+                </div>
+                <div style="text-align: left; margin-top: 10px;">
+                    <span class="ewspamprotection_only_if_image"><?php echo $this->__('Enter the letters above'); ?>:</span>
+                    <input type="text" name="ewspamprotection_response_field" class="input-text required-entry" id="ewspamprotection_response_field" style="width: 150px;"/>
+                	<input type="hidden" name="ewspamprotection_challenge_field" id="ewspamprotection_challenge_field" value="<?php echo $key; ?>"/>
+                	<input type="hidden" name="ewspamprotection_width_field" id="ewspamprotection_width_field" value="<?php echo $width; ?>"/>
+                	<input type="hidden" name="ewspamprotection_height_field" id="ewspamprotection_height_field" value="<?php echo $height; ?>"/>
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:<?php echo $this->getUniqueId('ewspamprotection'); ?>.reload('<?php echo $this->getUniqueId('ewspamprotection_image'); ?>');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div>
+    <?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php else: ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" style="<?php echo $containerCSS; ?>">
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: <?php echo (int)($width + 5); ?>px">
+				<div style="border: 1px solid #BBAFA0; text-align: center; background-color: white; width: <?php echo (int)$width; ?>px; height: <?php echo (int)$height; ?>px;">
+                	<img src="<?php echo Mage::getSingleton('ewspamprotection/provider_opencaptcha')->getImageUrl($key, $width, $height); ?>" width="<?php echo (int)$width; ?>" height="<?php echo (int)$height; ?>" id="<?php echo $this->getUniqueId('ewspamprotection_image'); ?>">
+                </div>
+                <div style="text-align: left; margin-top: 10px;">
+                	<span class="ewspamprotection_only_if_image"><?php echo $this->__('Enter the letters above'); ?>:</span>
+                    <input type="text" name="ewspamprotection_response_field" class="input-text required-entry" id="ewspamprotection_response_field" style="width: 150px;"/>
+                	<input type="hidden" name="ewspamprotection_challenge_field" id="ewspamprotection_challenge_field" value="<?php echo $key; ?>"/>
+                	<input type="hidden" name="ewspamprotection_width_field" id="ewspamprotection_width_field" value="<?php echo $width; ?>"/>
+                	<input type="hidden" name="ewspamprotection_height_field" id="ewspamprotection_height_field" value="<?php echo $height; ?>"/>
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:<?php echo $this->getUniqueId('ewspamprotection'); ?>.reload('<?php echo $this->getUniqueId('ewspamprotection_image'); ?>')"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div> 
+    <?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php endif; ?>

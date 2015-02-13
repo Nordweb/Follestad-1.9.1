@@ -1,0 +1,32 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<div id="dashboard-account-info" class="grid">
+	<div class="grid_2 alpha">
+		<h3><?php echo $this->__('Account Info') ?></h3>
+		<a href="<?php echo $this->getUrl('customer/account/edit') ?>"><?php echo $this->__('Edit') ?></a>
+	</div>
+	
+	<div class="grid_8 omega">
+		<dl>
+			<dt><?php echo $this->__('Name') ?></dt>
+			<dd><?php echo $this->htmlEscape($this->getCustomer()->getName()) ?></dd>
+			
+			<dt><?php echo $this->__('Email') ?></dt>
+			<dd><?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?></dd>
+			
+			<dt><?php echo $this->__('Password') ?></dt>
+			<dd><a href="<?php echo $this->getChangePasswordUrl() ?>"><?php echo $this->__('Change Password') ?></a></dd>
+		</dl>
+	</div>
+</div>

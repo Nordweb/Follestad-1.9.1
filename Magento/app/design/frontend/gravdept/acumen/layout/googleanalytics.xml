@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.3
+ */
+-->
+
+<layout version="0.1.0">
+
+<!--
+Default layout, loads most of the pages
+-->
+
+	<default>
+		<!-- Mage_GoogleAnalytics -->
+		<reference name="before_body_end">
+			<block type="googleanalytics/ga" name="google_analytics" as="google_analytics" after="-" />
+		</reference>
+	</default>
+</layout>

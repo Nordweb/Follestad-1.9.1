@@ -1,0 +1,18 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<div id="logged-out" class="block">
+	<h1><?php echo $this->__('Logged Out') ?></h1>
+	<p><?php echo $this->__('You are logged out of your account.') ?></a></p>
+	<a class="faux-button" href="<?php echo $this->helper('customer')->getLoginUrl() ?>"><?php echo $this->__('Log In') ?></a>
+</div>

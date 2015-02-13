@@ -1,0 +1,33 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<form id="co-shipping-method-form" class="simple" action="">
+	<div id="checkout-shipping-method-load">
+		<?php echo $this->getChildHtml('available') ?>
+	</div>
+
+	<script type="text/javascript">
+		//<![CDATA[
+			var shippingMethod = new ShippingMethod('co-shipping-method-form', "<?php echo $this->getUrl('checkout/onepage/saveShippingMethod') ?>");
+		//]]>
+	</script>
+
+	<div id="onepage-checkout-shipping-method-additional-load">
+		<?php echo $this->getChildHtml('additional') ?>
+	</div>
+
+	<div id="shipping-method-buttons-container">
+		<button onclick="shippingMethod.save()"><?php echo $this->__('Continue') ?></button>
+		<span id="shipping-method-please-wait" class="opc-ajax-loading" style="display:none;"><?php echo $this->__('Loading') ?></span>
+	</div>
+</form>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+ 
+<config>
+	<tabs>
+		<trollweb translate="label" module="consignor">
+			<label>Trollweb</label>
+			<sort_order>310</sort_order>
+		</trollweb>
+	</tabs>
+	<sections>
+		<trollweb_consignor translate="label" module="consignor">
+			<label>Consignor</label>
+			<tab>trollweb</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>911</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+         <consignor_config translate="label">
+					<label>Consignor Settings</label>
+					<frontend_type>text</frontend_type>
+          <frontend_model>trollweb_consignor_block_title</frontend_model>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label comment">
+							<label>Active</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Is the module active for this store?]]></comment>
+						</enable>
+						<serial_number translate="label comment">
+							<label>Serial number</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Serial number for this store]]></comment>
+						</serial_number>
+						<weight_unit translate="label comment">
+							<label>Weight Unit</label>
+							<frontend_type>select</frontend_type>
+							<source_model>consignor/source_weightunit</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Select between (grams and kg) Choose what weight unit is used on the products in the store]]></comment>
+						</weight_unit>
+            <poststed_field translate="label comment">
+              <label>"Poststed" field</label>
+              <frontend_type>select</frontend_type>
+              <source_model>consignor/source_city</source_model>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment><![CDATA[Choose which field in the address that should be transferred as "Poststed"]]></comment>
+            </poststed_field>
+            <cod_method translate="label comment">
+              <label>Cash-on-delivery method</label>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>consignor/source_paymentmethods</source_model>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment><![CDATA[Choose which paymentmethod should activate COD]]></comment>
+            </cod_method>
+					</fields>
+				</consignor_config>
+			</groups>
+		</trollweb_consignor>
+	</sections>
+</config>

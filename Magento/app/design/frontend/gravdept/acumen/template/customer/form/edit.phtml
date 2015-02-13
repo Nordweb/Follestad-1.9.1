@@ -1,0 +1,101 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.5
+ */
+?>
+
+<h1><?php echo $this->__('Edit Account / Password') ?></h1>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<form action="<?php echo $this->getUrl('customer/account/editPost') ?>" method="post" id="edit-account-info-form" class="scaffold">
+	<?php echo $this->getBlockHtml('formkey')?>
+	
+	<h2><?php echo $this->__('Account Info') ?></h2>
+	
+	<ul class="struts">
+		<?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getCustomer())->toHtml() ?>
+		
+		<li>
+			<label for="email"><?php echo $this->__('Email') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+			<input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" class="input-text required-entry validate-email" />
+		</li>
+		
+		<?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+		<?php if ($_dob->isEnabled()): ?>
+			<li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
+		<?php endif ?>
+		
+		<?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+		<?php if ($_taxvat->isEnabled()): ?>
+			<li><?php echo $_taxvat->setTaxvat($this->getCustomer()->getTaxvat())->toHtml() ?></li>
+		<?php endif ?>
+	
+		<?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+		<?php if ($_gender->isEnabled()): ?>
+			<li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
+		<?php endif ?>
+		
+		<li class="control">
+			<input type="checkbox" name="change_password" id="change_password" value="1" onclick="setPasswordForm(this.checked)" <?php if($this->getCustomer()->getChangePassword()==1): ?> checked="checked"<?php endif; ?> class="checkbox" />
+			<label for="change_password"><?php echo $this->__('Change Password') ?></label>
+		</li>
+	</ul>
+
+	<div id="new-password-wrapper" style="display:none;">
+		<h2><?php echo $this->__('Change Password') ?></h2>
+		
+		<ul class="struts">
+			<li>
+				<label for="current_password"><?php echo $this->__('Current Password') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+				<input type="password" class="input-text" name="current_password" id="current_password" />
+			</li>
+			
+			<li>
+				<label for="password"><?php echo $this->__('New Password') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+				<input type="password" class="input-text validate-password" name="password" id="password" />
+			</li>
+			
+			<li>
+				<label for="confirmation"><?php echo $this->__('Confirm New Password') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+				<input type="password" class="input-text validate-cpassword" name="confirmation" id="confirmation" />
+			</li>
+		</ul>
+	</div>
+	
+	<button type="submit"><?php echo $this->__('Update') ?></button>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+	var dataForm = new VarienForm('edit-account-info-form', true);
+	function setPasswordForm(arg){
+		if(arg){
+			/*$('current_password').up(3).show();*/  /* original */
+			$('new-password-wrapper').show();  /* GravDept, better selector. Doesn't rely on DOM parent traversal */
+			
+			$('current_password').addClassName('required-entry');
+			$('password').addClassName('required-entry');
+			$('confirmation').addClassName('required-entry');
+
+		}else{
+			/*$('current_password').up(3).hide();*/  /* Mage */
+			$('new-password-wrapper').hide();  /* GravDept, better selector. Doesn't rely on DOM parent traversal */
+			
+			$('current_password').removeClassName('required-entry');
+			$('password').removeClassName('required-entry');
+			$('confirmation').removeClassName('required-entry');
+		}
+	}
+	<?php if($this->getCustomer()->getChangePassword()): ?>
+		setPasswordForm(true);
+	<?php endif; ?>
+//]]>
+</script>

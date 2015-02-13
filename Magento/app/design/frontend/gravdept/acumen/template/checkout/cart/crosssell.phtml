@@ -1,0 +1,42 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+<?php
+/**
+ * Cart cross sell items template
+ *
+ * @see Mage_Checkout_Block_Cart_Crosssell
+ */
+?>
+
+<?php if($this->getItemCount()): ?>
+	<div class="block callout">
+		<h2>
+			<?php echo $this->__('Recommended Products') ?>
+			<span class="note"><?php echo $this->__('Based on your cart, you may be interested in these products also.') ?></span>
+		</h2>
+	
+		<ul id="cross-sell">
+			<?php foreach ($this->getItems() as $_item): ?>
+				<li>
+					<a class="product-image" href="<?php echo $_item->getProductUrl() ?>"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(200, 200) ?>" alt="<?php echo $this->htmlEscape($_item->getName()) ?>" /></a>
+					
+					<div>
+						<a class="product-name" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->htmlEscape($_item->getName()) ?></a>
+						<?php echo $this->getPriceHtml($_item, true) ?>
+						<a class="faux-button" href="<?php echo $this->getAddToCartUrl($_item) ?>"><?php echo $this->__('Add To Cart') ?></a>
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+<?php endif; ?>

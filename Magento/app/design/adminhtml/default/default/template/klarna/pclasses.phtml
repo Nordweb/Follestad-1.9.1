@@ -1,0 +1,36 @@
+<?php if ($hasPClasses === true): ?>
+    <table class="pclassTable">
+        <tr>
+            <th>Country</th>
+            <th>PClass ID</th>
+            <th>Merchant ID</th>
+            <th>Description</th>
+            <th>Expiry date</th>
+            <th>Months</th>
+            <th>Start fee</th>
+            <th>Invoice fee</th>
+            <th>Interest rate</th>
+            <th>Minimum amount</th>
+        </tr>
+        <?php foreach($pclasses AS $pclass): ?>
+        <tr>
+            <?php
+            $flag = "//cdn.klarna.com/public/kitt/res/v1.1/img/flags/".
+                    strtolower($pclass['country']) . ".png";
+            ?>
+            <td><img src="<?php echo $flag; ?>"/></td>
+            <td><?php echo $pclass['id']; ?></td>
+            <td><?php echo $pclass['eid']; ?></td>
+            <td><?php echo $pclass['description']; ?></td>
+            <td><?php echo $pclass['expiryDate']; ?></td>
+            <td><?php echo $pclass['months']; ?></td>
+            <td><?php echo $pclass['startFee']; ?></td>
+            <td><?php echo $pclass['invoiceFee']; ?></td>
+            <td><?php echo $pclass['interestRate']; ?></td>
+            <td><?php echo $pclass['minAmount']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    <div class="pclassNotice">No PClasses in the database</div>
+<?php endif; ?>

@@ -1,0 +1,36 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.3.1
+ */
+?>
+
+<form id="newsletter-form" action="#subscribe<?php //echo $this->getUrl('newsletter/subscriber/new') ?>" method="post">
+	<label for="newsletter-email"><?php echo $this->__('Subscribe to our Newsletter') ?></label>
+	<input type="text" id="newsletter-email" name="pf_Email" class="required-entry validate-email" placeholder="<?php echo $this->__('name@example.com') ?>" />
+						<input type="hidden" name="pf_FormType" value="OptInForm" />
+						<input type="hidden" name="pf_OptInMethod" value="SingleOptInMethod" />
+						<input type="hidden" name="pf_CounterDemogrFields" value="0" />
+						<input type="hidden" name="pf_CounterMailinglists" value="1" />
+						<input type="hidden" name="pf_AccountId" value="8052" />
+						<input type="hidden" name="pf_ListById" value="1" />
+						<input type="hidden" name="pf_Version" value="2" />
+						<input type="hidden" name="pf_MailinglistName1" value="119615" />
+						<input type="hidden" name="formId" value="4243514B7447455E4771" />
+						<input type="hidden" name="pf_SubscriberName" value="" />
+	<div style="display: none" id="advice-validate-email-newsletter-email" class="validation-advice"></div>
+	<button type="submit"><?php echo $this->__('Subscribe') ?></button>
+</form>
+
+<script type="text/javascript">
+	//<![CDATA[
+	//var newsletterSubscriberFormDetail = new VarienForm('newsletter-form');
+	
+	//]]>
+</script>

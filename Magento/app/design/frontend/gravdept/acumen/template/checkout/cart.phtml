@@ -1,0 +1,110 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.5
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+
+<div class="block">
+	<h1><?php echo $this->__('My Cart') ?></h1>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+</div>
+
+<div class="grid">
+	<div class="grid_9">
+		<form id="cart-update-form" action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+			<table id="cart-table" class="flex" cellspacing="0">
+				<?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+			
+				<thead>
+					<tr>
+						<th class="remove" rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Remove') ?></th>
+						<th class="width-full" rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product') ?></th>
+						
+						<?php /* GravDept, hidden in /checkout/cart/item/default.phtml */ ?>
+						<?php /*
+						<th rowspan="<?php echo $mergedCells; ?>"></th>
+						*/ ?>
+						
+						<?php /* GravDept, hidden in /checkout/cart/item/default.phtml */ ?>
+						<?php /*
+						<?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+							<th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Move To Wishlist') ?></th>
+						<?php endif; ?>
+						*/ ?>
+						
+						<th class="align-right" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Price') ?></th>
+						<th rowspan="<?php echo $mergedCells; ?>"><abbr title="<?php echo $this->__('Quantity') ?>"><?php echo $this->__('Qty.') ?></abbr></th>
+						<th class="align-right" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Subtotal') ?></th>
+					</tr>
+					
+					<?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+						<tr>
+							<th class="currency_cell"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+							<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+							<th class="currency_cell"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+							<th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+						</tr>
+					<?php endif; ?>
+				</thead>
+				
+				<tfoot>
+					<tr>
+						<td colspan="50">
+							<button type="submit"><?php echo $this->__('Update Quantity') ?></button>
+						</td>
+					</tr>
+				</tfoot>
+				
+				<tbody>
+					<?php foreach($this->getItems() as $_item): ?>
+						<?php echo $this->getItemHtml($_item) ?>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	
+	<div class="grid_3 callout">
+		<?php /*if(!$this->hasError()): ?>
+			<?php echo $this->getChildHtml('top_methods') ?>
+		<?php endif;*/ ?>
+		
+		<?php echo $this->getChildHtml('totals'); ?>
+		
+		<?php if(!$this->hasError()): ?>
+			<div id="cart-checkout-methods">
+				<?php echo $this->getChildHtml('methods') ?>
+			</div>
+		<?php endif; ?>
+	</div>
+</div>
+
+<div id="cart-widgets" class="grid">
+	<div id="cart-coupon" class="grid_4 callout">
+		<?php echo $this->getChildHtml('coupon') ?>
+	</div>
+	
+	<div id="cart-shipping" class="grid_8 callout">
+		<?php if (!$this->getIsVirtual()): ?>
+			<?php echo $this->getChildHtml('shipping'); ?>
+		<?php else: ?>
+			&nbsp;
+		<?php endif; ?>
+	</div>	
+</div>
+
+<?php echo $this->getChildHtml('crosssell') ?>

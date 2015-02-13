@@ -1,0 +1,48 @@
+<script type="text/javascript">
+__klarna_invoice = new Klarna.Checkout.Invoice({
+    box: 'klarna_box_invoice',
+
+    eid: '{{config.eid}}',
+    ajax_path: '{{config.web.ajax}}',
+
+    charge: '{{invoice_fee}}',
+    country: '{{country}}',
+    language: '{{language}}',
+
+    lang: {
+        companyNotAllowed: '{{lang.company_not_allowed}}',
+        personNum: '{{lang.person_number}}',
+        orgNum: '{{lang.organisation_number}}'
+    },
+
+    params: {
+        companyName: '{{input.companyName}}',
+        socialNumber: '{{input.socialNumber}}',
+        firstName: '{{input.firstName}}',
+        lastName: '{{input.lastName}}',
+        gender: '{{input.gender}}',
+        street: '{{input.street}}',
+        homenumber: '{{input.homenumber}}',
+        house_extension: '{{input.house_extension}}',
+        city: '{{input.city}}',
+        zipcode: '{{input.zipcode}}',
+        reference: '{{input.reference}}',
+        phoneNumber: '{{input.phoneNumber}}',
+        emailAddress: '{{input.emailAddress}}',
+        invoiceType: '{{input.invoiceType}}',
+        shipmentAddressInput: '{{input.shipmentAddressInput}}',
+        birth_day: '{{input.birth_day}}',
+        birth_month: '{{input.birth_month}}',
+        birth_year: '{{input.birth_year}}',
+        paymentPlan: '{{input.paymentPlan}}'
+    }
+
+    {{#config.collapse}}
+	,
+    collapse: {
+        selector : '{{config.selector}}',
+        paymentCode : '{{paymentCode}}'
+    }
+    {{/config.collapse}}
+});
+</script>

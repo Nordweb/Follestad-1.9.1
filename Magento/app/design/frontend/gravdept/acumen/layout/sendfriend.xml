@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+-->
+
+<layout version="0.1.0">
+    <sendfriend_product_send translate="label">
+        <label>Catalog Product Email to a Friend</label>
+        <reference name="root">
+        	<!-- custom -->
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>varien/product.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="sendfriend/send" name="sendfriend.send" template="sendfriend/send.phtml" />
+        </reference>
+    </sendfriend_product_send>
+</layout>

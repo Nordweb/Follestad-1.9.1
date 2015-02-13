@@ -1,0 +1,49 @@
+<!-- KLARNA BOX -->
+<!--[if IE 6 ]> <div class="klarna_box_container ie6"> <![endif]-->
+<!--[if IE 7 ]> <div class="klarna_box_container ie7"> <![endif]-->
+<!--[if IE 8 ]> <div class="klarna_box_container ie8"> <![endif]-->
+<!--[if IE 9 ]> <div class="klarna_box_container ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <div class="klarna_box_container"> <!--<![endif]-->
+    <div class="klarna_box" id="klarna_box_spec">
+        <div class="klarna_box_top">
+            <div id="klarna_box_spec_top_right" class="klarna_box_top_right">
+                <div class="language">
+                    {{>flags}}
+                    <div class="klarna_box_bottom_languageInfo">
+                        <img src="{{config.web.img}}checkout/notice.png"
+                            alt="{{lang.languageSetting_note_nl}}" />
+                        <div class="klarna_language_notice">
+                            <span class="klarna_translate" data-t-key="languageSetting_note_nl">{{lang.languageSetting_note_nl}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="klarna_box_top_agreement"></div>
+            </div>
+            <span class="klarna_logo_special_nl"> </span>
+        </div>
+        <div class="klarna_box_bottom">
+            <div class="klarna_box_bottom_contents">
+                <div class="klarna_box_bottom_left">
+                    {{>error}}
+                    <div class="klarna_box_bottom_content">
+                        {{>pclasses}}
+                    </div>
+                </div>
+                <div class="klarna_box_bottom_right">
+                    <div class="klarna_box_bottom_content">
+                        {{>input}}
+                        <div class="klarna_box_bottom_input_combo" style="width: 100%">
+                            <div class="klarna_box_bottom_title" style="width: 90%; margin-top: 3px">
+                                <em>{{lang.notice_billing_same_as_shipping}}</em>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="{{input.emailAddress}}"
+    value="{{value.emailAddress}}" />
+{{>spec_head}}
+<!-- END KLARNA BOX -->

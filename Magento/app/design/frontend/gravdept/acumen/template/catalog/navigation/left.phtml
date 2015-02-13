@@ -1,0 +1,49 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.4
+ */
+?>
+<?php
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+
+<?php if (!Mage::registry('current_category')) return; ?>
+<?php $_categories=$this->getCurrentChildCategories() ?>
+<?php $_count = is_array($_categories)?count($_categories):$_categories->count(); ?>
+	
+<?php if($_count): ?>
+	<div id="filter" class="callout">
+		<h2><?php echo $this->__('Filter By') ?></h2>
+		
+		<div class="filters">
+			<dl class="inactive">
+				<dt><?php echo $this->__('Category') ?></dt>
+				<dd>
+					<ol>
+						<?php foreach ($_categories as $_category): ?>
+							<?php if($_category->getIsActive()): ?>
+								<li>
+									<a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif; ?>>
+										<span class="count"><?php echo $_category->getProductCount() ?></span>
+										<?php echo $this->htmlEscape($_category->getName()) ?>
+									</a>
+								</li>
+							<?php endif; ?>
+						<?php endforeach ?>
+					</ol>
+				</dd>
+			</dl>
+		</div>
+	</div>
+<?php endif; ?>

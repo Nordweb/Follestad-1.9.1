@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Pingbull_Cron>
+            <version>0.1.0</version>
+        </Pingbull_Cron>
+    </modules>
+    <global>
+        <helpers>
+            <cron>
+                <class>Pingbull_Cron_Helper</class>
+            </cron>
+        </helpers>
+
+        <models>
+            <pingbull_cron>
+                <class>Pingbull_Cron_Model</class>
+            </pingbull_cron>
+        </models>
+        <blocks>
+            <cron>
+                <class>Pingbull_Cron_Block</class>
+            </cron>
+        </blocks>
+        <template>
+            <email>
+                <pingbull_delayed_orders module="cron">
+                    <label>Order notification - client email template</label>
+                    <file>pingbull_delayed_orders.html</file>
+                    <type>html</type>
+                </pingbull_delayed_orders>
+                <pingbull_delayed_orders_admin module="cron">
+                    <label>Order notification - administrator email template</label>
+                    <file>pingbull_delayed_orders_admin.html</file>
+                    <type>html</type>
+                </pingbull_delayed_orders_admin>
+            </email>
+        </template>
+        <resources>
+            <pingbull_cron>
+                <setup>
+                    <module>Pingbull_Cron</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pingbull_cron>
+            <cron_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cron_write>
+            <cron_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cron_read>
+        </resources>
+        <events>
+            <delayed_order_check> <!-- identifier of the event we want to catch -->
+                <observers>
+                    <delayed_order_check_handler> <!-- identifier of the event handler -->
+                        <type>model</type>
+                        <!-- class method call type; valid are model, object and singleton -->
+                        <class>cron/observer</class>
+                        <!-- observers class alias -->
+                        <method>run</method>
+                        <!-- observer's method to be called -->
+                        <args></args>
+                        <!-- additional arguments passed to observer -->
+                    </delayed_order_check_handler>
+                </observers>
+            </delayed_order_check>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <cron>
+                <use>admin</use>
+                <args>
+                    <module>Pingbull_Cron</module>
+                    <frontName>cron</frontName>
+                </args>
+            </cron>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <cron>
+                    <file>cron.xml</file>
+                </cron>
+            </updates>
+        </layout>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <pingbull_cron>
+                <schedule>
+                    <cron_expr>*/1 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>pingbull_cron/cron::run</model>
+                </run>
+            </pingbull_cron>
+        </jobs>
+    </crontab>
+</config> 

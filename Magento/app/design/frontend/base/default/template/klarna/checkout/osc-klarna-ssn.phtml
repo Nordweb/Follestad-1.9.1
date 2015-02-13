@@ -1,0 +1,21 @@
+<!-- Start of Klarnas customization of OSC -->
+<li>
+<?php
+$session = Mage::getSingleton("checkout/session")->init('klarna');
+$_pno = $session->getData('klarna_pno');
+$lang = Mage::helper('klarnaPaymentModule/lang');
+$pnoLabel = $lang->fetch('klarna_personalOrOrganisatio_number', 'se');
+?>
+<div id="klarna_input" style="display: none;">
+    <label for="klarna_ssn"><?php echo $pnoLabel ?></label>
+    <br/>
+    <input id="klarna_ssn" type="text" name="payment[klarna_ssn]" class="klarna-validate-text" value="<?php echo $_pno; ?>"/> <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif'); ?>" id="klarna_spinner" style="display: none;" alt="<?php echo Mage::helper("klarnaPaymentModule")->__('Retreiving your addresses...') ?>">
+    <input id="klarna_address_key" name="payment[klarna_address_key]" type="hidden" />
+    <div style="display: none;" id="klarna_address">
+        <select id="klarna_multi_address_select" onchange="Klarna.Checkout.OSC.changeFields();"></select>
+    </div>
+    <div id="klarna_ssn_error" style="display: none;">
+    </div>
+</div>
+</li>
+<!-- End of Klarnas customization of OSC -->

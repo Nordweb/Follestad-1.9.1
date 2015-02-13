@@ -1,0 +1,125 @@
+<?php
+$session = Mage::getSingleton("checkout/session")->init('klarna');
+$khelper = Mage::helper('klarnaPaymentModule');
+$kfields = $khelper->getCountrySpecificFields();
+
+/* Each time the payment methods loads, we need to set some variables on the Klarna javascript object */
+$store = Mage::app()->getStore();
+$merchant_id = $khelper->getMerchantId("klarna_invoice", $store->getId());
+$element_id = 'klarna_invoice';
+$cCountry = $khelper->getCustomerCountry();
+$lang = Mage::helper('klarnaPaymentModule/lang');
+$country = $cCountry ? strtolower($cCountry) : strtolower($this->getMethod()->getQuote()->getShippingAddress()->getCountryId());
+$fee = $khelper->getInvoiceFee();
+$feeArray = $khelper->getInvoiceFeeArray($fee, $this->getMethod()->getQuote()->getShippingAddress(), $store);
+$feeDisplayValue = $khelper->getInvoiceFeeDisplayValue($feeArray, $store->getId());
+?>
+<script type="text/javascript">
+    klarnaOSC.setCountry('<?php echo $country; ?>');
+</script>
+
+<fieldset class="form-list">
+    <?php $_code=$this->getMethodCode() ?>
+    <ul id="payment_form_<?php echo $_code ?>" style="display:none">
+        <li>
+            <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . "/frontend/base/default/klarna/logo/{$country}/klarna_invoice.png"; ?>" style="margin-top: 5px; margin-bottom: 10px;" alt="Klarna" />
+        </li>
+        <li>
+            <div id="klarna_invoice_terms"></div>
+        </li>
+        <?php if(in_array('personalnumber', $kfields)): ?>
+        <?php $_pno = $session->getData('klarna_pno'); ?>
+        <li>
+            <label class="required" for="id_klarna_personalnumber"><?php echo $lang->fetch('klarna_personalOrOrganisatio_number', $country); ?></label>
+            <div class="input-box" style="width: 100%">
+            <input type="text" name="payment[klarna_invoice_personalnumber]"  id="klarna_invoice_personalnumber" class="input-text klarna-validate-text" value="<?php echo $_pno; ?>" />
+            </div>
+        </li>
+        <?php endif; ?>
+
+
+        <?php if(in_array('gender', $kfields)): ?>
+        <?php $_gender = $session->getData('klarna_gender'); ?>
+        <li>
+            <label for=""><?php echo $lang->fetch('sex', $country); ?></label>
+            <div class="input-box">
+                <?php if($_gender === 1 || $_gender === '1'): ?>
+                <input type="radio" name="payment[klarna_invoice_gender]" value="1" id="id_klarna_gender_male" checked="checked" />
+                <?php else: ?>
+                <input type="radio" name="payment[klarna_invoice_gender]" value="1" id="id_klarna_gender_male" />
+                <?php endif; ?>
+                <label style="float: none;" for="id_klarna_gender_male"><?php echo $lang->fetch('sex_male', $country); ?></label>
+                &nbsp;&nbsp;
+                <?php if($_gender === 0 || $_gender === '0'): ?>
+                <input type="radio" name="payment[klarna_invoice_gender]" value="0" id="id_klarna_gender_female" class="validate-one-required" checked="checked" />
+                <?php else: ?>
+                <input type="radio" name="payment[klarna_invoice_gender]" value="0" id="id_klarna_gender_female" class="validate-one-required" />
+                <?php endif; ?>
+                <label style="float: none;" for="id_klarna_gender_female"><?php echo $lang->fetch('sex_female', $country); ?></label>
+            </div>
+        </li>
+        <?php endif; ?>
+
+        <?php if(in_array('dob', $kfields)): ?>
+        <li>
+            <?php
+            $_dob_year  = $session->getData('klarna_dob_year');
+            $year_disabled = (strlen($_dob_year) == 0);
+            $_dob_day   = $session->getData('klarna_dob_day');
+            $day_disabled = (strlen($_dob_year) == 0);
+            $_dob_month = $session->getData('klarna_dob_month');
+            $month_disabled = (strlen($_dob_year) == 0);
+            ?>
+            <label for=""><?php echo $lang->fetch('birthday', $country); ?></label>
+            <div class="input-box">
+
+                <select name="payment[klarna_invoice_dob_day]" class="klarna-validate-select" style="width: 60px !important; margin-right: 5px;">
+                    <option value="00" disabled="disabled" <?php if($day_disabled): ?>selected="selected"<?php endif; ?> ><?php echo $lang->fetch('date_day', $country); ?></option>
+                    <?php for($x=1; $x <= 31; $x++): ?>
+                        <option <?php if($_dob_day == $x): ?> selected="selected" <?php endif; ?> value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                    <?php endfor; ?>
+                </select>
+
+                <select name="payment[klarna_invoice_dob_month]" class="klarna-validate-select" style="width: 60px !important; margin-right: 5px;">
+                    <option value="00" disabled="disabled" <?php if($month_disabled): ?>selected="selected"<?php endif; ?> ><?php echo $lang->fetch('date_month', $country); ?></option>
+                    <?php for($x=1; $x <= 12; $x++): ?>
+                        <option <?php if($_dob_month == $x): ?> selected="selected" <?php endif; ?> value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                    <?php endfor; ?>
+                </select>
+
+                <select name="payment[klarna_invoice_dob_year]" class="klarna-validate-select" style="width: 65px !important;">
+                    <option value="00" disabled="disabled" <?php if($year_disabled): ?>selected="selected"<?php endif; ?> ><?php echo $lang->fetch('date_year', $country); ?></option>
+                    <?php for($x=date('Y'); $x > (date('Y')-100); $x--): ?>
+                    <option <?php if($_dob_year == $x): ?> selected="selected" <?php endif; ?> value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+        </li>
+        <?php endif; ?>
+
+        <?php if(in_array('concent', $kfields)): ?>
+        <li>
+        <div class="klarna_box_bottom_input_combo" style="width: 100%">
+            <input type="checkbox" name="payment[klarna_invoice_concent]"
+               id="box_klarna_invoice_concent"
+               style="float: left; margin-right: 3px" class="klarna-validate-checkbox"/>
+            <script type="text/javascript">
+                function _klarna_invoice_openAgreement() {
+                    openAgreement('de');
+                    ShowKlarnaConsentPopup('<?php echo $merchant_id; ?>', 'invoice');
+                }
+            </script>
+            <div class="klarna_box_bottom_title" style="width: 80%; margin-top: 3px">Mit der &Uuml;bermittlung der f&uuml;r die Abwicklung des Rechnungskaufes und einer Identit&auml;ts- und Bonit&auml;tspr&uuml;fung erforderlichen Daten an Klarna bin ich einverstanden. Meine <a href="javascript:_klarna_invoice_openAgreement()">Einwilligung</a> kann ich jederzeit mit Wirkung f&uuml;r die Zukunft widerrufen. Es gelten die <a href="<?php echo Mage::getStoreConfig("advanced/klarna/agblink"); ?>" target="_blank">AGB</a> des H&auml;ndlers.</div>
+        </div>
+        </li>
+        <?php endif; ?>
+        <script type="text/javascript">
+            var terms = new Klarna.Terms.Invoice({
+               el: 'klarna_invoice_terms',
+               eid: '<?php echo $merchant_id; ?>',
+               country: '<?php echo $country; ?>',
+               charge: '<?php echo round($feeDisplayValue, 2); ?>'
+            });
+        </script>
+    </ul>
+</fieldset>

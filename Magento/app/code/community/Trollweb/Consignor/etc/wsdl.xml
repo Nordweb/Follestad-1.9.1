@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://localhost/ESWebIntegrationWS" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" 
+targetNamespace="http://localhost/ESWebIntegrationWS">
+<types>
+<xsd:schema targetNamespace="http://localhost/ESWebIntegrationWS"
+>
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+ <xsd:complexType name="LoginCredentials">
+  <xsd:all>
+   <xsd:element name="UserName" type="xsd:string"/>
+   <xsd:element name="Password" type="xsd:string"/>
+   <xsd:element name="Auxiliary" type="xsd:string"/>
+
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="AddressData">
+  <xsd:all>
+   <xsd:element name="Number" type="xsd:string"/>
+   <xsd:element name="Name1" type="xsd:string"/>
+   <xsd:element name="Name2" type="xsd:string"/>
+   <xsd:element name="StreetAddress1" type="xsd:string"/>
+   <xsd:element name="StreetAddress2" type="xsd:string"/>
+
+   <xsd:element name="StreetAddress3" type="xsd:string"/>
+   <xsd:element name="Postcode" type="xsd:string"/>
+   <xsd:element name="City" type="xsd:string"/>
+   <xsd:element name="Mobile" type="xsd:string"/>
+   <xsd:element name="Phone" type="xsd:string"/>
+   <xsd:element name="Email" type="xsd:string"/>
+   <xsd:element name="Fax" type="xsd:string"/>
+   <xsd:element name="PostOfficeBox" type="xsd:string"/>
+   <xsd:element name="PostOfficeBoxCity" type="xsd:string"/>
+
+   <xsd:element name="PostOfficeBoxPostcode" type="xsd:string"/>
+   <xsd:element name="CountryName" type="xsd:string"/>
+   <xsd:element name="CustomerOrigin" type="xsd:string"/>
+   <xsd:element name="Attention" type="xsd:string"/>
+   <xsd:element name="Contact" type="xsd:string"/>
+   <xsd:element name="ReceiverRef" type="xsd:string"/>
+   <xsd:element name="OurRef" type="xsd:string"/>
+   <xsd:element name="MessageToCarrier" type="xsd:string"/>
+   <xsd:element name="MessageToDriver" type="xsd:string"/>
+
+   <xsd:element name="MessageToReceiver" type="xsd:string"/>
+   <xsd:element name="PurchaseNo" type="xsd:string"/>
+   <xsd:element name="ShipmentTypeNo" type="xsd:string"/>
+   <xsd:element name="DeliveryConditions" type="xsd:string"/>
+   <xsd:element name="DeliveryTime" type="xsd:string"/>
+   <xsd:element name="PaymentTerms" type="xsd:string"/>
+   <xsd:element name="Amount" type="xsd:string"/>
+   <xsd:element name="Account" type="xsd:string"/>
+   <xsd:element name="Reference" type="xsd:string"/>
+
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="ArrayOfAddressData">
+  <xsd:complexContent>
+   <xsd:restriction base="SOAP-ENC:Array">
+    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:AddressData[]"/>
+   </xsd:restriction>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:complexType name="LineData">
+  <xsd:all>
+   <xsd:element name="PackagesCount" type="xsd:int"/>
+   <xsd:element name="PackagesMarking" type="xsd:string"/>
+   <xsd:element name="PackagesContents" type="xsd:string"/>
+   <xsd:element name="PackagesWeight" type="xsd:int"/>
+   <xsd:element name="PackagesHeight" type="xsd:int"/>
+   <xsd:element name="PackagesLength" type="xsd:int"/>
+   <xsd:element name="PackagesWidth" type="xsd:int"/>
+
+   <xsd:element name="PackagesVolume" type="xsd:int"/>
+   <xsd:element name="CODAccount" type="xsd:string"/>
+   <xsd:element name="CODAmount" type="xsd:string"/>
+   <xsd:element name="CODKID" type="xsd:string"/>
+   <xsd:element name="CODReference" type="xsd:string"/>
+   <xsd:element name="InsuranceAmount" type="xsd:string"/>
+   <xsd:element name="InsuranceCategory" type="xsd:string"/>
+   <xsd:element name="InsurancePolicyNo" type="xsd:string"/>
+   <xsd:element name="DeliveryTerms" type="xsd:string"/>
+
+   <xsd:element name="Department" type="xsd:string"/>
+   <xsd:element name="InvoiceNumber" type="xsd:string"/>
+   <xsd:element name="PaymentTerms" type="xsd:string"/>
+   <xsd:element name="PaymentType" type="xsd:string"/>
+   <xsd:element name="ProjectName" type="xsd:string"/>
+   <xsd:element name="ProjectNumber" type="xsd:string"/>
+   <xsd:element name="CarrierCode" type="xsd:string"/>
+  </xsd:all>
+ </xsd:complexType>
+
+ <xsd:complexType name="ArrayOfLineData">
+  <xsd:complexContent>
+   <xsd:restriction base="SOAP-ENC:Array">
+    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:LineData[]"/>
+   </xsd:restriction>
+  </xsd:complexContent>
+ </xsd:complexType>
+ <xsd:complexType name="AddressesAndPackages">
+  <xsd:all>
+
+   <xsd:element name="Addresses" type="tns:ArrayOfAddressData"/>
+   <xsd:element name="Packages" type="tns:ArrayOfLineData"/>
+  </xsd:all>
+ </xsd:complexType>
+ <xsd:complexType name="ReturnData">
+  <xsd:all>
+   <xsd:element name="OrderNumber" type="xsd:string"/>
+   <xsd:element name="PackagesCount" type="xsd:int"/>
+   <xsd:element name="ShipmentNumber" type="xsd:string"/>
+
+   <xsd:element name="ShipmentTrackUrl" type="xsd:string"/>
+   <xsd:element name="ColliNumbers" type="xsd:string"/>
+   <xsd:element name="PackageTrackUrl" type="xsd:string"/>
+   <xsd:element name="Carrier" type="xsd:string"/>
+   <xsd:element name="Product" type="xsd:string"/>
+   <xsd:element name="Price1" type="xsd:double"/>
+   <xsd:element name="Price2" type="xsd:double"/>
+  </xsd:all>
+ </xsd:complexType>
+
+</xsd:schema>
+</types>
+<message name="GetOrderDataRequest">
+  <part name="OrderNumber" type="xsd:string" />
+  <part name="Credentials" type="tns:LoginCredentials" /></message>
+<message name="GetOrderDataResponse">
+  <part name="return" type="tns:AddressesAndPackages" /></message>
+<message name="GetCustomerDataRequest">
+  <part name="CustomerNumber" type="xsd:string" />
+  <part name="Credentials" type="tns:LoginCredentials" /></message>
+<message name="GetCustomerDataResponse">
+  <part name="return" type="tns:ArrayOfAddressData" /></message>
+
+<message name="UpdateDataRequest">
+  <part name="Shipment" type="tns:ReturnData" />
+  <part name="Credentials" type="tns:LoginCredentials" /></message>
+<message name="UpdateDataResponse"></message>
+<message name="IsAliveRequest"></message>
+<message name="IsAliveResponse">
+  <part name="return" type="xsd:boolean" /></message>
+<portType name="ESWebIntegrationWSPHPPortType">
+  <operation name="GetOrderData">
+    <documentation>Returns an AddressesAndPackages class(AddressData(Addresses) and LineData(Packages) as an Array).</documentation>
+    <input message="tns:GetOrderDataRequest"/>
+
+    <output message="tns:GetOrderDataResponse"/>
+  </operation>
+  <operation name="GetCustomerData">
+    <documentation>Returns an array of AddressData on the customer.</documentation>
+    <input message="tns:GetCustomerDataRequest"/>
+    <output message="tns:GetCustomerDataResponse"/>
+  </operation>
+  <operation name="UpdateData">
+
+    <documentation>Updates order with the return data from Consignor.</documentation>
+    <input message="tns:UpdateDataRequest"/>
+    <output message="tns:UpdateDataResponse"/>
+  </operation>
+  <operation name="IsAlive">
+    <documentation>Checks the web service is currently up and available.</documentation>
+    <input message="tns:IsAliveRequest"/>
+    <output message="tns:IsAliveResponse"/>
+
+  </operation>
+</portType>
+<binding name="ESWebIntegrationWSPHPBinding" type="tns:ESWebIntegrationWSPHPPortType">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="GetOrderData">
+    <soap:operation soapAction="http://localhost/ESWebIntegrationWS/GetOrderData" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+  <operation name="GetCustomerData">
+
+    <soap:operation soapAction="http://localhost/ESWebIntegrationWS/GetCustomerData" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+  <operation name="UpdateData">
+    <soap:operation soapAction="http://localhost/ESWebIntegrationWS/UpdateData" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+
+  <operation name="IsAlive">
+    <soap:operation soapAction="http://localhost/ESWebIntegrationWS/IsAlive" style="rpc"/>
+    <input><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="http://localhost/ESWebIntegrationWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="ESWebIntegrationWSPHP">
+  <port name="ESWebIntegrationWSPHPPort" binding="tns:ESWebIntegrationWSPHPBinding">
+    <soap:address location="{{tns.path}}"/>
+  </port>
+
+</service>
+</definitions>

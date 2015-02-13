@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Klarna_KlarnaPaymentModule>
+            <version>4.1.2</version>
+            <depends>
+                <Mage_Payment />
+            </depends>
+        </Klarna_KlarnaPaymentModule>
+    </modules>
+    <global>
+        <!-- Group our payment options -->
+        <payment>
+            <groups>
+                <klarna_payments>Klarna Payment Options</klarna_payments>
+            </groups>
+        </payment>
+        <!-- Tell magento what blocks to use for our module -->
+        <blocks>
+            <!-- block dir -->
+            <klarnaPaymentModule>
+                  <class>Klarna_KlarnaPaymentModule_Block</class>
+            </klarnaPaymentModule>
+            <!-- catalog (product) view -->
+            <catalog>
+                <rewrite>
+                    <product_price>Klarna_KlarnaPaymentModule_Block_Product_Price</product_price>
+                </rewrite>
+            </catalog>
+            <bundle>
+                <rewrite>
+                    <catalog_product_price>Klarna_KlarnaPaymentModule_Block_Product_Price</catalog_product_price>
+                </rewrite>
+            </bundle>
+            <!-- admin pages -->
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Klarna_KlarnaPaymentModule_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <pclasses>Klarna_KlarnaPaymentModule_Block_Adminhtml_Pclasses</pclasses>
+                    <setup>Klarna_KlarnaPaymentModule_Block_Adminhtml_Setup</setup>
+                    <sales_order_invoice_totals>Klarna_KlarnaPaymentModule_Block_Adminhtml_Sales_Order_Totals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Klarna_KlarnaPaymentModule_Block_Creditmemo_Totals</sales_order_creditmemo_totals>
+                    <sales_order_view_info>Klarna_KlarnaPaymentModule_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
+                </rewrite>
+            </adminhtml>
+            <!-- sales -->
+            <sales>
+                <rewrite>
+                    <order_creditmemo_totals>Klarna_KlarnaPaymentModule_Block_Creditmemo_Totals</order_creditmemo_totals>
+                    <order_invoice_totals>Klarna_KlarnaPaymentModule_Block_Invoice_Totals_Fee</order_invoice_totals>
+                    <order_totals>Klarna_KlarnaPaymentModule_Block_Order_Totals_Fee</order_totals>
+                </rewrite>
+            </sales>
+        </blocks>
+        <!-- tell magento what models to use -->
+        <models>
+            <!-- model path -->
+            <klarnaPaymentModule>
+              <class>Klarna_KlarnaPaymentModule_Model</class>
+            </klarnaPaymentModule>
+            <!-- sales models -->
+            <sales>
+                <rewrite>Mage_Sales_Model_Order_Payment
+                    <order_payment>Klarna_KlarnaPaymentModule_Model_Order_Payment</order_payment>
+                    <quote>Klarna_KlarnaPaymentModule_Model_Quote</quote>
+                </rewrite>
+            </sales>
+        </models>
+        <!-- tell magento where our helpers are -->
+        <helpers>
+            <!-- helper path -->
+            <klarnaPaymentModule>
+                <class>Klarna_KlarnaPaymentModule_Helper</class>
+            </klarnaPaymentModule>
+            <!-- payment rewrite -->
+            <payment>
+                <rewrite>
+                    <data>Klarna_KlarnaPaymentModule_Model_Payment_Payment</data>
+                </rewrite>
+            </payment>
+        </helpers>
+        <resources>
+            <klarna_setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </klarna_setup>
+            <klarnaPaymentModule_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </klarnaPaymentModule_write>
+            <klarnaPaymentModule_read>
+                    <connection>
+                        <use>core_read</use>
+                    </connection>
+            </klarnaPaymentModule_read>
+        </resources>
+        <sales>
+            <quote>
+                <totals>
+                    <klarna_fee>
+                        <class>klarnaPaymentModule/quote_total</class>
+                        <after>subtotal,discount,shipping</after>
+                        <before>tax,grand_total</before>
+                        <renderer>klarnaPaymentModule/checkout_fee</renderer>
+                    </klarna_fee>
+                    <klarna_tax>
+                        <class>klarnaPaymentModule/quote_taxTotal</class>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </klarna_tax>
+                </totals>
+            </quote>
+            <order_creditmemo>
+                <totals>
+                    <klarna_total>
+                        <class>klarnaPaymentModule/creditmemo_total</class>
+                    </klarna_total>
+                    <klarna_tax>
+                        <class>klarnaPaymentModule/creditmemo_tax</class>
+                    </klarna_tax>
+                </totals>
+            </order_creditmemo>
+            <order_invoice>
+                <totals>
+                    <klarnaPaymentModule>
+                        <class>klarnaPaymentModule/invoice_total</class>
+                    </klarnaPaymentModule>
+                </totals>
+            </order_invoice>
+            <order>
+                <states>
+                    <klarna translate="label">
+                        <label>Klarna</label>
+                        <statuses>
+                            <klarna_accepted default="1"/>
+                            <klarna_pending default="2"/>
+                            <klarna_denied default="3"/>
+                        </statuses>
+                        <visible_on_front/>
+                    </klarna>
+                </states>
+            </order>
+        </sales>
+    <!-- This section is used to add the invoice fee to the printed PDF -->
+        <pdf>
+            <totals>
+                <invoice_fee translate="title">
+                    <title>Invoice fee</title>
+                    <source_field>klarnaPaymentModule</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>1</display_zero>
+                    <sort_order>550</sort_order>
+                    <model>klarnaPaymentModule/invoice_pdf_total</model>
+                </invoice_fee>
+            </totals>
+        </pdf>
+    <!-- event observers -->
+        <events>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesQuoteCollectTotalsAfter</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_quote_collect_totals_after>
+            <sales_order_payment_place_end>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesOrderPaymentPlaceEnd</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_order_payment_place_end>
+            <sales_order_invoice_pay>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesOrderInvoicePay</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_order_invoice_pay>
+            <admin_system_config_changed_section_klarna>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>adminSystemConfigChangedSectionKlarna</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </admin_system_config_changed_section_klarna>
+            <admin_session_user_login_success>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>adminSessionUserLoginSuccess</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </admin_session_user_login_success>
+            <sales_order_place_after>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesOrderPlaceAfter</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_order_place_after>
+            <sales_order_load_after>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesOrderLoadAfter</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_order_load_after>
+            <sales_order_payment_cancel>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>salesOrderPaymentCancel</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </sales_order_payment_cancel>
+            <klarna_post_activation>
+                <observers>
+                    <klarnaPaymentModule>
+                        <type>singleton</type>
+                        <class>klarnaPaymentModule/observer</class>
+                        <method>klarnaPostActivation</method>
+                    </klarnaPaymentModule>
+                </observers>
+            </klarna_post_activation>
+        </events>
+    </global>
+    <!-- frontend things -->
+    <frontend>
+        <!-- updates -->
+        <layout>
+          <updates>
+            <KlarnaPaymentModule module="Klarna_KlarnaPaymentModule">
+              <file>klarna.xml</file>
+            </KlarnaPaymentModule>
+          </updates>
+        </layout>
+        <!-- frontend routers -->
+        <routers>
+            <klarna>
+                <use>standard</use>
+                <args>
+                    <module>Klarna_KlarnaPaymentModule</module>
+                    <frontName>klarna</frontName>
+                </args>
+            </klarna>
+        </routers>
+        <!-- frontend translation -->
+        <translate>
+            <modules>
+                <Klarna_KlarnaPaymentModule>
+                    <files>
+                        <default>Klarna_KlarnaPaymentModule.csv</default>
+                    </files>
+                </Klarna_KlarnaPaymentModule>
+            </modules>
+        </translate>
+    </frontend>
+    <!-- admin routers -->
+    <admin>
+        <routers>
+            <klarna>
+                <use>admin</use>
+                <args>
+                    <module>Klarna_KlarnaPaymentModule</module>
+                    <frontName>klarna</frontName>
+                </args>
+            </klarna>
+        </routers>
+    </admin>
+    <!-- admin things -->
+    <adminhtml>
+        <!-- give us our own menu option in the left-hand menu -->
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <klarna>
+                                            <title>Klarna Section</title>
+                                        </klarna>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <!-- updates layout -->
+        <layout>
+            <updates>
+                <KlarnaPaymentModule module="Klarna_KlarnaPaymentModule">
+                    <file>klarna.xml</file>
+                </KlarnaPaymentModule>
+            </updates>
+        </layout>
+        <!-- translations -->
+        <translate>
+            <modules>
+                <Klarna_KlarnaPaymentModule>
+                    <files>
+                        <KlarnaPaymentModule>Klarna_KlarnaPaymentModule.csv</KlarnaPaymentModule>
+                    </files>
+                </Klarna_KlarnaPaymentModule>
+            </modules>
+        </translate>
+    </adminhtml>
+    <!-- default values -->
+    <default>
+        <!-- to make magento notice our payment options they need to be defined here -->
+        <payment>
+            <klarna_invoice>
+                <group>klarna_payments</group>
+                <active>1</active>
+                <model>klarnaPaymentModule/klarna_invoice</model>
+                <title>Klarna Invoice</title>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </klarna_invoice>
+            <klarna_partpayment>
+                <group>klarna_payments</group>
+                <active>1</active>
+                <model>klarnaPaymentModule/klarna_partpayment</model>
+                <title>Klarna PartPayment</title>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </klarna_partpayment>
+            <klarna_specpayment>
+                <group>klarna_payments</group>
+                <active>1</active>
+                <model>klarnaPaymentModule/klarna_specpayment</model>
+                <title>Klarna Special Campaign</title>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+            </klarna_specpayment>
+        </payment>
+        <!-- default sort order weights -->
+        <klarna>
+            <payment_methods>
+                <invoice_sort_order>-100</invoice_sort_order>
+                <partpay_sort_order>-200</partpay_sort_order>
+                <speccamp_sort_order>-150</speccamp_sort_order>
+            </payment_methods>
+        </klarna>
+    </default>
+</config>

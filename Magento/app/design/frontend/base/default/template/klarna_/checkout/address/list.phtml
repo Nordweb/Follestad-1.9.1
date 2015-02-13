@@ -1,0 +1,79 @@
+<?php
+$addresses = Mage::registry("addresses");
+Mage::unregister("addresses");
+$shippingaddress = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress();
+$saddress = array(array($shippingaddress['firstname'], $shippingaddress['lastname'], $shippingaddress['street'], $shippingaddress['postcode'], $shippingaddress['city'], $shippingaddress['country_id']));
+$billingaddress = Mage::getSingleton('checkout/session')->getQuote()->getBillingAddress();
+$baddress = array(array($billingaddress['firstname'], $billingaddress['lastname'], $billingaddress['street'], $billingaddress['postcode'], $billingaddress['city'], $billingaddress['country_id']));
+
+// Get the integration mode for the current payment method and store
+$integrationmode = Mage::helper("klarnaPaymentModule")->getIntegrationMode(Mage::app()->getStore()->getId(), $_REQUEST["type"]);
+
+if($addresses["status"] == "error") {
+    echo($addresses["error"]);
+    return;
+}
+
+$addresses = $addresses["addresses"];
+
+if($addresses) {
+$fixaddr = array();
+foreach($addresses as $address) {
+	$fixaddr[] = array(utf8_encode($address[0]), utf8_encode($address[1]), utf8_encode($address[2]), utf8_encode($address[3]), utf8_encode($address[4]), utf8_encode($address[5]));
+}
+	$baddress = array_merge($baddress, $fixaddr);
+	$saddress = $fixaddr;
+}
+
+?>
+<style type="text/css" >
+.address-table {
+	border: none;
+}
+.address-table td {
+	padding: 3px;
+}
+
+</style>
+	<table class="address-table">
+		<tr>
+			<td><label for="select-shipping"><?php echo Mage::helper('klarnaPaymentModule')->__("Shipping address") ?>:</label>&nbsp;</td>
+			<td>
+                            <?php
+                            if(sizeof($saddress) == 1) {
+                                echo (utf8_encode($address[0] . " " . $address[1] . ", " . $address[2] . ", " . $address[3] . " " . $address[4]));
+                                echo ('<input type="hidden" name="payment[' . $_REQUEST['type'] . '_shippingaddress]" value="' . utf8_encode($address[0] . '|' . $address[1] . '|' . $address[2] . '|' . $address[3] . '|' . $address[4] . '|' . $address[5]) . '" />');
+                            } else {
+                            ?>
+				<select id="select-shipping" name="payment[<?php echo $_REQUEST['type'] ?>_shippingaddress]">
+					<?php foreach ($saddress as $address): ?>
+						<option value="<?php echo ($address[0] . "|" . $address[1] . "|" . $address[2] . "|" . $address[3] . "|" . $address[4] . "|" . $address[5]); ?>">
+							<?php echo ($address[0] . " " . $address[1] . ", " . $address[2] . ", " . $address[3] . " " . $address[4]) ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+                            <?php
+                            }
+                            ?>
+			</td>
+			<td>
+				<?php if($integrationmode == "advanced") { ?>
+                                    <input type="radio" id="toggle" onclick="$('select-billing').toggle();" />&nbsp;<?php echo Mage::helper('klarnaPaymentModule')->__("Change billing address"); } ?>
+			</td>
+		</tr>
+                <?php if($integrationmode == "advanced") { ?>
+		<tr id="select-billing" style="display: none;">
+			<td><label for="select-billing"><?php echo Mage::helper('klarnaPaymentModule')->__("Billing address") ?>:</label>&nbsp;</td>
+			<td colspan="2">
+				<select name="payment[<?php echo $_REQUEST['type'] ?>_billingaddress]">
+					<?php foreach ($baddress as $address): ?>
+						<option value="<?php echo ($address[0] . "|" . $address[1] . "|" . $address[2] . "|" . $address[3] . "|" . $address[4]); ?>">
+							<?php echo ($address[0] . " " . $address[1] . ", " . $address[2] . ", " . $address[3] . " " . $address[4]); ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</td>
+		</tr>
+                <?php } ?>
+	</table>
+		 

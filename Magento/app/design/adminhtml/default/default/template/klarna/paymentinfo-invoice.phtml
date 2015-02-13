@@ -1,0 +1,35 @@
+<?php
+$country = strtolower($this->getInfo()->getOrder()->getShippingAddress()->getCountryId());
+?>
+<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . '/adminhtml/base/default/klarna/klarna_invoice_' . strtolower($country) . '.png'; ?>" style="margin-top: 5px; margin-bottom: 10px;" alt="Klarna" />
+<br/>
+<?php
+
+$data = $this->getMethod()->getInfoInstance();
+$integration_mode = $data->getAdditionalInformation('klarna_integrationmode');
+$lang = Mage::helper('klarnaPaymentModule/lang');
+
+if($integration_mode == 'standard') {
+    $invoice_id = $data->getAdditionalInformation('klarna_invoice_id');
+    $invoice_url = $data->getAdditionalInformation('klarna_invoice_url');
+
+    if(count($data->getOrder()->getInvoiceCollection()) > 0)
+        echo $lang->fetch('invoice_number_text', $country) . ': '  . ' <a href="' . $invoice_url . '" title="' . $lang->fetch('click_invoice_to_print', $country) .'" target="_blank">' . $invoice_id . '</a><br>';
+    else
+        echo $lang->fetch('invoice_number_text', $country) . ': ' . $invoice_id . "<br>";
+}
+elseif($integration_mode == 'advanced') {
+    $liveMode = Mage::getStoreConfig("payment/" . $this->getMethod()->getCode() . "/live_mode");
+    $host = ($liveMode ? 'online' : 'beta-test');
+    echo $lang->fetch('reservation_number_text', $country) . ': ' . $data->getAdditionalInformation('klarna_reservation_id') . "<br>";
+    if(($invoice_numbers = $data->getAdditionalInformation('klarna_invoice_url')) != "") {
+        echo "<div style=\"border: solid 1px black; padding: 10px;\">";
+        echo "<h3>" . $lang->fetch('klarna_invoices', $country) . "</h3>";
+        $invoice_numbers = (Array)unserialize($invoice_numbers);
+        krsort($invoice_numbers);
+        foreach($invoice_numbers as $invoiceno) {
+            echo "<a href=\"https://{$host}.klarna.com/invoices/$invoiceno[0].pdf\" title=\"" . $lang->fetch('click_invoice_to_print', $country) . "\" target=\"_blank\">$invoiceno[0]</a>&nbsp;&nbsp;(" . $lang->fetch('activated', $country) . ": $invoiceno[1])<br />";
+        }
+        echo "</div>";
+    }
+}

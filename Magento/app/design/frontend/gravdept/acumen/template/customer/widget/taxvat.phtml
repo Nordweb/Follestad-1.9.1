@@ -1,0 +1,15 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+
+<label for="<?php echo $this->getFieldId('taxvat')?>"><?php echo $this->__('Tax/VAT number') ?> <?php if ($this->isRequired()):?><abbr title="<?php echo $this->__('Required') ?>">*</abbr><?php endif ?></label>
+<input type="text" id="<?php echo $this->getFieldId('taxvat')?>" name="<?php echo $this->getFieldName('taxvat')?>" value="<?php echo $this->htmlEscape($this->getTaxvat()) ?>" class="<?php if ($this->isRequired()):?> required-entry<?php endif; ?>" <?php echo $this->getFieldParams() ?> />

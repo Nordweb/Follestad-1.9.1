@@ -1,0 +1,95 @@
+<?php
+$configScope = $this->getConfigScope();
+$language = Mage::getStoreConfig("ewspamprotection/general/language");
+
+$theme = $infoMessage = $containerCSS = $noteMessage = '';
+if ($this->getMode() == 'custom') {
+	$theme = $this->getTheme();
+	$infoMessage = $this->getInfoMessage();
+	$containerCss = $this->getContainerCss();
+} else {
+	$theme = $this->getCaptcha()->getTheme();
+	$infoMessage = $this->getCaptcha()->getInfoMessage();
+	$containerCSS = $this->getCaptcha()->getContainerCss();
+}
+?>
+
+<?php if($theme == 'magento_standard'): ?>
+    <?php echo "<script> var RecaptchaOptions = { theme : 'custom', lang : '$language', custom_theme_widget: '" . $this->getUniqueId('ewspamprotection_widget') . "' }; </script>"; ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" class="fieldset wide" style="display:none; <?php echo $containerCSS; ?>">
+        <h2 class="legend" style="background-image: none;">CAPTCHA</h2>
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px;"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: 305px">
+                <div id="recaptcha_image" style="border: 1px solid #BBAFA0;"></div>
+                <div style="text-align: left; margin-top: 10px;">
+                    <span class="recaptcha_only_if_image"><?php echo $this->__('Enter the words above'); ?>:</span>
+                    <span class="recaptcha_only_if_audio"><?php echo $this->__('Enter the words you hear'); ?>:</span>
+                    <input type="text" name="recaptcha_response_field" class="input-text required-entry" id="recaptcha_response_field" />
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:Recaptcha.reload();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/sound.png');?>" title="<?php echo $this->__('Get an audio CAPTCHA'); ?>" alt="<?php echo $this->__('Get an audio CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/text.png');?>" title="<?php echo $this->__('Get an image CAPTCHA'); ?>" alt="<?php echo $this->__('Get an image CAPTCHA'); ?>"/></a></div>
+                <div><a href="javascript:Recaptcha.showhelp();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/help.png');?>" title="<?php echo $this->__('Help'); ?>" alt="<?php echo $this->__('Help'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div>
+    <?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php elseif($theme == 'magento_box'): ?>
+    <?php echo "<script> var RecaptchaOptions = { theme : 'custom', lang : '$language', custom_theme_widget: '" . $this->getUniqueId('ewspamprotection_widget') . "' }; </script>"; ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" class="fieldset wide" style="display:none; <?php echo $containerCSS; ?>">
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: 305px">
+                <div id="recaptcha_image" style="border: 1px solid #BBAFA0;"></div>
+                <div style="text-align: left; margin-top: 10px;">
+                    <span class="recaptcha_only_if_image"><?php echo $this->__('Enter the words above'); ?>:</span>
+                    <span class="recaptcha_only_if_audio"><?php echo $this->__('Enter the words you hear'); ?>:</span>
+                    <input type="text" name="recaptcha_response_field" class="input-text required-entry" id="recaptcha_response_field" />
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:Recaptcha.reload();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/sound.png');?>" title="<?php echo $this->__('Get an audio CAPTCHA'); ?>" alt="<?php echo $this->__('Get an audio CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/text.png');?>" title="<?php echo $this->__('Get an image CAPTCHA'); ?>" alt="<?php echo $this->__('Get an image CAPTCHA'); ?>"/></a></div>
+                <div><a href="javascript:Recaptcha.showhelp();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/help.png');?>" title="<?php echo $this->__('Help'); ?>" alt="<?php echo $this->__('Help'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div>
+	<?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php elseif ($theme == 'magento_inline'): ?>
+    <?php echo "<script> var RecaptchaOptions = { theme : 'custom', lang : '$language', custom_theme_widget: '" . $this->getUniqueId('ewspamprotection_widget') . "' }; </script>"; ?>
+    <div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" style="display:none; <?php echo $containerCSS; ?>">
+        <?php if ($infoMessage): ?><div style="margin-bottom: 10px"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+        <div class="col2-set">
+            <div class="col-1" style="width: 305px">
+                <div id="recaptcha_image" style="border: 1px solid #BBAFA0;"></div>
+                <div style="text-align: left; margin-top: 10px;">
+                    <span class="recaptcha_only_if_image"><?php echo $this->__('Enter the words above'); ?>:</span>
+                    <span class="recaptcha_only_if_audio"><?php echo $this->__('Enter the words you hear'); ?>:</span>
+                    <input type="text" name="recaptcha_response_field" class="input-text required-entry" id="recaptcha_response_field" />
+                </div>
+            </div>
+            <div class="col-2" style="float: left; margin-left: 5px;">
+                <div><a href="javascript:Recaptcha.reload();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/refresh.png');?>" title="<?php echo $this->__('Get another CAPTCHA'); ?>" alt="<?php echo $this->__('Get another CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/sound.png');?>" title="<?php echo $this->__('Get an audio CAPTCHA'); ?>" alt="<?php echo $this->__('Get an audio CAPTCHA'); ?>"/></a></div>
+                <div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image');"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/text.png');?>" title="<?php echo $this->__('Get an image CAPTCHA'); ?>" alt="<?php echo $this->__('Get an image CAPTCHA'); ?>"/></a></div>
+                <div><a href="javascript:Recaptcha.showhelp();"><img src="<?php echo $this->getSkinUrl('extendware/ewspamprotection/images/help.png');?>" title="<?php echo $this->__('Help'); ?>" alt="<?php echo $this->__('Help'); ?>"/></a></div>
+            </div>
+        </div>
+        <?php echo $this->__($noteMessage); ?>
+    </div> 
+    <?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php else: ?>
+	<?php echo "<script> var RecaptchaOptions = { theme : '$theme', lang : '$language' }; </script>"; ?>
+	<div id="<?php echo $this->getUniqueId('ewspamprotection_widget'); ?>" style="<?php echo $containerCSS; ?>">
+	    <?php if ($infoMessage): ?><div style="margin: 20px 5px 0px 5px"><?php echo $this->__($infoMessage); ?></div><?php endif; ?>
+		<div id="recaptcha_widget_div"></div>
+	</div>
+	<?php echo $this->__($noteMessage); ?>
+	<?php echo $this->getChildHtml('ewspamprotection_script'); ?>
+<?php endif; ?>

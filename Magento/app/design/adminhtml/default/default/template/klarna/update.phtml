@@ -1,0 +1,26 @@
+<div class="klarna_update_box">
+    <span class="klarna_logo"></span>
+    <?php if ($newAvailable): ?>
+    <span class="klarna_update_available"> </span>
+    <div class="klarna_update_info">
+        <span class="klarna_update_header">A newer version of your current module is available.</span>
+        <div class="clear"></div>
+        <span class="klarna_update_text">Please visit <a href="http://integration.klarna.com/" target="_blank" style="text-decoration: underline; font-weight: bold">http://integration.klarna.com/</a> for more details.</span>
+    </div>
+    <div class="klarna_version_box">
+        <span class="klarna_update_version_text">Your version: <span class="klarna_version_number"><?php echo $current; ?> </span></span>
+        <div class="clear"></div>
+        <span class="klarna_update_version_text">Latest version: <span class="klarna_version_number"><?php echo $latest; ?></span></span>
+    </div>
+    <div class="clear"></div>
+    <?php else : ?>
+        <div class="klarna_update_info">
+            <span class="klarna_update_header">You are already using the newest version</span>
+            <div class="clear"></div>
+        </div>
+        <div class="klarna_version_box">
+            <span class="klarna_update_version_text">Your version: <span class="klarna_version_number"><?php echo $current; ?> </span></span>
+            <div class="clear"></div>
+        </div>
+    <?php endif; ?>
+</div>

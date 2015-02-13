@@ -1,0 +1,49 @@
+﻿<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nordweb_FrontSystems>
+      <version>0.1.0</version>
+    </Nordweb_FrontSystems>
+  </modules>
+  <frontend>
+    <routers>
+      <frontSystems>
+        <use>standard</use>
+        <args>
+          <module>Nordweb_FrontSystems</module>
+          <frontName>frontSystems</frontName>
+        </args>
+      </frontSystems>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <frontSystems>
+        <class>Nordweb_FrontSystems_Helper</class>
+      </frontSystems>
+    </helpers>
+    <models>
+      <frontSystems>
+        <class>Nordweb_FrontSystems_Model</class>
+      </frontSystems>
+    </models>
+  </global>
+
+
+
+
+
+  <crontab>
+    <jobs>
+      <Nordweb_FrontSystems>
+        <schedule>
+          <cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr>
+        </schedule>
+        <run>
+          <model>frontsystems/observer::callFromCron</model>
+        </run>
+      </Nordweb_FrontSystems>
+    </jobs>
+  </crontab>
+
+</config>

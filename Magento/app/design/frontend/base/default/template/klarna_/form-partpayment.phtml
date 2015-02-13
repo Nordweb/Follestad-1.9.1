@@ -1,0 +1,10 @@
+<?php
+$storeid = Mage::app()->getStore()->getId();
+$api = Mage::helper('klarnaPaymentModule/api');
+$api->loadConfig($storeid, 'klarna_partpayment');
+?>
+<ul id="payment_form_klarna_partpayment" class="form-list" style="display: none;">
+    <li>
+        <?php echo $api->getCheckoutHTML('part'); ?>
+    </li>
+</ul>

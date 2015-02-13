@@ -1,0 +1,21 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.9
+ */
+?>
+
+<?php
+/*
+* See: http://www.magentocommerce.com/answers/How-can-I-add-jQuery-from-external-URL-with-SSL
+* See: http://paulirish.com/2010/the-protocol-relative-url/
+*/
+?>
+<script src="http<?php if(Mage::app()->getStore()->isCurrentlySecure()): ?>s<?php endif; ?>://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="<?php echo $this->getSkinUrl('js/jquery-1.6.3.min.js'); ?>"%3E%3C/script%3E'))</script>

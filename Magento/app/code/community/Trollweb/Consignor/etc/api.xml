@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config>
+	<api>
+		<resources>
+            <consignor translate="title" module="consignor">
+                <title>Consignor</title>
+				        <model>consignor/api</model>
+                <acl>consignor</acl>
+                <methods>
+                    <GetOrderData translate="title" module="consignor">
+                        <title>Returns an AddressesAndPackages class(AddressData(Addresses) and LineData(Packages) as an Array).</title> 
+						            <acl>consignor/getorderdata</acl>
+                    </GetOrderData>
+                    <GetCustomerData translate="title" module="consignor">
+                        <title>Returns an array of AddressData on the customer.</title>
+						            <acl>consignor/getcustomerdata</acl>
+                    </GetCustomerData>
+                    <UpdateData translate="title" module="consignor">
+                        <title>Updates order with the return data from Consignor.</title>
+						            <acl>consignor/updatedata</acl>
+                    </UpdateData>
+                    <IsAlive translate="title" module="consignor">
+                        <title>Checks the web service is currently up and available.</title>
+						            <acl>consignor/isalive</acl>
+                    </IsAlive>
+                </methods>
+                <faults module="consignor"> <!-- module="consignor" specifies the module which will be used for translation. -->
+                    <not_active>
+                        <code>99</code>
+                        <message>Module is not active</message>
+                    </not_active>
+                    <data_invalid> <!-- if we get invalid input data -->
+                        <code>100</code>
+                        <!-- we cannot know all the errors that can appear, their details can be found in error message for call -->
+                        <message>Invalid data. Details in error message.</message>
+                    </data_invalid>
+                    <filters_invalid>
+                        <code>101</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <not_exists>
+                        <code>102</code>
+                        <message>Order doesn't exist.</message>
+                    </not_exists>
+                    <not_updated>
+                        <code>103</code>
+                        <message>Order was not updated. Details in error message.</message>
+                    </not_updated>
+                </faults>
+             </consignor>
+        </resources>
+		<acl>
+			<resources>
+				<consignor translate="title" module="consignor">
+					<title>Consignor</title>
+					<getorderdata translate="title" module="consignor">
+                        <title>Returns an AddressesAndPackages class(AddressData(Addresses) and LineData(Packages) as an Array).</title> 
+					</getorderdata>
+					<getcustomerdata translate="title" module="consignor">
+                        <title>Returns an array of AddressData on the customer.</title>
+					</getcustomerdata>                         
+					<updatedata translate="title" module="consignor">
+                        <title>Updates order with the return data from Consignor.</title>
+					</updatedata>
+					<isalive translate="title" module="consignor">
+                        <title>Checks the web service is currently up and available.</title>
+					</isalive> 
+				</consignor>
+			</resources>
+		</acl>
+	</api>
+</config>

@@ -1,0 +1,25 @@
+div#klarna_ssn_error {
+    padding: 5px;
+    background: #c6423e;
+    border-right: solid #75271f;
+    border-bottom: solid #75271f;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    font-family: Arial, Verdana, Helvetica;
+    color: #FFF;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+select#klarna_multi_address_select {
+    width: 250px;
+}
+
+div#klarna_address {
+    margin: 5px;
+    padding: 5px;
+    border: solid 3px black;
+}

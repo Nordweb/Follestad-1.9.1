@@ -1,0 +1,37 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.5
+ */
+?>
+
+<h1><?php echo $this->__('Newsletter') ?></h1>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<p><?php echo $this->__('Subscribe to the newsletter to receive special offers and news via email.') ?></p>
+
+<form id="newsletter-form" class="simple" action="<?php echo $this->getAction() ?>" method="post">
+	<?php echo $this->getBlockHtml('formkey')?>
+	
+	<ul class="struts">
+		<li>
+			<input type="checkbox" name="is_subscribed" id="subscription" value="1" <?php if($this->getIsSubscribed()): ?> checked="checked"<?php endif; ?> />
+			<label for="subscription"><?php echo $this->__('Send me the newsletter') ?></label>
+		</li>
+	</ul>
+	
+	<button type="submit"><?php echo $this->__('Update') ?></button>
+</form>
+
+<script type="text/javascript">
+	//<![CDATA[
+		var dataForm = new VarienForm('newsletter-form', true);
+	//]]>
+</script>

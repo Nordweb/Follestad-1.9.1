@@ -1,0 +1,35 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.4
+ */
+?>
+<?php 
+/**
+ * Category layered navigation state
+ * 
+ * @see Mage_Catalog_Block_Layer_State
+ */
+?>
+
+<?php $_filters = $this->getActiveFilters() ?>
+
+<?php if(!empty($_filters)): ?>
+	<div class="active">
+		<h3><?php echo $this->__('Showing Only') ?></h3>
+		
+		<ol>
+			<?php foreach ($_filters as $_filter): ?>
+				<li><a href="<?php echo $_filter->getRemoveUrl() ?>"><?php echo $this->__($_filter->getName()) ?>: <?php echo $this->stripTags($_filter->getLabel()) ?></a></li>
+			<?php endforeach; ?>
+		</ol>
+		
+		<a class="show-all" href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Show All Items') ?></a>
+	</div>
+<?php endif; ?>

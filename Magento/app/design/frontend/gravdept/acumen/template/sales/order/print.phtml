@@ -1,0 +1,102 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.0
+ */
+?>
+
+<?php $_order = $this->getOrder() ?>
+
+<h1><?php echo $this->__('Order') ?> # <?php echo $_order->getRealOrderId() ?></h1>
+
+<p><strong><?php echo $this->__('Date') ?>:</strong> <?php echo $this->formatDate($_order->getCreatedAtStoreDate(), 'long') ?></p>
+
+<table class="minimal">
+	<thead>
+		<tr>
+			<?php if (!$_order->getIsVirtual()): ?>
+				<th><?php echo $this->__('Shipping Address') ?></th>
+				<th><?php echo $this->__('Shipping Method') ?></th>
+			<?php endif; ?>
+			<th><?php echo $this->__('Billing Address') ?></th>
+			<th><?php echo $this->__('Payment Method') ?></th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr>
+			<?php if (!$_order->getIsVirtual()): ?>
+				<td><?php echo $_order->getShippingAddress()->format('html') ?></td>
+				<td><?php echo $_order->getShippingDescription() ?></td>
+			<?php endif; ?>
+			<td><?php echo $_order->getBillingAddress()->format('html') ?></td>
+			<td><?php echo $this->getPaymentInfoHtml() ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<h2><?php echo $this->__('Items Ordered') ?></h2>
+
+<table class="minimal" id="order-view-table">
+	
+	<thead>
+		<tr>
+			<th><?php echo $this->__('Product Name') ?></th>
+			<th><?php echo $this->__('SKU') ?></th>
+			<th class="align-right"><?php echo $this->__('Price') ?></th>
+			<th class="align-right"><?php echo $this->__('Quantity') ?></th>
+			<th class="align-right"><?php echo $this->__('Subtotal') ?></th>
+		</tr>
+	</thead>
+	
+	<?php $colspan = 4; ?>
+	
+	<tfoot>
+		<tr>
+			<th colspan="<?php echo $colspan; ?> "><?php echo $this->__('Order Subtotal') ?></th>
+			<td><?php echo $_order->formatPrice($_order->getSubtotal()) ?></td>
+		</tr>
+		
+		<?php if ($_order->getDiscountAmount() > 0): ?>
+			<tr>
+				<th colspan="<?php echo $colspan; ?>"><?php echo $this->__('Discount') ?></th>
+				<td><?php echo $_order->formatPrice(0.00 - $_order->getDiscountAmount()) ?></td>
+			</tr>
+		<?php endif; ?>
+		
+		<?php if ($_order->getTaxAmount() > 0): ?>
+			<?php echo $this->getChildHtml('tax'); ?>
+		<?php endif; ?>
+		
+		<?php if (!$_order->getIsVirtual() && ($_order->getShippingAmount()*1 || $_order->getShippingDescription())): ?>
+			<tr>
+				<th colspan="<?php echo $colspan; ?>"><?php echo $this->__('Shipping &amp; Handling') ?></th>
+				<td><?php echo $_order->formatPrice($_order->getShippingAmount()) ?></td>
+			</tr>
+		<?php endif; ?>
+		
+		<tr>
+			<th colspan="<?php echo $colspan; ?>"><strong><?php echo $this->__('Grand Total') ?></strong></th>
+			<td><strong><?php echo $_order->formatPrice($_order->getGrandTotal()) ?></strong></td>
+		</tr>
+	</tfoot>
+	
+	<?php $_items = $_order->getItemsCollection(); ?>
+	<?php $_count = $_items->count(); ?>
+	
+	<tbody>
+		<?php foreach ($_items as $_item): ?>
+			<?php if ($_item->getParentItem()) continue; ?>
+			<?php echo $this->getItemHtml($_item) ?>
+		<?php endforeach; ?>
+	</tbody>
+	
+</table>
+
+<script type="text/javascript">window.print();</script>

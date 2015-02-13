@@ -1,0 +1,42 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.3.1
+ */
+?>
+<div id="footer">
+    <div id="footer-bar" class="block">
+        <div class="newsletter">
+            <?php echo $this->getChildHtml('newsletter') ?>
+        </div>
+        <a class="top" href="#top" title="<?php echo $this->__('Return to top') ?>">
+            <span><?php echo $this->__('Top') ?></span>
+        </a>
+    </div>
+    <div id="closer" class="grid">
+        <div class="grid_8">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml() ?>
+        </div>
+        <div class="grid_4">
+            <div class="switchers">
+                <?php echo $this->getChildHtml('store_switcher') ?>
+                <?php echo $this->getChildHtml('store_language') ?>
+                <?php echo $this->getChildHtml('store_currency') ?>
+            </div>
+            <div class="legal">
+                <p class="copyright">&copy; <?php echo date("Y") ?> <?php echo $this->getCopyright() ?></p>
+                <p class="terms">
+                    <a href="<?php echo $this->getUrl('betingelser') ?>"><?php echo $this->__('Betingelser og villkår') ?></a>
+                    <a href="<?php echo $this->getUrl('personvern') ?>"><?php echo $this->__('Personvern') ?></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="payment-methods"></div>
+</div>

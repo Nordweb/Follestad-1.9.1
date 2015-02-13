@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Trollweb_Consignor>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Trollweb_Consignor>
+	</modules>
+</config>

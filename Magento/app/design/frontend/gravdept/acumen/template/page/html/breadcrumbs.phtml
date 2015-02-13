@@ -1,0 +1,32 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.0.0
+ */
+?>
+
+<?php if($crumbs && is_array($crumbs)): ?>
+	<ul class="breadcrumbs">
+		<?php foreach($crumbs as $_crumbName=>$_crumbInfo): ?>
+			<li class="<?php echo $_crumbName ?>">
+				<?php if($_crumbInfo['link']): ?>
+					<a href="<?php echo $_crumbInfo['link'] ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
+				<?php elseif($_crumbInfo['last']): ?>
+					<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
+				<?php else: ?>
+					<?php echo $this->htmlEscape($_crumbInfo['label']) ?>
+				<?php endif; ?>
+				
+				<?php if(!$_crumbInfo['last']): ?>
+					<span class="gap">&raquo;</span>
+				<?php endif; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>

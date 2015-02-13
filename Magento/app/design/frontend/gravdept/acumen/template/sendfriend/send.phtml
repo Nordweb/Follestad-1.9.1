@@ -1,0 +1,129 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.5
+ */
+?>
+<?php
+/* @var $this Mage_Sendfriend_Block_Send */
+/**
+ * Send to friend form
+ *
+ * @see Mage_Sendfriend_Block_Send
+ */
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+	i=0;
+	var recipCount  = 1;
+	var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
+	function remove_recipient(i){
+		/*$('recipients_name'+i).up(2).remove();*/  /* Mage */
+		$('recipients_name'+i).up(1).remove();  /* GravDept, adjusted for my markup simplification */
+		recipCount--;
+		if(recipCount<maxRecip && maxRecip != 0) {
+			$('add_recipient_button').show();
+			$('max_recipient_message').hide();
+		}
+		return false;
+	}
+
+	function add_recipient(){
+		ul = $('recipients_options');
+		var li_mail = Element.extend(document.createElement("li"));
+		li_mail.addClassName('fields additional-row');
+		li_mail.innerHTML = '<div class="field"><label for="recipients_name'+i+'"><?php echo $this->__('Name') ?> <abbr title="<?php echo $this->__('Required') ?>">*<\/abbr><\/label><input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name'+i+'" /><\/div>';
+		li_mail.innerHTML += '<div class="field"><label for="recipients_email'+i+'"><?php echo $this->__('Email') ?> <abbr title="<?php echo $this->__('Required') ?>">*<\/abbr><\/label><input name="recipients[email][]" value="" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email" /><\/div>';
+		li_mail.innerHTML += '<div class="remove-recipient"><a href="delete_email" title="<?php echo $this->__('Remove Recipient') ?>" onclick="remove_recipient('+i+'); return false" class="btn-remove"><?php echo $this->__('Remove Recipient') ?><\/a><\/div>'
+		i++;
+		recipCount++;
+		if(recipCount>=maxRecip && maxRecip != 0) {
+			$('add_recipient_button').hide();
+			$('max_recipient_message').show();
+		}
+
+		ul.appendChild(li_mail);
+	}
+//]]>
+</script>
+
+<div class="block">
+	<h1><?php //echo $this->__('Share By Email') ?>Del via epost</h1>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+	
+	<form action="<?php echo $this->getSendUrl() ?>" method="post" id="product_sendtofriend_form" class="simple">
+		<?php echo $this->getBlockHtml('formkey')?>
+		
+		<h2><?php //echo $this->__('Your Information') ?>Din informasjon</h2>
+	
+		<ul class="struts" id="sender_options">
+			<li class="fields">
+				<div class="field">
+					<label for="sender_name"><?php //echo $this->__('Your Name') ?>Ditt navn <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+					<input name="sender[name]" value="<?php echo $this->htmlEscape($this->getUserName()) ?>" id="sender_name" type="text" class="input-text required-entry" />
+				</div>
+			
+				<div class="field">
+					<label for="sender_email"><?php //echo $this->__('Your Email') ?>Din e-post adresse <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+					<input name="sender[email]" value="<?php echo $this->htmlEscape($this->getEmail()) ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
+				</div>
+			</li>
+			
+			<li>
+				<label for="sender_message"><?php echo $this->__('Message') ?> <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+				<textarea name="sender[message]" class="input-text required-entry" id="sender_message" rows="4"><?php echo $this->htmlEscape($this->getMessage())?></textarea>
+			</li>
+		</ul>
+	
+		<h2><?php //echo $this->__('Send To') ?>Send til</h2>
+		
+		<ul class="struts" id="recipients_options">
+			<li class="fields">
+				<div class="field">
+					<label for="recipients_name"><?php //echo $this->__('Name') ?>Mottakers navn <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+					<input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name" />
+				</div>
+				
+				<div class="field">
+					<label for="recipients_email"><?php //echo $this->__('Email') ?>Mottakers e-post adresse <abbr title="<?php echo $this->__('Required') ?>">*</abbr></label>
+					<input name="recipients[email][]" value="" id="recipients_email" type="text" class="input-text required-entry validate-email" />
+				</div>
+			</li>
+		</ul>
+		
+		<div class="buttons-set">
+			<div id="max_recipient_message" style="display:none;">
+				<?php if ($this->getMaxRecipients()): ?>
+				  <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
+				<?php endif; ?>
+			</div>
+			
+			<?php if (1 < $this->getMaxRecipients()): ?>
+				<p id="add_recipient_button">
+					<a href="#" onclick="add_recipient(); return false;"><?php echo $this->__('Add Recipient') ?></a> <?php /* GravDept */ ?>
+					<?php /*<button type="button" onclick="add_recipient();"><?php echo $this->__('Add Recipient') ?></button>*/  /* Mage */ ?>
+				</p>
+			<?php endif; ?>
+			
+			<button type="submit" class="<?php if (!$this->canSend()):?>disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><?php ///echo $this->__('Send Email') ?>Send epost</button>
+		</div>
+	</form>
+	
+	<script type="text/javascript">
+	//<![CDATA[
+		var productSendtofriendForm = new VarienForm('product_sendtofriend_form');
+		productSendtofriendForm.submit = function() {
+			if(this.validator.validate()) {
+				this.form.submit();
+			}
+		}.bind(productSendtofriendForm);
+	//]]>
+	</script>
+</div>

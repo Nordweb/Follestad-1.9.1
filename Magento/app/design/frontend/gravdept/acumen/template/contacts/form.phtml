@@ -1,0 +1,69 @@
+<?php
+/**
+ * Acumen for Magento
+ * http://gravitydept.com/to/acumen-magento
+ *
+ * @author     Brendan Falkowski
+ * @package    gravdept_acumen
+ * @copyright  Copyright 2011 Gravity Department http://gravitydept.com
+ * @license    All rights reserved.
+ * @version    1.2.4
+ */
+?>
+
+<div class="block">
+	<h1><?php echo $this->__('Contact Us') ?></h1>
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+</div>
+
+<div class="grid">
+
+	<div class="grid_7 suffix_1">
+		<form id="contact-form" class="scaffold" action="<?php echo $this->getFormAction(); ?>" method="post">
+			<h2><?php echo $this->__('Send Us A Message') ?></h2>
+			
+			<ul class="struts">
+				<li>
+					<label for="name"><?php echo $this->__('Name') ?> <abbr title="Required">*</abbr></label>
+					<input type="text" id="name" name="name" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserName()) ?>" class="required-entry" />
+				</li>
+				
+				<li>
+					<label for="email"><?php echo $this->__('Email') ?> <abbr title="Required">*</abbr></label>
+					<input type="text" id="email" name="email" value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserEmail()) ?>" class="required-entry validate-email" />
+				</li>
+				
+				<li>
+					<label for="telephone"><?php echo $this->__('Phone') ?></label>
+					<input type="text" id="telephone" name="telephone" />
+				</li>
+				
+				<li>
+					<label for="comment"><?php echo $this->__('Message') ?> <abbr title="Required">*</abbr></label>
+					<textarea id="comment" name="comment" class="required-entry" rows="5"></textarea>
+				</li>
+			</ul>
+			
+			<input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+			
+			<button type="submit"><?php echo $this->__('Send Message') ?></button>
+		</form>
+		
+		<script type="text/javascript">
+			//<![CDATA[
+				var contactForm = new VarienForm('contact-form', true);
+			//]]>
+		</script>
+	</div>
+
+	<div class="grid_4">
+		<h2><?php echo $this->__('Email / Phone') ?></h2>
+		
+		<p><?php echo $this->__('If you have any questions, we\'d be happy to help. Please get in touch with us.') ?></p>
+		<p>
+			<a href="mailto:help@example.com">help@example.com</a><br />
+			+1 (800) 123-4567
+		</p>
+	</div>
+
+</div>
