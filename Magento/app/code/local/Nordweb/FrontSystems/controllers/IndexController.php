@@ -46,106 +46,9 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
     
     public function AddNewSaleAction()
     {
-        
-        //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS("CardTypeEnum");
-        $clientAuthenticated = $returnValues[0];
-        $fsKey = $returnValues[1];
-        
-        Mage::log('Client authenticated');
-        
-        
-        //<xs:element name="ArrayOfWebSalesPayment" nillable="true" type="tns:ArrayOfWebSalesPayment"/>
-        //<xs:complexType name="WebSalesPayment">
-        //<xs:sequence>
-        //<xs:element minOccurs="0" name="Amount" type="xs:decimal"/>
-        //<xs:element minOccurs="0" name="CardType" type="tns:CardTypeEnum"/>
-        //<xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="ExtRef" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="LastCompletedStep" type="tns:LastSuccessfulStepEnum"/>
-        //<xs:element minOccurs="0" name="PaymentType" type="tns:PaymentTypeEnum"/>
-        //<xs:element minOccurs="0" name="ResponseBody" nillable="true" type="xs:string"/>
-        //</xs:sequence>
-        //</xs:complexType>
-        //<xs:element name="WebSalesPayment" nillable="true" type="tns:WebSalesPayment"/>
-        $paymentLine = array(
-                      "Amount"=> "123.00",
-                      "CardType"=> CardTypeEnum::VISA,
-                      "Currency"=> "NOK",
-                      "ExtRef"=> "ExtRef for NewSale in FS",
-                      "LastCompletedStep"=> "Sale",
-                      "PaymentType"=> "Dibs",
-                      "ResponseBody"=> "ResponseBody here",
-                      
-                       );
-        $paymentLines = array($paymentLine);
-        $receipt = null;
-        $saleDateTime = null;
-        $saleGuid = null;
-        $saleLines = null;
-        $shipments = null;
-       
-        
-        //<xs:complexType name="Websale">
-        //<xs:sequence>
-        //<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="CustomerID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="DeliveryAddressID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="ExtRef" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="InvoiceAddressID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="IsComplete" type="xs:boolean"/>
-        //<xs:element minOccurs="0" name="IsVoided" type="xs:boolean"/>
-        //<xs:element minOccurs="0" name="PaymentLines" nillable="true" type="tns:ArrayOfWebSalesPayment"/>
-        //<xs:element minOccurs="0" name="Receipt" nillable="true" type="xs:base64Binary"/>
-        //<xs:element minOccurs="0" name="SaleDateTime" type="xs:dateTime"/>
-        //<xs:element minOccurs="0" name="SaleGuid" type="ser:guid"/>
-        //<xs:element minOccurs="0" name="SalesLines" nillable="true" type="tns:ArrayOfWebSalesLine"/>
-        //<xs:element minOccurs="0" name="Shipments" nillable="true" type="tns:ArrayOfWebShipment"/>
-        //</xs:sequence>
-        //</xs:complexType>
-        $saleObject = array(
-                      "Comment"=> "Comment for NewSale in FS",
-                      "CustomerID"=> 14557,
-                      "DeliveryAddressID"=> 0,
-                      "ExtRef"=> "ExtRef for NewSale in FS",
-                      "InvoiceAddressID"=> 0,
-                      "IsComplete"=> true,
-                      "IsVoided"=> false,
-                      "PaymentLines"=> $paymentLines,
-                      "Receipt"=> $receipt,
-                      "SaleDateTime"=> $saleDateTime,
-                      "SaleGuid"=> $saleGuid,
-                      "SalesLines"=> $saleLines,
-                      "Shipments"=> $shipments,
-                       );
-        
-        
-        
-        
-        
-        
-        $retval = $clientAuthenticated->NewSale(array('key'=>$fsKey, 'sale'=>$saleObject));
-        if (is_soap_fault($retval)) {
-            trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-        }
-        $fsNewSaleResult = $retval->NewSaleResult;
-        Mage::log('Registered sale successfully in Front Systems');
-        
-        //Mage::log(get_class_methods($products->getFirstItem()));
-        //Mage::log(get_class_methods($fsWebProducts->Product));
-        //Mage::log(get_object_vars($fsWebProducts->Product[0]));
-        //echo '' + $fsWebProducts->Product[0]->PRODUCTID; 
-        
-        Mage::log('New sale Result:' .$fsNewSaleResult);
-        
-        echo '<br/><br/>New sale Result:';
-        Mage::helper('frontSystems')->prettyPrintArray( $fsNewSaleResult );
-        //echo '<br/><br/>';
-        
-        //todo - Marlk as sold in Magento, assume this, or marked as not sold if something goes wrong?
-        //Mage::log('Calling Magento to store');
-        //Mage::helper('frontSystems')->StoreProduct($fsWebProducts);
-        
+    
+        Mage::log('IndexController: Calling helpers "AddNewSale" to send in Sale');
+        Mage::helper('frontSystems')->AddNewSale();
         
     }
     
@@ -343,18 +246,20 @@ abstract class Enum
 
 }
 
-final class CardTypeEnum extends Enum
+final class CardTypes extends Enum
 {
 
-    const VISA                         = 3;
-    //const CREATED                    = 201;
-    //const ACCEPTED                   = 202;
-    //// ...
-    //const SERVICE_UNAVAILABLE        = 503;
-    //const GATEWAY_TIME_OUT           = 504;
-    //const HTTP_VERSION_NOT_SUPPORTED = 505;
 
+    const VISA                         = 3;
+     const ECMC                         = 4;
+      const Amex                         = 5;
+       const Diners                         = 6;
+        const BankAxxess                         = 10000;
+   
+    
 }
+
+
 
 
 ?>

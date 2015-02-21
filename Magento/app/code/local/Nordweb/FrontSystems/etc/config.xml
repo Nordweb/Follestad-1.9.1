@@ -27,11 +27,23 @@
         <class>Nordweb_FrontSystems_Model</class>
       </frontSystems>
     </models>
+    <events>
+      <sales_order_place_after>
+        <observers>
+          <nordweb_frontsystems_observer> <!-- nordweb_frontsystems_model_observer-->
+            <type>singleton</type>
+            <class>Nordweb_FrontSystems_Model_SomeModel</class>
+            <method>callFromMagentoWhenSale</method> 
+          </nordweb_frontsystems_observer>
+        </observers>
+      </sales_order_place_after>
+    </events>
+    <!--
+sales_order_payment_place_end
+sales_order_payment_capture
+sales_order_payment_pay
+ -->
   </global>
-
-
-
-
 
   <crontab>
     <jobs>
