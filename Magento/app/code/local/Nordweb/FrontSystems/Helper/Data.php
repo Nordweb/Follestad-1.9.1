@@ -180,7 +180,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "CardType"=> "Visa",
                       "Currency"=> "NOK",
                       "ExtRef"=> "ExtRef for NewSale in FS",
-                      "LastCompletedStep"=> "Sale",
+                      "LastCompletedStep"=> "Capture",
                       "PaymentType"=> "NetAxept",
                       "ResponseBody"=> "ResponseBody here",
                       
@@ -269,9 +269,16 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         //<xs:element minOccurs="0" name="Shipments" nillable="true" type="tns:ArrayOfWebShipment"/>
         //</xs:sequence>
         //</xs:complexType>
+        $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
+        if(empty($fsWebCustomer)) //Insert customer
+        {
+            $resultInt = $this->InsertCustomer($orderInstance);
+            $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
+        }
+        
         $saleObject = array(
                       "Comment"=> "Comment for NewSale in FS",
-                      "CustomerID"=> $orderInstance->customer_id, //call getCustomer and possibly InsertCustomer
+                      "CustomerID"=> $fsWebCustomer->CUSTOMERID, //call getCustomer and possibly InsertCustomer
                       "DeliveryAddressID"=> 0,
                       "ExtRef"=> "ExtRef for NewSale in FS",
                       "InvoiceAddressID"=> 0,
@@ -304,9 +311,13 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log($retval->detail);
 
         
-        //if (is_soap_fault($retval)) {
-        //    trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-        //}
+        if (is_soap_fault($retval)) {
+            Mage::log($retval->faultcode);
+            Mage::log($retval->faultstring);
+            Mage::log($retval->detail);
+            trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+            Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved innsending av ordren til Follestad. Vennligst pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: <a href="mailto:support@follestad.no">support@follestad.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . $retval->faultstring . '</i>"');
+        }
         $fsNewSaleResult = $retval->NewSaleResult;
         Mage::log('Registered sale successfully in Front Systems');
         
@@ -318,10 +329,197 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::helper('frontSystems')->prettyPrintArray( $fsNewSaleResult );
         //echo '<br/><br/>';
         
-        //todo - Marlk as sold in Magento, assume this, or marked as not sold if something goes wrong?
+        //todo - Mark as sold in Magento, assume this, or marked as not sold if something goes wrong?
         //Mage::log('Calling Magento to store');
         //Mage::helper('frontSystems')->StoreProduct($fsWebProducts);
         
+    }
+    
+    public function GetCustomer($email)
+    {
+        
+        //auth
+        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $clientAuthenticated = $returnValues[0];
+        $fsKey = $returnValues[1];
+        
+        Mage::log('Client authenticated');
+        
+        //GetCustomer
+        $retval = $clientAuthenticated->GetCustomer(array('key'=>$fsKey, 'email'=>$email));
+        if (is_soap_fault($retval)) {
+            trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+        }
+        $fsWebCustomer = $retval->GetCustomerResult;
+        if(empty($fsWebCustomer) || empty($fsWebCustomer->Email))
+        {
+            return null;
+        }
+        
+        Mage::log('Successfully found customer');
+        return $fsWebCustomer;
+
+    }
+    
+
+
+
+    public function InsertCustomer($orderInstance)
+    {
+        //auth
+        $returnValues = Mage::helper('frontSystems')->AuthenticateFS("CardTypeEnum");
+        $clientAuthenticated = $returnValues[0];
+        $fsKey = $returnValues[1];
+        
+        Mage::log('Client authenticated');
+        
+
+        
+     //<xs:complexType name="WebsaleAddress">
+//<xs:sequence>
+//<xs:element minOccurs="0" name="ADDRESSID" type="xs:int"/>
+//<xs:element minOccurs="0" name="Address" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="CustomerID" type="xs:int"/>
+//<xs:element minOccurs="0" name="IsDefaultDeliveryAddress" type="xs:boolean"/>
+//<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Zip" nillable="true" type="xs:string"/>
+
+
+
+$billingAddress = $orderInstance->getBillingAddress();
+$shippingAddress = $orderInstance->getShippingAddress();
+
+        $websaleAddress = array(
+                      //"ADDRESSID"=> $customer->,
+                      "Address"=> $shippingAddress->getStreetFull(),
+                      "City"=> $shippingAddress->getCity(),
+                      "Comment"=> "Comment for customer address here",
+                      "Country"=> $shippingAddress->getCountry_id(),
+                      //"CustomerID"=> ,
+                      "IsDefaultDeliveryAddress"=> 1,
+                      "Name"=> "ShippingAddress",
+                      "Phone"=> $shippingAddress->getTelephone(),
+                      "Zip"=> $shippingAddress->getPostcode(),
+                      
+                       );
+        $websaleAddresses = array($websaleAddress);
+        
+      
+        
+        
+//    <xs:complexType name="WebCustomer">
+//<xs:sequence>
+//<xs:element minOccurs="0" name="Address" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfWebsaleAddress"/>
+//<xs:element minOccurs="0" name="AgreedSendEmail" type="xs:boolean"/>
+//<xs:element minOccurs="0" name="AgreedSendSMS" type="xs:boolean"/>
+//<xs:element minOccurs="0" name="CUSTOMERID" type="xs:int"/>
+//<xs:element minOccurs="0" name="CardNo" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvAddress" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvCity" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvComment" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvName" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvPhone" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="DlvZip" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Email" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string"/>
+//<xs:element minOccurs="0" name="StdDiscount" type="xs:decimal"/>
+//<xs:element minOccurs="0" name="Zip" nillable="true" type="xs:string"/>
+
+//CUSTOMER XML
+//<password><![CDATA[beliefs3]]></password>
+//<group_id><![CDATA[1]]></group_id>
+//<tax_class_id><![CDATA[3]]></tax_class_id>
+//<firstname><![CDATA[Rune]]></firstname>
+//<lastname><![CDATA[Horneland]]></lastname>
+//<email><![CDATA[email@runehorneland.com]]></email>
+//<telephone><![CDATA[99107868]]></telephone>
+//<country_id><![CDATA[NO]]></country_id>
+//<city><![CDATA[Oslo]]></city>
+//<postcode><![CDATA[1156]]></postcode>
+//<region_id><![CDATA[1]]></region_id>
+//<region><![CDATA[-]]></region>
+//<customer_password><![CDATA[beliefs3]]></customer_password>
+//<confirm_password><![CDATA[beliefs3]]></confirm_password>
+//<save_in_address_book><![CDATA[1]]></save_in_address_book>
+//<use_for_shipping><![CDATA[1]]></use_for_shipping>
+//<prefix><![CDATA[]]></prefix>
+//<middlename><![CDATA[]]></middlename>
+//<suffix><![CDATA[]]></suffix>
+//<dob><![CDATA[]]></dob>
+//<taxvat><![CDATA[]]></taxvat>
+//<gender><![CDATA[]]></gender>
+//<password_hash><![CDATA[286844fa1b68ae5cfb05e526fe5a5b89:uj0c8Kl5o9yHyULiQX54l6L4LwsB3UCO]]></password_hash>
+//<password_confirmation><![CDATA[]]></password_confirmation>
+//<store_id><![CDATA[1]]></store_id>
+//<entity_type_id><![CDATA[1]]></entity_type_id>
+//<parent_id><![CDATA[0]]></parent_id>
+//<created_at><![CDATA[2015-02-22 13:01:19]]></created_at>
+//<updated_at><![CDATA[2015-02-22 13:01:19]]></updated_at>
+//<created_in><![CDATA[Follestad default view]]></created_in>
+//<website_id><![CDATA[1]]></website_id>
+//<disable_auto_group_change><![CDATA[0]]></disable_auto_group_change>
+//<dob_is_formated><![CDATA[1]]></dob_is_formated>
+//<confirmation><![CDATA[]]></confirmation>
+//<entity_id><![CDATA[3393]]></entity_id>
+//<default_billing><![CDATA[1146]]></default_billing>
+//<default_shipping><![CDATA[1146]]></default_shipping>
+
+//ROOT XML
+//<billing_address_id><![CDATA[6559]]></billing_address_id>
+//<shipping_address_id><![CDATA[6560]]></shipping_address_id>
+      
+
+        
+        $webCustomer = array(
+                      "Address"=> $billingAddress->getStreetFull(),
+                      "Addresses"=> $websaleAddresses,
+                      "AgreedSendEmail"=> 1,
+                      "AgreedSendSMS"=> 0,
+                      //"CUSTOMERID"=> 0,
+                      //"CardNo"=> true,
+                      "City"=> $billingAddress->getCity(),
+                      "Comment"=> "Comment for customer here",
+                      "Country"=> $billingAddress->getCountry_id(),
+                      "DlvAddress"=> $shippingAddress->getStreetFull(),
+                      "DlvCity"=> $shippingAddress->getCity(),
+                      "DlvComment"=> "Comment deliveryAddress here",
+                      "DlvName"=> "DeliveryAddress",
+                      "DlvPhone"=> $shippingAddress->getTelephone(),
+                      "DlvZip"=> $shippingAddress->getPostcode(),
+                      "Email"=> $orderInstance->customer->email,
+                      "FirstName"=> $orderInstance->customer->firstname,
+                      "LastName"=> $orderInstance->customer->lastname,
+                      "Phone"=> $billingAddress->getTelephone(),
+                      "StdDiscount"=> 0.00,
+                      "Zip"=> $billingAddress->getPostcode(),
+                       );
+                       
+         Mage::log($webCustomer);
+        
+        //Call WebService
+        $retval = $clientAuthenticated->InsertCustomer(array('key'=>$fsKey, 'customer'=>$webCustomer));
+        
+        //Check for errors
+        if (is_soap_fault($retval)) {
+            Mage::log($retval->faultcode);
+            Mage::log($retval->faultstring);
+            Mage::log($retval->detail);
+            trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+        }
+        $fsInsertCustomerInt = $retval->InsertCustomerResult;
+        Mage::log('Inserted customer successfully in Front Systems');
+        
+        return $fsInsertCustomerInt;
     }
     
     

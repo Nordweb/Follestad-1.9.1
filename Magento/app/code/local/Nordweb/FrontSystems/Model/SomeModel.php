@@ -31,8 +31,8 @@ class Nordweb_FrontSystems_Model_SomeModel extends Mage_Core_Model_Abstract{
          /** @var $orderInstance Mage_Sales_Model_Order */
         $orderInstance = $observer->getOrder();
         //Mage::log(get_class_methods($orderInstance));
-        Mage::log($orderInstance->toXml());
-        Mage::log($orderInstance->customer_email);
+        //Mage::log($orderInstance->toXml());
+        Mage::log($orderInstance->customer->toXml());
        
         
         ///** @var $orderAddress Mage_Sales_Model_Order_Address */
