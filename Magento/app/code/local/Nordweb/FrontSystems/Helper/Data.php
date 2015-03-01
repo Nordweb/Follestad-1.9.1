@@ -9,7 +9,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
 
 
     
-    public function AuthenticateFS($classMapIfApplicable)
+    public function AuthenticateFS()
     {
         Mage::log('********************* New Call ***********************');
 
@@ -152,9 +152,26 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
      //               [Subgroup] => Hansker
      //               [Variant] => 
      //               [WebPrice] => 0
+     
+        //Mage::log(get_class_methods($orderInstance));
+        //Mage::log('*************************** orderInstance ****************************');
+        //Mage::log($orderInstance->toXml());
+        //Mage::log('*************************** orderInstance->customer ****************************');
+        //Mage::log($orderInstance->customer->toXml());
+        //Mage::log('*************************** orderInstance->quote ****************************');
+        //Mage::log($orderInstance->quote->toXml());
+        
+        //$orderIncrementId = $orderInstance->increment_id;
+        //$order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
+        
+        //Mage::log('*************************** $order ****************************');
+        //Mage::log($order);
+        //Mage::log($order->toXml());
+        
+      
        
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS("CardTypeEnum");
+        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -175,6 +192,11 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         //</xs:sequence>
         //</xs:complexType>
         //<xs:element name="WebSalesPayment" nillable="true" type="tns:WebSalesPayment"/>
+        
+        Mage::log('*************************** $paymentLine ****************************');
+            Mage::log('$orderInstance->grand_total' . $orderInstance->grand_total);
+         
+            
         $paymentLine = array(
                       "Amount"=> $orderInstance->grand_total,
                       "CardType"=> "Visa",
@@ -204,15 +226,37 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
 //</xs:sequence>
 //</xs:complexType>
 //<xs:element name="WebSalesLine" nillable="true" type="tns:WebSalesLine"/>
-        $saleLine = array(
-                      "Identitiy"=> "008160160220",
-                      "Price"=> $orderInstance->grand_total,
-                      "Qty"=> 1.00,
+
+       
+        $saleLines = array();
+ 
+
+        $order = Mage::getModel("sales/order")->loadByIncrementId($orderInstance->increment_id); 
+        $ordered_items = $order->getAllItems(); 
+ 
+         
+        Foreach($ordered_items as $item){     
+             
+            Mage::log('*************************** $salesitem ****************************');
+            Mage::log('$item->getSku() ' . $item->getSku());
+            Mage::log('$item->getPrice() ' . $item->getPriceInclTax());
+            Mage::log('$item->getQtyOrdered() ' . $item->getQtyOrdered());
+            Mage::log('$item->getName() ' . $item->getName());
+            Mage::log($item->toXml());
+            //Mage::log(get_object_vars($item));
+            
+            
+             $saleLine = array(
+                      "Identitiy"=> $item->getSku(), //$item->getItemId()
+                      "Price"=> $item->getPriceInclTax(),
+                      "Qty"=> $item->getQtyOrdered(),
                       "ShipmentExtId"=> "",
-                      "StockID"=> 008160160220, //?
-                      "Text"=> "Handsker",
+                      //"StockID"=> $item->getSku(), //?
+                      "Text"=> $item->getName(),
                        );
-        $saleLines = array($saleLine);
+            array_push($saleLines, $saleLine);
+        } 
+       
         
         
 //        <xs:element name="ArrayOfWebShipment" nillable="true" type="tns:ArrayOfWebShipment"/>
