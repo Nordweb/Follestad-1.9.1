@@ -50,4 +50,20 @@ class Nordweb_FrontSystems_Model_SomeModel extends Mage_Core_Model_Abstract{
         Mage::log('Nordweb_FrontSystems_Model_SomeModel: Calling helpers "AddNewSale" to send in Sale');
         Mage::helper('frontSystems')->AddNewSale($orderInstance);
     }
+    
+    //public function callFromMagentoWhenPaymentPlaceEnd($observer)
+    //{
+    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
+    //}
+    //  public function callFromMagentoWhenPaymentCapture($observer)
+    //{
+    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
+    //}
+    //  public function callFromMagentoWhenPaymentPay($observer)
+    //{
+    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
+    //}
+    
+    
+    
 }?>

@@ -194,20 +194,10 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         //<xs:element name="WebSalesPayment" nillable="true" type="tns:WebSalesPayment"/>
         
         Mage::log('*************************** $paymentLine ****************************');
-            Mage::log('$orderInstance->grand_total' . $orderInstance->grand_total);
+        Mage::log('$orderInstance->grand_total' . $orderInstance->grand_total);
          
             
-        $paymentLine = array(
-                      "Amount"=> $orderInstance->grand_total,
-                      "CardType"=> "Visa",
-                      "Currency"=> "NOK",
-                      "ExtRef"=> "ExtRef for NewSale in FS",
-                      "LastCompletedStep"=> "Capture",
-                      "PaymentType"=> "NetAxept",
-                      "ResponseBody"=> "ResponseBody here",
-                      
-                       );
-        $paymentLines = array($paymentLine);
+      
         
         $receipt = null; //binary file?
         $saleDateTime = null;//date("Y-m-d H:i:s:u"); //$date->now();
@@ -233,6 +223,76 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
 
         $order = Mage::getModel("sales/order")->loadByIncrementId($orderInstance->increment_id); 
         $ordered_items = $order->getAllItems(); 
+        
+        //Mage::log('*************************** $order ****************************');
+        //Mage::log(get_object_vars($order));
+        //Mage::log($order);
+        //Mage::log(get_class_methods($order));
+        //Mage::log($order->toXml());
+        //Get Payment
+        Mage::log('*************************** $payment ****************************');
+        $payment = $order->getPayment();
+        //if(!empty($payment))
+        //{
+        //    Mage::log($payment->toXml());
+        //}
+
+        //Get card type
+        $paymentCode = "";
+        if(!empty($payment))
+        {
+            //$paymentData = $payment->getData('cc_type');
+            //Mage::log('*************************** $paymentData ****************************');
+            //if(!empty($paymentData))
+            //{
+            //    Mage::log($paymentData->toXml());
+            //}
+            
+             //Get Payment Info
+            $paymentCode = $payment->getMethodInstance()->getCode();
+            Mage::log('*************************** $code ****************************');
+            if(!empty($paymentCode))
+            {
+                Mage::log($paymentCode);
+            }
+                
+            //$paymentTitle = $payment->getMethodInstance()->getTitle();
+            //Mage::log('*************************** $title ****************************');
+            //if(!empty($paymentTitle))
+            //{
+            //    Mage::log($paymentTitle);
+            //}
+
+            ////Get Credit Card info
+            //$cardStorage = $payment->getMethodInstance()->getCardsStorage();
+            //Mage::log('*************************** $cardStorage ****************************');
+            //if(!empty($cardStorage))
+            //{
+            //    Mage::log($cardStorage->toXml());
+            //}
+        }
+        
+       
+         
+        //$payment->getMethodInstance()->getCardsStorage()->getCards();//array()
+       
+        
+        Mage::log('*************************** $orderInstance ****************************');
+        //Mage::log(get_object_vars($orderInstance));
+        //Mage::log($orderInstance);
+        
+        
+          $paymentLine = array(
+                      "Amount"=> $orderInstance->grand_total,
+                      //"CardType"=> "Visa", 
+                      "Currency"=> "NOK",
+                      "ExtRef"=> $paymentCode,
+                      "LastCompletedStep"=> "Capture", 
+                      "PaymentType"=> "NetAxept", 
+                      "ResponseBody"=> "",
+                      
+                       );
+        $paymentLines = array($paymentLine);
  
          
         Foreach($ordered_items as $item){     
@@ -282,14 +342,21 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
 //<xs:enumeration value="PickupPoint"/>
 //</xs:restriction>
 //</xs:simpleType>
+
+         Mage::log('*************************** Shipping ****************************');
+         //$shippingRatesCollection = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getShippingRatesCollection();
+         //Mage::log($shippingRatesCollection->toXml());
+         Mage::log($order->getShippingMethod());
+         Mage::log($order->getShippingDescription());
+          
          $shipment = array(
-                      "ExtID"=> "Some extID",
-                      "Price"=> 50.00,
-                      "Provider"=> "Posten",
+                      "ExtID"=> $order->getShippingMethod()->method_title,
+                      "Price"=> $order->getShippingPrice(), 
+                      "Provider"=> $order->getShippingDescription(), 
                       //"RegisteredDateTime"=> "",
                       "ReturnLabel"=> null,
                       "ShipmentLabel"=> null,
-                      "TrackingURL"=> "http://www.dev.follestad.no/trackingUrlHere",
+                      "TrackingURL"=> "",
                        );
         //$shipments = array($shipment);
         $shipments = null;
@@ -320,12 +387,16 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
             $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
         }
         
+        Mage::log($fsWebCustomer->Addresses);
+       
+        
+        
         $saleObject = array(
-                      "Comment"=> "Comment for NewSale in FS",
-                      "CustomerID"=> $fsWebCustomer->CUSTOMERID, //call getCustomer and possibly InsertCustomer
-                      "DeliveryAddressID"=> 0,
-                      "ExtRef"=> "ExtRef for NewSale in FS",
-                      "InvoiceAddressID"=> 0,
+                      "Comment"=> "",
+                      "CustomerID"=> $fsWebCustomer->CUSTOMERID, 
+                      "DeliveryAddressID"=> $fsWebCustomer->Addresses->ADDRESSID,
+                      "ExtRef"=> "",
+                      "InvoiceAddressID"=> $fsWebCustomer->Addresses->ADDRESSID,
                       "IsComplete"=> true,
                       "IsVoided"=> false,
                       "PaymentLines"=> $paymentLines,
@@ -437,11 +508,11 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
 $billingAddress = $orderInstance->getBillingAddress();
 $shippingAddress = $orderInstance->getShippingAddress();
 
-        $websaleAddress = array(
+        $websaleAddressShipping = array(
                       //"ADDRESSID"=> $customer->,
                       "Address"=> $shippingAddress->getStreetFull(),
                       "City"=> $shippingAddress->getCity(),
-                      "Comment"=> "Comment for customer address here",
+                      "Comment"=> "ShippingAddress",
                       "Country"=> $shippingAddress->getCountry_id(),
                       //"CustomerID"=> ,
                       "IsDefaultDeliveryAddress"=> 1,
@@ -450,7 +521,21 @@ $shippingAddress = $orderInstance->getShippingAddress();
                       "Zip"=> $shippingAddress->getPostcode(),
                       
                        );
-        $websaleAddresses = array($websaleAddress);
+                       
+         $websaleAddressBilling = array(
+                      //"ADDRESSID"=> $customer->,
+                      "Address"=> $billingAddress->getStreetFull(),
+                      "City"=> $billingAddress->getCity(),
+                      "Comment"=> "BillingAddress",
+                      "Country"=> $billingAddress->getCountry_id(),
+                      //"CustomerID"=> ,
+                      "IsDefaultDeliveryAddress"=> 0,
+                      "Name"=> "BillingAddress",
+                      "Phone"=> $billingAddress->getTelephone(),
+                      "Zip"=> $billingAddress->getPostcode(),
+                      
+                       );
+        $websaleAddresses = array($websaleAddressShipping, $websaleAddressBilling);
         
       
         
@@ -532,11 +617,11 @@ $shippingAddress = $orderInstance->getShippingAddress();
                       //"CUSTOMERID"=> 0,
                       //"CardNo"=> true,
                       "City"=> $billingAddress->getCity(),
-                      "Comment"=> "Comment for customer here",
+                      "Comment"=> "",
                       "Country"=> $billingAddress->getCountry_id(),
                       "DlvAddress"=> $shippingAddress->getStreetFull(),
                       "DlvCity"=> $shippingAddress->getCity(),
-                      "DlvComment"=> "Comment deliveryAddress here",
+                      "DlvComment"=> "",
                       "DlvName"=> "DeliveryAddress",
                       "DlvPhone"=> $shippingAddress->getTelephone(),
                       "DlvZip"=> $shippingAddress->getPostcode(),
