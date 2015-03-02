@@ -37,39 +37,8 @@
           </nordweb_frontsystems_observer>
         </observers>
       </sales_order_place_after>
-      <!--<sales_order_payment_place_end>
-        <observers>
-          <nordweb_frontsystems_observer>
-            <type>singleton</type>
-            <class>Nordweb_FrontSystems_Model_SomeModel</class>
-            <method>callFromMagentoWhenPaymentPlaceEnd</method>
-          </nordweb_frontsystems_observer>
-        </observers>
-      </sales_order_payment_place_end>
-      <sales_order_payment_capture>
-        <observers>
-          <nordweb_frontsystems_observer>
-            <type>singleton</type>
-            <class>Nordweb_FrontSystems_Model_SomeModel</class>
-            <method>callFromMagentoWhenPaymentCapture</method>
-          </nordweb_frontsystems_observer>
-        </observers>
-      </sales_order_payment_capture>
-      <sales_order_payment_pay>
-        <observers>
-          <nordweb_frontsystems_observer>
-            <type>singleton</type>
-            <class>Nordweb_FrontSystems_Model_SomeModel</class>
-            <method>callFromMagentoWhenPaymentPay</method>
-          </nordweb_frontsystems_observer>
-        </observers>
-      </sales_order_payment_pay>-->
+   
     </events>
-    <!--
-sales_order_payment_place_end
-sales_order_payment_capture
-sales_order_payment_pay
- -->
   </global>
 
   <crontab>

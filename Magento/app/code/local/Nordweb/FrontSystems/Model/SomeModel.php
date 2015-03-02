@@ -15,55 +15,16 @@ class Nordweb_FrontSystems_Model_SomeModel extends Mage_Core_Model_Abstract{
     
     
     
-     public function callFromMagentoWhenSale($observer)
-      //public function callFromMagentoWhenSale()
+    public function callFromMagentoWhenSale($observer)
     {
         Mage::log('********************* Called from Magento when sale  ***********************');
         
-        
-        //Mage::log(get_class_methods($observer));
-        //Mage::log($observer->getData());
-        //Mage::log($observer->toArray());
-        //Mage::log(get_class_methods($observer->getEvent()));
-        //Mage::log($observer->getEvent()->toXml());
-        
-        
-         /** @var $orderInstance Mage_Sales_Model_Order */
-        $orderInstance = $observer->getOrder();
-       
-       
-        
-        ///** @var $orderAddress Mage_Sales_Model_Order_Address */
-        //$orderAddress = $this->_getVatRequiredSalesAddress($orderInstance);
-       
 
-        //$vatRequestId = $orderAddress->getVatRequestId();
-        //$vatRequestDate = $orderAddress->getVatRequestDate();
-       
-        //$orderHistoryComment = Mage::helper('customer')->__('VAT Request Identifier')
-        //    . ': ' . $vatRequestId . '<br />' . Mage::helper('customer')->__('VAT Request Date')
-        //    . ': ' . $vatRequestDate;
-        //$orderInstance->addStatusHistoryComment($orderHistoryComment, false);
-        
-   
-        
+        $orderInstance = $observer->getOrder();
+  
         Mage::log('Nordweb_FrontSystems_Model_SomeModel: Calling helpers "AddNewSale" to send in Sale');
         Mage::helper('frontSystems')->AddNewSale($orderInstance);
     }
-    
-    //public function callFromMagentoWhenPaymentPlaceEnd($observer)
-    //{
-    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
-    //}
-    //  public function callFromMagentoWhenPaymentCapture($observer)
-    //{
-    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
-    //}
-    //  public function callFromMagentoWhenPaymentPay($observer)
-    //{
-    //    Mage::log('********************* callFromMagentoWhenPaymentPlaceEnd  ***********************');
-    //}
-    
     
     
 }?>

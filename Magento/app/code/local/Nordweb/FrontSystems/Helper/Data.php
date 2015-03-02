@@ -123,166 +123,39 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
     
      public function AddNewSale($orderInstance)
     {
-     //[BRANDID_FK] => 4789
-     //               [BrandName] => Fingerman
-     //               [CATID_FK] => 0
-     //               [COLOURID_FK] => 0
-     //               [COMPANYID_FK] => 110
-     //               [Color] => - - - - 
-     //               [Cost] => 139
-     //               [GROUPID_FK] => 1759
-     //               [Gender] => m
-     //               [GroupName] => Accessories
-     //               [IDENTITY] => 001861040100
-     //               [Ins] => 2013-03-08T11:27:15.557
-     //               [IsDiscontinued] => 
-     //               [IsNetAvailable] => 1
-     //               [IsVisibleWhenStockIsEmpty] => 
-     //               [Label] => OS
-     //               [Name] => mens coll
-     //               [Number] => 2343
-     //               [OutPrice] => 499
-     //               [PRODUCTID] => 186104
-     //               [SEASONID_FK] => 447
-     //               [SIZEID_FK] => 526
-     //               [SUBGROUPID_FK] => 5466
-     //               [SeasonName] => NOS
-     //               [Size] => 0
-     //               [SizeLabel] => 1
-     //               [Subgroup] => Hansker
-     //               [Variant] => 
-     //               [WebPrice] => 0
-     
-        //Mage::log(get_class_methods($orderInstance));
-        //Mage::log('*************************** orderInstance ****************************');
-        //Mage::log($orderInstance->toXml());
-        //Mage::log('*************************** orderInstance->customer ****************************');
-        //Mage::log($orderInstance->customer->toXml());
-        //Mage::log('*************************** orderInstance->quote ****************************');
-        //Mage::log($orderInstance->quote->toXml());
-        
-        //$orderIncrementId = $orderInstance->increment_id;
-        //$order = Mage::getModel('sales/order')->loadByIncrementId($orderIncrementId);
-        
-        //Mage::log('*************************** $order ****************************');
-        //Mage::log($order);
-        //Mage::log($order->toXml());
-        
-      
-       
+    
+    try {
         //auth
         $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
         Mage::log('Client authenticated');
-        
-
-        
-        //<xs:element name="ArrayOfWebSalesPayment" nillable="true" type="tns:ArrayOfWebSalesPayment"/>
-        //<xs:complexType name="WebSalesPayment">
-        //<xs:sequence>
-        //<xs:element minOccurs="0" name="Amount" type="xs:decimal"/>
-        //<xs:element minOccurs="0" name="CardType" type="tns:CardTypeEnum"/>
-        //<xs:element minOccurs="0" name="Currency" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="ExtRef" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="LastCompletedStep" type="tns:LastSuccessfulStepEnum"/>
-        //<xs:element minOccurs="0" name="PaymentType" type="tns:PaymentTypeEnum"/>
-        //<xs:element minOccurs="0" name="ResponseBody" nillable="true" type="xs:string"/>
-        //</xs:sequence>
-        //</xs:complexType>
-        //<xs:element name="WebSalesPayment" nillable="true" type="tns:WebSalesPayment"/>
-        
-        Mage::log('*************************** $paymentLine ****************************');
-        Mage::log('$orderInstance->grand_total' . $orderInstance->grand_total);
-         
-            
-      
-        
-        $receipt = null; //binary file?
-        $saleDateTime = null;//date("Y-m-d H:i:s:u"); //$date->now();
+       
+        $receipt = null; 
+        $saleDateTime = null;
         $saleGuid = Mage::helper('frontSystems')->getGUID();
         
-        
-//        <xs:element name="ArrayOfWebSalesLine" nillable="true" type="tns:ArrayOfWebSalesLine"/>
-//<xs:complexType name="WebSalesLine">
-//<xs:sequence>
-//<xs:element minOccurs="0" name="Identitiy" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Price" type="xs:decimal"/>
-//<xs:element minOccurs="0" name="Qty" type="xs:decimal"/>
-//<xs:element minOccurs="0" name="ShipmentExtId" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="StockID" type="xs:int"/>
-//<xs:element minOccurs="0" name="Text" nillable="true" type="xs:string"/>
-//</xs:sequence>
-//</xs:complexType>
-//<xs:element name="WebSalesLine" nillable="true" type="tns:WebSalesLine"/>
 
-       
         $saleLines = array();
  
-
         $order = Mage::getModel("sales/order")->loadByIncrementId($orderInstance->increment_id); 
         $ordered_items = $order->getAllItems(); 
         
-        //Mage::log('*************************** $order ****************************');
-        //Mage::log(get_object_vars($order));
-        //Mage::log($order);
-        //Mage::log(get_class_methods($order));
-        //Mage::log($order->toXml());
-        //Get Payment
-        Mage::log('*************************** $payment ****************************');
+      
         $payment = $order->getPayment();
-        //if(!empty($payment))
-        //{
-        //    Mage::log($payment->toXml());
-        //}
-
+      
         //Get card type
         $paymentCode = "";
         if(!empty($payment))
         {
-            //$paymentData = $payment->getData('cc_type');
-            //Mage::log('*************************** $paymentData ****************************');
-            //if(!empty($paymentData))
-            //{
-            //    Mage::log($paymentData->toXml());
-            //}
-            
              //Get Payment Info
             $paymentCode = $payment->getMethodInstance()->getCode();
-            Mage::log('*************************** $code ****************************');
-            if(!empty($paymentCode))
-            {
-                Mage::log($paymentCode);
-            }
-                
-            //$paymentTitle = $payment->getMethodInstance()->getTitle();
-            //Mage::log('*************************** $title ****************************');
-            //if(!empty($paymentTitle))
-            //{
-            //    Mage::log($paymentTitle);
-            //}
-
-            ////Get Credit Card info
-            //$cardStorage = $payment->getMethodInstance()->getCardsStorage();
-            //Mage::log('*************************** $cardStorage ****************************');
-            //if(!empty($cardStorage))
-            //{
-            //    Mage::log($cardStorage->toXml());
-            //}
+           
         }
         
-       
-         
-        //$payment->getMethodInstance()->getCardsStorage()->getCards();//array()
-       
-        
-        Mage::log('*************************** $orderInstance ****************************');
-        //Mage::log(get_object_vars($orderInstance));
-        //Mage::log($orderInstance);
-        
-        
-          $paymentLine = array(
+
+        $paymentLine = array(
                       "Amount"=> $orderInstance->grand_total,
                       //"CardType"=> "Visa", 
                       "Currency"=> "NOK",
@@ -298,57 +171,23 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         Foreach($ordered_items as $item){     
              
             Mage::log('*************************** $salesitem ****************************');
-            Mage::log('$item->getSku() ' . $item->getSku());
-            Mage::log('$item->getPrice() ' . $item->getPriceInclTax());
-            Mage::log('$item->getQtyOrdered() ' . $item->getQtyOrdered());
-            Mage::log('$item->getName() ' . $item->getName());
-            Mage::log($item->toXml());
-            //Mage::log(get_object_vars($item));
-            
-            
-             $saleLine = array(
-                      "Identitiy"=> $item->getSku(), //$item->getItemId()
+            Mage::log('$item->getSku(): ' . $item->getSku());
+            Mage::log('$item->getPrice(): ' . $item->getPriceInclTax());
+            Mage::log('$item->getQtyOrdered(): ' . $item->getQtyOrdered());
+            Mage::log('$item->getName(): ' . $item->getName());
+
+            $saleLine = array(
+                      "Identitiy"=> $item->getSku(), 
                       "Price"=> $item->getPriceInclTax(),
                       "Qty"=> $item->getQtyOrdered(),
                       "ShipmentExtId"=> "",
-                      //"StockID"=> $item->getSku(), //?
+                      //"StockID"=> $item->getSku(),
                       "Text"=> $item->getName(),
                        );
             array_push($saleLines, $saleLine);
         } 
        
-        
-        
-//        <xs:element name="ArrayOfWebShipment" nillable="true" type="tns:ArrayOfWebShipment"/>
-//<xs:complexType name="WebShipment">
-//<xs:sequence>
-//<xs:element minOccurs="0" name="ExtID" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Price" type="xs:decimal"/>
-//<xs:element minOccurs="0" name="Provider" type="tns:ShipmentProviderEnum"/>
-//<xs:element minOccurs="0" name="RegisteredDateTime" type="xs:dateTime"/>
-//<xs:element minOccurs="0" name="ReturnLabel" nillable="true" type="xs:base64Binary"/>
-//<xs:element minOccurs="0" name="ShipmentLabel" nillable="true" type="xs:base64Binary"/>
-//<xs:element minOccurs="0" name="TrackingURL" nillable="true" type="xs:string"/>
-//</xs:sequence>
-//</xs:complexType>
-//<xs:element name="WebShipment" nillable="true" type="tns:WebShipment"/>
-        
 
-//xs:simpleType name="ShipmentProviderEnum">
-//<xs:restriction base="xs:string">
-//<xs:enumeration value="Posten"/>
-//<xs:enumeration value="MyPack"/>
-//<xs:enumeration value="InStore"/>
-//<xs:enumeration value="PickupPoint"/>
-//</xs:restriction>
-//</xs:simpleType>
-
-         Mage::log('*************************** Shipping ****************************');
-         //$shippingRatesCollection = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getShippingRatesCollection();
-         //Mage::log($shippingRatesCollection->toXml());
-         Mage::log($order->getShippingMethod());
-         Mage::log($order->getShippingDescription());
-          
          $shipment = array(
                       "ExtID"=> $order->getShippingMethod()->method_title,
                       "Price"=> $order->getShippingPrice(), 
@@ -358,28 +197,10 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "ShipmentLabel"=> null,
                       "TrackingURL"=> "",
                        );
-        //$shipments = array($shipment);
+        $shipments = array($shipment);
         $shipments = null;
       
        
-        
-        //<xs:complexType name="Websale">
-        //<xs:sequence>
-        //<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="CustomerID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="DeliveryAddressID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="ExtRef" nillable="true" type="xs:string"/>
-        //<xs:element minOccurs="0" name="InvoiceAddressID" type="xs:int"/>
-        //<xs:element minOccurs="0" name="IsComplete" type="xs:boolean"/>
-        //<xs:element minOccurs="0" name="IsVoided" type="xs:boolean"/>
-        //<xs:element minOccurs="0" name="PaymentLines" nillable="true" type="tns:ArrayOfWebSalesPayment"/>
-        //<xs:element minOccurs="0" name="Receipt" nillable="true" type="xs:base64Binary"/>
-        //<xs:element minOccurs="0" name="SaleDateTime" type="xs:dateTime"/>
-        //<xs:element minOccurs="0" name="SaleGuid" type="ser:guid"/>
-        //<xs:element minOccurs="0" name="SalesLines" nillable="true" type="tns:ArrayOfWebSalesLine"/>
-        //<xs:element minOccurs="0" name="Shipments" nillable="true" type="tns:ArrayOfWebShipment"/>
-        //</xs:sequence>
-        //</xs:complexType>
         $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
         if(empty($fsWebCustomer)) //Insert customer
         {
@@ -387,9 +208,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
             $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
         }
         
-        Mage::log($fsWebCustomer->Addresses);
-       
-        
+ 
         
         $saleObject = array(
                       "Comment"=> "",
@@ -407,25 +226,9 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "Shipments"=> $shipments,
                        );
         
-        
-        
-        
-        
-        
         $retval = $clientAuthenticated->NewSale(array('key'=>$fsKey, 'sale'=>$saleObject));
         
-        //Mage::log('retval:');
-        //Mage::log($retval);
-        //  Mage::log('get_class_methods:');
-        //Mage::log(get_class_methods($retval));
-        //  Mage::log('get_object_vars:');
-        //Mage::log(get_object_vars($retval));
-        
-        Mage::log($retval->faultcode);
-        Mage::log($retval->faultstring);
-        Mage::log($retval->detail);
 
-        
         if (is_soap_fault($retval)) {
             Mage::log($retval->faultcode);
             Mage::log($retval->faultstring);
@@ -442,11 +245,43 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         
         echo '<br/><br/>New sale Result:';
         Mage::helper('frontSystems')->prettyPrintArray( $fsNewSaleResult );
-        //echo '<br/><br/>';
         
-        //todo - Mark as sold in Magento, assume this, or marked as not sold if something goes wrong?
-        //Mage::log('Calling Magento to store');
-        //Mage::helper('frontSystems')->StoreProduct($fsWebProducts);
+        } 
+        catch (Exception $e) 
+        {
+            
+            
+            // the message
+            $msg = $e->getMessage();
+
+            // use wordwrap() if lines are longer than 70 characters
+            $msg = wordwrap($msg,70);
+            
+            // To send HTML mail, the Content-type header must be set
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            // Additional headers
+            $headers .= 'To: Rune <rune@nordweb.no>' . "\r\n";
+            $headers .= 'From: rif@rif.no' . "\r\n";
+
+            // send email
+            mail("rune@nordweb.no", "Follestad.no - Exception in AddSale()",$msg, $headers);
+            
+          
+
+            try {
+                $mail->send();
+              
+            }
+            catch (Exception $e2) {
+               Mage::log($e2->getMessage());
+            }
+            
+            //throw it again
+            throw $e;
+        }
+       
         
     }
     
@@ -488,25 +323,9 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         
         Mage::log('Client authenticated');
         
-
         
-     //<xs:complexType name="WebsaleAddress">
-//<xs:sequence>
-//<xs:element minOccurs="0" name="ADDRESSID" type="xs:int"/>
-//<xs:element minOccurs="0" name="Address" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="CustomerID" type="xs:int"/>
-//<xs:element minOccurs="0" name="IsDefaultDeliveryAddress" type="xs:boolean"/>
-//<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Zip" nillable="true" type="xs:string"/>
-
-
-
-$billingAddress = $orderInstance->getBillingAddress();
-$shippingAddress = $orderInstance->getShippingAddress();
+        $billingAddress = $orderInstance->getBillingAddress();
+        $shippingAddress = $orderInstance->getShippingAddress();
 
         $websaleAddressShipping = array(
                       //"ADDRESSID"=> $customer->,
@@ -537,78 +356,7 @@ $shippingAddress = $orderInstance->getShippingAddress();
                        );
         $websaleAddresses = array($websaleAddressShipping, $websaleAddressBilling);
         
-      
-        
-        
-//    <xs:complexType name="WebCustomer">
-//<xs:sequence>
-//<xs:element minOccurs="0" name="Address" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfWebsaleAddress"/>
-//<xs:element minOccurs="0" name="AgreedSendEmail" type="xs:boolean"/>
-//<xs:element minOccurs="0" name="AgreedSendSMS" type="xs:boolean"/>
-//<xs:element minOccurs="0" name="CUSTOMERID" type="xs:int"/>
-//<xs:element minOccurs="0" name="CardNo" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvAddress" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvCity" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvComment" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvName" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvPhone" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="DlvZip" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Email" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string"/>
-//<xs:element minOccurs="0" name="StdDiscount" type="xs:decimal"/>
-//<xs:element minOccurs="0" name="Zip" nillable="true" type="xs:string"/>
 
-//CUSTOMER XML
-//<password><![CDATA[beliefs3]]></password>
-//<group_id><![CDATA[1]]></group_id>
-//<tax_class_id><![CDATA[3]]></tax_class_id>
-//<firstname><![CDATA[Rune]]></firstname>
-//<lastname><![CDATA[Horneland]]></lastname>
-//<email><![CDATA[email@runehorneland.com]]></email>
-//<telephone><![CDATA[99107868]]></telephone>
-//<country_id><![CDATA[NO]]></country_id>
-//<city><![CDATA[Oslo]]></city>
-//<postcode><![CDATA[1156]]></postcode>
-//<region_id><![CDATA[1]]></region_id>
-//<region><![CDATA[-]]></region>
-//<customer_password><![CDATA[beliefs3]]></customer_password>
-//<confirm_password><![CDATA[beliefs3]]></confirm_password>
-//<save_in_address_book><![CDATA[1]]></save_in_address_book>
-//<use_for_shipping><![CDATA[1]]></use_for_shipping>
-//<prefix><![CDATA[]]></prefix>
-//<middlename><![CDATA[]]></middlename>
-//<suffix><![CDATA[]]></suffix>
-//<dob><![CDATA[]]></dob>
-//<taxvat><![CDATA[]]></taxvat>
-//<gender><![CDATA[]]></gender>
-//<password_hash><![CDATA[286844fa1b68ae5cfb05e526fe5a5b89:uj0c8Kl5o9yHyULiQX54l6L4LwsB3UCO]]></password_hash>
-//<password_confirmation><![CDATA[]]></password_confirmation>
-//<store_id><![CDATA[1]]></store_id>
-//<entity_type_id><![CDATA[1]]></entity_type_id>
-//<parent_id><![CDATA[0]]></parent_id>
-//<created_at><![CDATA[2015-02-22 13:01:19]]></created_at>
-//<updated_at><![CDATA[2015-02-22 13:01:19]]></updated_at>
-//<created_in><![CDATA[Follestad default view]]></created_in>
-//<website_id><![CDATA[1]]></website_id>
-//<disable_auto_group_change><![CDATA[0]]></disable_auto_group_change>
-//<dob_is_formated><![CDATA[1]]></dob_is_formated>
-//<confirmation><![CDATA[]]></confirmation>
-//<entity_id><![CDATA[3393]]></entity_id>
-//<default_billing><![CDATA[1146]]></default_billing>
-//<default_shipping><![CDATA[1146]]></default_shipping>
-
-//ROOT XML
-//<billing_address_id><![CDATA[6559]]></billing_address_id>
-//<shipping_address_id><![CDATA[6560]]></shipping_address_id>
-      
-
-        
         $webCustomer = array(
                       "Address"=> $billingAddress->getStreetFull(),
                       "Addresses"=> $websaleAddresses,
