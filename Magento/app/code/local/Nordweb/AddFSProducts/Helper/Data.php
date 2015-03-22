@@ -123,11 +123,13 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
                 $attr_value = $oneFSProduct->Label;
                 
-                //Fallback if label is empty front systems
+                //Skip
                 if (empty($attr_value)) 
                 {
-                    Mage::log('A label from Front Systems was empty, setting it to "[N/A]"');
-                    $attr_value = "[N/A]";
+                    continue;
+                    //Fallback if label is empty front systems
+                    //Mage::log('A label from Front Systems was empty, setting it to "[N/A]"');
+                    //$attr_value = "[N/A]";
                 }
         
                 // Again, I have more logic to determine these fields, but for clarity, I'm still including the variables here hardcoded.. $attr_value = $simple_product_data['size']; 
