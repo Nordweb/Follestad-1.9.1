@@ -9,45 +9,29 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function GetProductsFromFSBySKU($SKUOfConfigurable)
     {
+        Mage::log('Calling Data->GetProductsFromFSBySKU()');
         
-        Mage::log('SKU from Magento is: ');
-        Mage::log($SKUOfConfigurable);
+     
     
         //auth
+        Mage::log('Calling frontSystems->AuthenticateFS()');
         $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
-        Mage::log('Client authenticated');
+        Mage::log('Front Systems Client authenticated');
         
-        
-        //GetProducts
-        //$retval = $clientAuthenticated->GetProducts(array('key'=>$fsKey));
-        //if (is_soap_fault($retval)) {
-        //    trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-        //}
-        //$fsWebProducts = $retval->GetProductsResult;
-        //Mage::log('Successfully got all products by SKU');
         
         //GetFullProductInfo
+        Mage::log('Calling frontSystems->GetFullProductInfo()');
         $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurable));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
         }
         $allProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
-        Mage::log('Successfully got all products by SKU');
+        Mage::log('Front Systems products & stockCount gotten by SKU');
         
-        //Mage::log(get_class_methods($products->getFirstItem()));
-        //Mage::log(get_class_methods($fsWebProducts->Product));
-        //Mage::log(get_object_vars($fsWebProducts->Product[0]));
-        //echo '' + $fsWebProducts->Product[0]->PRODUCTID; 
-        
-        
-        //$this->prettyPrintArray( $allProductsAndStockCountForThisConfigurableProduct );
-        //$this->prettyPrintArray( $fsWebProducts );
-        //echo '<br/><br/>';
-        
+
         //Store in Magento
-        Mage::log('Calling Magento to store these FS-products as simple products under the calling configurable product');
         $this->StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct);
         
      
@@ -55,7 +39,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     
     public function AuthenticateFS()
     {
-        Mage::log('********************* New Call ***********************');
+       
 
         //Declare some paramaters for our soapclient and create it.
         $headerParams  = array("soap_version"=> SOAP_1_1,
@@ -91,246 +75,124 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct)
     {
-        
+        Mage::log('Calling Data->StoreSimpleProductsUnderCallingConfigurable()');
+            
+        //Get configurable product
         Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
         $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurable);
         
         
         //deleting existing products
+        Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
         $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
         
+        //Sum all stockcounts
+        Mage::log('Summarizing all stockCounts');
+        $stockCountArray = array(); //identity, stockcount
+        foreach ($allProductsAndStockCountForThisConfigurableProduct->StockCounts->StockCount as $stockCount) {
 
-        
-        //Mage::log('$fsWebProducts->Product[0]->IDENTITY: ' .$fsWebProducts->Product[0]->IDENTITY);
-        //Mage::log('$productLookup->sku: ' .$productLookup->sku);
-        //Mage::log(get_class_methods(Mage::getModel('catalog/product')));
-        //Mage::log(get_object_vars(Mage::getModel('catalog/product')));
-        
-        //if($productLookup == null or $productLookup == '' or $productLookup->sku == null or $productLookup->sku == ''):
             
-        //    Mage::log('Product not found, creating it, with SKU ' .$fsWebProducts->Product[0]->IDENTITY);
-        
-        
-//        <xs:complexType name="FullProductInfo">
-//<xs:sequence>
-//<xs:element minOccurs="0" name="Products" nillable="true" type="tns:ArrayOfProduct"/>
-//<xs:element minOccurs="0" name="StockCounts" nillable="true" type="tns:ArrayOfStockCount"/>
-
- //$this->prettyPrintArray( $allProductsAndStockCountForThisConfigurableProduct->StockCounts );
- 
-    //get existing simple products and added them to array
-    //$simpleProductsProductIds = $configurableProductInMagento->getTypeInstance()->getUsedProductIds();
-    //$newTotalSimpleProductsArray = array();
-    //foreach ( $simpleProductsProductIds as $existingId ) {
-    //    $newTotalSimpleProductsArray[$existingId] = 1;
-    //}
-
-       //$stockCounts = $allProductsAndStockCountForThisConfigurableProduct->StockCounts;
-
-        //$this->prettyPrintArray($stockCounts->StockCount[0]);
-        
-        //ToDo - Need to foreach both products and their stockcounts
-        //Foreach($stockCounts->StockCount as $stockItem){ 
-        
-        //debug
-         //$stockItem = $stockCounts->StockCount[0];   
-         //$this->prettyPrintArray($stockItem);
-         
-         //   try {
-         //       Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-         //       $simpleProduct = Mage::getModel('catalog/product');
-         //       $simpleProduct
-         //           ->setWebsiteIds(array(1)) //website ID the product is assigned to, as an array
-         //           ->setAttributeSetId(4) //ID of a attribute set named 'default'
-         //           ->setTypeId('simple') //product type
-         //           ->setCreatedAt(strtotime('now')) //product creation time
-         //           ->setSku($stockItem->Identity) //SKU
-         //           ->setName($configurableProductInMagento->getName() . "-L") //product name
-         //           ->setWeight(1.00)
-         //           ->setStatus(1) //product status (1 - enabled, 2 - disabled)
-         //           ->setTaxClassId($configurableProductInMagento->getTaxClassId()) //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
-         //           ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) //catalog and search visibility
-         //           //->setManufacturer(28) //manufacturer id
-         //           //->setColor(24)
-         //           //->setNewsFromDate(strtotime('now')) //product set as new from
-         //           //->setNewsToDate('06/30/2015') //product set as new to
-         //           //->setCountryOfManufacture('NO') //country of manufacture (2-letter country code)
-         //           ->setPrice($configurableProductInMagento->getPrice()) //price in form 11.22
-         //           //->setCost(22.33) //price in form 11.22
-         //           //->setSpecialPrice(3.44) //special price in form 11.22
-         //           //->setSpecialFromDate(strtotime('now')) //special price from (MM-DD-YYYY)
-         //           //->setSpecialToDate('06/30/2015') //special price to (MM-DD-YYYY)
-         //           //->setMsrpEnabled(1) //enable MAP
-         //           //->setMsrpDisplayActualPriceType(1) //display actual price (1 - on gesture, 2 - in cart, 3 - before order confirmation, 4 - use config)
-         //           //->setMsrp(99.99) //Manufacturer's Suggested Retail Price
-         //           //->setMetaTitle('Programamtic meta title here')
-         //           //->setMetaKeyword('Programamtic meta keyword here')
-         //           //->setMetaDescription('Programamtic meta desc here')
-         //           ->setDescription($configurableProductInMagento->getDescription())
-         //           ->setShortDescription($configurableProductInMagento->getShortDescription())
-         //           //->setMediaGallery (array('images'=>array (), 'values'=>array ())) //media gallery initialization
-         //           ->setStockData(array(
-         //                              'use_config_manage_stock' => 1, //'Use config settings' checkbox
-         //                              //'manage_stock'=>1, //manage stock
-         //                              //'min_sale_qty'=>1, //Minimum Qty Allowed in Shopping Cart
-         //                              //'max_sale_qty'=>2, //Maximum Qty Allowed in Shopping Cart
-         //                              'is_in_stock' => 1, //Stock Availability
-         //                              'qty' => $stockItem->Qty //qty
-         //                          )
-         //           );
-         //           //->setCategoryIds(array(3, 10)); //assign product to categories
-         //       //$simpleProduct->save();
-                
-         //         $simpleProductData = array();
-         //          $simpleProductData = array( //[$simpleProduct->getId()] = id of a simple product associated with this configurable
-         //           '0' => array(
-         //               'label' => "L",//substr($stockItem->Identity, strlen($stockItem->Identity)-5, 2), //attribute label
-         //               'attribute_id' => '136', //attribute ID of attribute SIZE (FOLLESTAD) in my store
-         //               'value_index' => '3', //value of 'Green' index of the attribute 'color'
-         //               //'is_percent' => '0', //fixed/percent price for this option
-         //               //'pricing_value' => '21' //value for the pricing
-         //           )
-         //       );
-         //       $simpleProduct->setConfigurableProductsData($simpleProductData);
-         //       $simpleProduct->save();
-                
-                
-         //       //Add to parent configurable product
-         //       $newTotalSimpleProductsArray[$simpleProduct->getId()] = 1;
-                
-         //       /**/
-         //       /** assigning associated product to configurable */
-         //       /**/
-         //       //$configurableProductInMagento->getTypeInstance()->setUsedProductAttributeIds(array(136)); //attribute ID of attribute 'SIZE (FOLLESTAD)' in my store
-         //       //$configurableAttributesData = $configurableProductInMagento->getTypeInstance()->getConfigurableAttributesAsArray();
- 
-         //       //$configurableProductInMagento->setCanSaveConfigurableAttributes(true);
-         //       //$configurableProductInMagento->setConfigurableAttributesData($configurableAttributesData);
- 
-         //       //$configurableProductsData = $configurableProductInMagento->getConfigurableProductsData();//array();
-         //       // Mage::log('Existing $configurableProductsData:');
-         //       // Mage::log($configurableProductsData);
-                 
-         //       //$configurableProductsData[$simpleProduct->getId()] = array( //[$simpleProduct->getId()] = id of a simple product associated with this configurable
-         //       //    '0' => array(
-         //       //        'label' => "L",//substr($stockItem->Identity, strlen($stockItem->Identity)-5, 2), //attribute label
-         //       //        'attribute_id' => '136', //attribute ID of attribute SIZE (FOLLESTAD) in my store
-         //       //        'value_index' => '3', //value of 'Green' index of the attribute 'color'
-         //       //        //'is_percent' => '0', //fixed/percent price for this option
-         //       //        //'pricing_value' => '21' //value for the pricing
-         //       //    )
-         //       //);
-                
-         //       Mage::log('label');
-         //       Mage::log(substr($stockItem->Identity, strlen($stockItem->Identity)-4, 2));
-         //       Mage::log('value_index');
-         //       Mage::log(substr($stockItem->Identity, strlen($stockItem->Identity)-2, 2));
-         //       Mage::log('changed $configurableProductsData:');
-         //       Mage::log($configurableProductsData);
-                
-         //       //$configurableProductInMagento->setConfigurableProductsData($configurableProductsData);
-         //       //$configurableProductInMagento->save();
+            $sum = $stockCountArray[$stockCount->Identity];
+            if(!empty($sum) && $sum > 0)
+            {
+                $sum = $sum + $stockCount->Qty;
+            }
+            else
+            {
+                $sum =  $stockCount->Qty;
+            }
             
-         //   }
-         //   catch(Exception $e){
-         //       Mage::log($e->getMessage());
-         //   }
-       // }
-        
-        	
-        //Save added simple products from FS
-        //Mage::getResourceModel('catalog/product_type_configurable')->saveProducts($configurableProductInMagento, array_keys($newTotalSimpleProductsArray));
+            $stockCountArray[$stockCount->Identity] = $sum;
+     
+        }
+         Mage::log("Sum of stockcounts: ");
+         Mage::log($stockCountArray);
         
         
-        
-        
-            
-        //else:
-        //    Mage::log('Product with SKU already exists: ' . $fsWebProducts->Product[0]->IDENTITY);
-            
-        //endif;
-
-        //Mage::log('138');
-        
-        
-        // There's some more advanced logic above the foreach loop which determines how to define $configurable_attribute, // which is beyond the scope of this article. For reference purposes, I'm hard coding a value for // $configurable_attribute here, and it's associated numerical attribute ID... 
-
         $configurable_attribute = "size"; 
         $attr_id = 136; 
         $simpleProducts = array(); 
         
+        
+         try {
 
         // Loop through a pre-populated array of data gathered from the CSV files (or database) of old system.. 
-        //foreach ($main_product_data['simple_products'] as $simple_product_data) {
+        Mage::log('Looping through all ' . count($allProductsAndStockCountForThisConfigurableProduct->Products->Product) . ' products from Front Systems');
+        foreach ($allProductsAndStockCountForThisConfigurableProduct->Products->Product as $oneFSProduct) {
         
-            //debug
-            $stockCounts = $allProductsAndStockCountForThisConfigurableProduct->StockCounts;
-            $stockItem = $stockCounts->StockCount[0];   
-            $attr_value = "L";
+
+                $attr_value = $oneFSProduct->Label;
+                
+                //Fallback if label is empty front systems
+                if (empty($attr_value)) 
+                {
+                    Mage::log('A label from Front Systems was empty, setting it to "[N/A]"');
+                    $attr_value = "[N/A]";
+                }
         
-            // Again, I have more logic to determine these fields, but for clarity, I'm still including the variables here hardcoded.. $attr_value = $simple_product_data['size']; 
-            $attr_id = 136;   
+                // Again, I have more logic to determine these fields, but for clarity, I'm still including the variables here hardcoded.. $attr_value = $simple_product_data['size']; 
+                $attr_id = 136;   
 
-            // We need the actual option ID of the attribute value ("XXL", "Large", etc..) so we can assign it to the product model later.. 
-            // The code for getAttributeOptionValue and addAttributeOption is part of another article (linked below this code snippet) 
-            $configurableAttributeOptionId = $this->getAttributeOptionValue($configurable_attribute, $attr_value); 
-            if (!$configurableAttributeOptionId) { 
-                $configurableAttributeOptionId = $this->addAttributeOption($configurable_attribute, $attr_value); 
-            }   
+                // We need the actual option ID of the attribute value ("XXL", "Large", etc..) so we can assign it to the product model later.. 
+                // The code for getAttributeOptionValue and addAttributeOption is part of another article (linked below this code snippet) 
+                $configurableAttributeOptionId = $this->getAttributeOptionValue($configurable_attribute, $attr_value); 
+                if (!$configurableAttributeOptionId) { 
+                    $configurableAttributeOptionId = $this->addAttributeOption($configurable_attribute, $attr_value); 
+                }   
 
-            // Create the Magento product model 
-            $sProduct = Mage::getModel('catalog/product'); 
-            $sProduct 
-                ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) 
-                ->setWebsiteIds(array(1)) 
-                ->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED) 
-                ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) 
-                //->setAttributeSetId($_attributeSetMap[$data['product_type']]['attribute_set']) 
-                ->setData($configurable_attribute, $configurableAttributeOptionId) 
-                ->setAttributeSetId(4) //ID of a attribute set named 'default'
-                ->setCreatedAt(strtotime('now')) //product creation time
-                ->setSku($stockItem->Identity) //SKU
-                ->setName("[FS] " . $configurableProductInMagento->getName() . "-L") //product name
-                ->setWeight(1.00)
-                ->setTaxClassId($configurableProductInMagento->getTaxClassId()) //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
-                ->setPrice($configurableProductInMagento->getPrice()) //price in form 11.22
-                ->setDescription($configurableProductInMagento->getDescription())
-                ->setShortDescription($configurableProductInMagento->getShortDescription())
-                ->setStockData(array(
-                                    'use_config_manage_stock' => 1, //'Use config settings' checkbox
-                                    //'manage_stock'=>1, //manage stock
-                                    //'min_sale_qty'=>1, //Minimum Qty Allowed in Shopping Cart
-                                    //'max_sale_qty'=>2, //Maximum Qty Allowed in Shopping Cart
-                                    'is_in_stock' => 1, //Stock Availability
-                                    'qty' => $stockItem->Qty //qty
-                                )
-            );
+                $stockCount = 0;
+              
+                if(isset( $stockCountArray[$oneFSProduct->IDENTITY] ))
+                {
+                   $stockCount =  $stockCountArray[$oneFSProduct->IDENTITY];
+                }
+                
+                // Create the Magento product model 
+                $sProduct = Mage::getModel('catalog/product'); 
+                $sProduct 
+                    ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) 
+                    ->setWebsiteIds(array(1)) 
+                    ->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED) 
+                    ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) 
+                    ->setData($configurable_attribute, $configurableAttributeOptionId) 
+                    ->setAttributeSetId(4) //ID of a attribute set named 'default'
+                    ->setCreatedAt(strtotime('now')) //product creation time
+                    ->setSku($oneFSProduct->IDENTITY) //SKU
+                    ->setName("[FS] " . $configurableProductInMagento->getName() . "-" . $attr_value) //product name
+                    ->setWeight(1.00)
+                    ->setTaxClassId($configurableProductInMagento->getTaxClassId()) //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
+                    ->setPrice($configurableProductInMagento->getPrice()) //price in form 11.22
+                    ->setDescription($configurableProductInMagento->getDescription())
+                    ->setShortDescription($configurableProductInMagento->getShortDescription())
+                    ->setStockData(
+                        array(
+                            'use_config_manage_stock' => 1, //'Use config settings' checkbox
+                            'is_in_stock' => 1, //Stock Availability
+                            'qty' => $stockCount //qty
+                        )
+                );
             
-           
-            // Set the stock data. Let Magento handle this as opposed to manually creating a cataloginventory/stock_item model.. 
-            //$sProduct->setStockData(array( 
-            //    'is_in_stock' => 1, 
-            //    'qty' => 99999 
-            //    )
-            //);   
+                Mage::log('Saving simple product with Varekode: ' . $oneFSProduct->IDENTITY . ' and Quantity: ' . $stockCount);
+                $sProduct->save();   
 
-            $sProduct->save();   
+                // Store some data for later once we've created the configurable product, so we can 
+                // associate this simple product to it later.. 
+                array_push( 
+                    $simpleProducts, 
+                        array( 
+                            "id" => $sProduct->getId(), 
+                            "price" => $sProduct->getPrice(), 
+                            "attr_code" => $configurable_attribute, 
+                            "attr_id" => $attr_id, 
+                            "value" => $configurableAttributeOptionId, 
+                            "label" => $attr_value 
+                        ) 
+                );   
 
-            // Store some data for later once we've created the configurable product, so we can 
-            // associate this simple product to it later.. 
-            array_push( 
-                $simpleProducts, 
-                    array( 
-                        "id" => $sProduct->getId(), 
-                        "price" => $sProduct->getPrice(), 
-                        "attr_code" => $configurable_attribute, 
-                        "attr_id" => $attr_id, 
-                        "value" => $configurableAttributeOptionId, 
-                        "label" => $attr_value 
-                    ) 
-            );   
-
-            
+  
+            }
+       
+        
             /******************************** Configurable stuff ********************************/
             
             
@@ -381,12 +243,43 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             // This tells Magento to associate the given simple products to this configurable product.. 
             $configurableProductInMagento->setConfigurableProductsData($dataArray);   
 
-            // Finally...! 
+           // Check if there is a stock item object
+            $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($configurableProductInMagento->getId());
+            $stockItemData = $stockItem->getData();
+            if (empty($stockItemData)) {
+
+                // Create the initial stock item object
+                $stockItem->setData('manage_stock',0);
+                $stockItem->setData('is_in_stock', 1);
+                $stockItem->setData('use_config_manage_stock', 1);
+                $stockItem->setData('product_id',$configurableProductInMagento->getId());
+                $stockItem->setData('qty',0);
+                $stockItem->save();
+
+                // Init the object again after it has been saved so we get the full object
+                $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($configurableProductInMagento->getId());
+            }
+
+            // Set the quantity
+            $stockItem->setData('qty',0);
+            $stockItem->setData('is_in_stock', 1);
+            $stockItem->save();
+           
+            Mage::log('Saving Configurable product with all connected simple products');
             $configurableProductInMagento->save();
-
-
-
-        //}
+        
+         }
+        
+         catch(Exception $e)
+         {
+                Mage::log($e->getMessage());
+                Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
+                $e->getMessage() . '</i>"<br/><br/>' );
+         }
+        
+           
     }
     
     public function getAttributeOptionValue($arg_attribute, $arg_value) { 
@@ -444,6 +337,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
     }
     
+
    
     
     function getGUID(){

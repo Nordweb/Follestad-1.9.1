@@ -11,7 +11,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
     
     public function AuthenticateFS()
     {
-        Mage::log('********************* New Call ***********************');
+        
 
         //Declare some paramaters for our soapclient and create it.
         $headerParams  = array("soap_version"=> SOAP_1_1,
