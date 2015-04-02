@@ -103,28 +103,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
             $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
         
-            //Sum all stockcounts
-            Mage::log('Summarizing all stockCounts');
-            $stockCountArray = array(); //identity, stockcount
-            foreach ($allFSStockCountForThisConfigurableProduct->StockCount as $stockCount) 
-            {
-            
-                $sum = $stockCountArray[$stockCount->Identity];
-                if(!empty($sum) && $sum > 0)
-                {
-                    $sum = $sum + $stockCount->Qty;
-                }
-                else
-                {
-                    $sum =  $stockCount->Qty;
-                }
-            
-                $stockCountArray[$stockCount->Identity] = $sum;
-     
-            }
-            
-            Mage::log("Sum of stockcounts: ");
-            Mage::log($stockCountArray);
+           
         
 
             $this->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($SKUOfConfigurableOrConfigurableToBe, $allFSProductsForThisConfigurableProduct, 
@@ -152,18 +131,56 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('Calling Data->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe()');
             
        
+        //Get configurable product
+        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+        $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurableOrConfigurableToBe);
+            
         $configurable_attribute = "size"; 
         $attr_id = 136; 
         $simpleProducts = array(); 
+        
+         //Sum all stockcounts
+        Mage::log('Summarizing all stockCounts');
+        $stockCountArray = array(); //identity, stockcount
+        foreach ($allFSStockCountForThisConfigurableProduct->StockCount as $stockCount) 
+        {
+            Mage::log($stockCount);
+            $sum = $stockCountArray[$stockCount->Identity];
+            if(!empty($sum) && $sum > 0)
+            {
+                $sum = $sum + $stockCount->Qty;
+            }
+            else
+            {
+                $sum =  $stockCount->Qty;
+            }
+            
+            $stockCountArray[$stockCount->Identity] = $sum;
+     
+        }
+            
+        Mage::log("Sum of stockcounts: ");
+        Mage::log($stockCountArray);
         
         
         
 
         // Loop through a pre-populated array of data gathered from the CSV files (or database) of old system.. 
         Mage::log('Looping through all ' . count($allFSProductsForThisConfigurableProduct->Product) . ' products from Front Systems');
-        foreach ($allFSProductsForThisConfigurableProduct->Product as $oneFSProduct) {
         
-
+        $allFSProductsForThisConfigurableProductArray = array();
+        if(!is_array($allFSProductsForThisConfigurableProduct->Product))
+        {
+            array_push( $allFSProductsForThisConfigurableProductArray, $allFSProductsForThisConfigurableProduct->Product);
+        }
+        else
+        {
+            $allFSProductsForThisConfigurableProductArray = $allFSProductsForThisConfigurableProduct->Product;
+        }
+        foreach ($allFSProductsForThisConfigurableProductArray as $oneFSProduct) {
+        
+                //$this->prettyPrintArray( $oneFSProduct );
+                Mage::log(get_object_vars($oneFSProduct));
                 $attr_value = $oneFSProduct->Label;
                 
                 //Skip
@@ -243,6 +260,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE); 
             $configurableProductInMagento->setCanSaveConfigurableAttributes(true);
             $configurableProductInMagento->setCanSaveCustomOptions(true);
+            
+            //More
+            $configurableProductInMagento->setAttributeSetId(4);
+            
            
             $cProductTypeInstance = $configurableProductInMagento->getTypeInstance(); 
             // This array is is an array of attribute ID's which the configurable product swings around (i.e; where you say when you 
@@ -251,6 +272,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             // (there's probably a better way of doing this, but i was lazy, and it saved extra db calls); 
             //$_attributeIds = array("size" => 999, "color", => 1000, "material" => 1001); // etc..   
             $_attributeIds = array("size" => 136);   
+            //$cProductTypeInstance->setUsedProductAttributeIds($_attributeIds);
+            $cProductTypeInstance->setUsedProductAttributeIds(array($_attributeIds[$configurable_attribute]));
 
             // Now we need to get the information back in Magento's own format, and add bits of data to what it gives us.. 
             $attributes_array = $cProductTypeInstance->getConfigurableAttributesAsArray(); 
@@ -294,20 +317,27 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             if (empty($stockItemData)) {
 
                 // Create the initial stock item object
-                $stockItem->setData('manage_stock',0);
+                $stockItem->setData('stock_id', 1);
                 $stockItem->setData('is_in_stock', 1);
-                $stockItem->setData('use_config_manage_stock', 1);
+                $stockItem->setData('manage_stock', 1);
+                $stockItem->setData('use_config_manage_stock', 0);
                 $stockItem->setData('product_id',$configurableProductInMagento->getId());
-                $stockItem->setData('qty',0);
                 $stockItem->save();
+                
+                
+                
+
+
 
                 // Init the object again after it has been saved so we get the full object
                 $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($configurableProductInMagento->getId());
             }
 
             // Set the quantity
-            $stockItem->setData('qty',0);
             $stockItem->setData('is_in_stock', 1);
+            $stockItem->setData('manage_stock', 1);
+            $stockItem->setData('use_config_manage_stock', 0);
+            $stockItem->setData('product_id',$configurableProductInMagento->getId());
             $stockItem->save();
            
             Mage::log('Saving Configurable product with all connected simple products');
