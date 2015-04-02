@@ -7,7 +7,7 @@
 class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
 
-    public function GetProductsFromFSBySKU($SKUOfConfigurable)
+    public function GetProductsFromFSBySKU($SKUOfConfigurableOrConfigurableToBe)
     {
     
     
@@ -26,7 +26,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
         //GetFullProductInfo
         Mage::log('Calling frontSystems->GetFullProductInfo()');
-        $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurable));
+        $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurableOrConfigurableToBe));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
              Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
@@ -34,12 +34,13 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
                 $retval->faultstring . '</i>"<br/><br/>' );
         }
-        $allProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
+        $allFSProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
         Mage::log('Front Systems products & stockCount gotten by SKU');
         
 
         //Store in Magento
-        $this->StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct);
+        $this->HandleSimpleProductsForOneCallingConfigurable($SKUOfConfigurableOrConfigurableToBe, $allFSProductsAndStockCountForThisConfigurableProduct->Products, 
+            $allFSProductsAndStockCountForThisConfigurableProduct->StockCounts);
         
       
      
@@ -85,45 +86,72 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     }
     
 
-    public function StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct)
+    public function HandleSimpleProductsForOneCallingConfigurable($SKUOfConfigurableOrConfigurableToBe, $allFSProductsForThisConfigurableProduct, 
+        $allFSStockCountForThisConfigurableProduct)
+    {
+    
+         try {
+     
+            Mage::log('Calling Data->HandleSimpleProductsForOneCallingConfigurable()');
+            
+            //Get configurable product
+            Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
+            $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurableOrConfigurableToBe);
+        
+        
+            //deleting existing products
+            Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
+            $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
+        
+            //Sum all stockcounts
+            Mage::log('Summarizing all stockCounts');
+            $stockCountArray = array(); //identity, stockcount
+            foreach ($allFSStockCountForThisConfigurableProduct->StockCount as $stockCount) 
+            {
+            
+                $sum = $stockCountArray[$stockCount->Identity];
+                if(!empty($sum) && $sum > 0)
+                {
+                    $sum = $sum + $stockCount->Qty;
+                }
+                else
+                {
+                    $sum =  $stockCount->Qty;
+                }
+            
+                $stockCountArray[$stockCount->Identity] = $sum;
+     
+            }
+            
+            Mage::log("Sum of stockcounts: ");
+            Mage::log($stockCountArray);
+        
+
+            $this->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($SKUOfConfigurableOrConfigurableToBe, $allFSProductsForThisConfigurableProduct, 
+                $allFSStockCountForThisConfigurableProduct);
+         }
+         catch(Exception $e)
+         {
+                Mage::log($e->getMessage());
+                Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
+                $e->getMessage() . '</i>"<br/><br/>' );
+         }
+        
+           
+    }
+    
+    
+    public function StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($SKUOfConfigurableOrConfigurableToBe, $allFSProductsForThisConfigurableProduct, 
+        $allFSStockCountForThisConfigurableProduct)
     {
     
      try {
      
-        Mage::log('Calling Data->StoreSimpleProductsUnderCallingConfigurable()');
+        Mage::log('Calling Data->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe()');
             
-        //Get configurable product
-        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-        $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurable);
-        
-        
-        //deleting existing products
-        Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
-        $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
-        
-        //Sum all stockcounts
-        Mage::log('Summarizing all stockCounts');
-        $stockCountArray = array(); //identity, stockcount
-        foreach ($allProductsAndStockCountForThisConfigurableProduct->StockCounts->StockCount as $stockCount) {
-
-            
-            $sum = $stockCountArray[$stockCount->Identity];
-            if(!empty($sum) && $sum > 0)
-            {
-                $sum = $sum + $stockCount->Qty;
-            }
-            else
-            {
-                $sum =  $stockCount->Qty;
-            }
-            
-            $stockCountArray[$stockCount->Identity] = $sum;
-     
-        }
-         Mage::log("Sum of stockcounts: ");
-         Mage::log($stockCountArray);
-        
-        
+       
         $configurable_attribute = "size"; 
         $attr_id = 136; 
         $simpleProducts = array(); 
@@ -132,8 +160,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
 
         // Loop through a pre-populated array of data gathered from the CSV files (or database) of old system.. 
-        Mage::log('Looping through all ' . count($allProductsAndStockCountForThisConfigurableProduct->Products->Product) . ' products from Front Systems');
-        foreach ($allProductsAndStockCountForThisConfigurableProduct->Products->Product as $oneFSProduct) {
+        Mage::log('Looping through all ' . count($allFSProductsForThisConfigurableProduct->Product) . ' products from Front Systems');
+        foreach ($allFSProductsForThisConfigurableProduct->Product as $oneFSProduct) {
         
 
                 $attr_value = $oneFSProduct->Label;

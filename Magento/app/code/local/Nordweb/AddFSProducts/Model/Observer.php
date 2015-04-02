@@ -26,5 +26,6 @@ class Nordweb_AddFSProducts_Model_Observer
                 }
             }
         }
+       
     }
 }
