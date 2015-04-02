@@ -9,6 +9,9 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function GetProductsFromFSBySKU($SKUOfConfigurable)
     {
+    
+    
+   
         Mage::log('Calling Data->GetProductsFromFSBySKU()');
         
      
@@ -26,6 +29,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurable));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
+                $retval->faultstring . '</i>"<br/><br/>' );
         }
         $allProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
         Mage::log('Front Systems products & stockCount gotten by SKU');
@@ -34,6 +41,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         //Store in Magento
         $this->StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct);
         
+      
      
     }
     
@@ -58,6 +66,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
+                $retval->faultstring . '</i>"<br/><br/>' );
         }
         $fsKey = $retval->LogonResult;
 
@@ -75,6 +87,9 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function StoreSimpleProductsUnderCallingConfigurable($SKUOfConfigurable, $allProductsAndStockCountForThisConfigurableProduct)
     {
+    
+     try {
+     
         Mage::log('Calling Data->StoreSimpleProductsUnderCallingConfigurable()');
             
         //Get configurable product
@@ -114,7 +129,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $simpleProducts = array(); 
         
         
-         try {
+        
 
         // Loop through a pre-populated array of data gathered from the CSV files (or database) of old system.. 
         Mage::log('Looping through all ' . count($allProductsAndStockCountForThisConfigurableProduct->Products->Product) . ' products from Front Systems');
@@ -197,7 +212,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
             /******************************** Configurable stuff ********************************/
             
-            
+            $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE); 
             $configurableProductInMagento->setCanSaveConfigurableAttributes(true);
             $configurableProductInMagento->setCanSaveCustomOptions(true);
            
