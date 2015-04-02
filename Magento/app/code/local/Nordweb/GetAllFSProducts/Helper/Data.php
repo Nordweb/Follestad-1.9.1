@@ -10,6 +10,14 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     public function GetAllProducts()
     {
    
+    
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('================ STARTING NEW GET ALL PRODUCTS ===============');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
    
         Mage::log('Calling Data->GetAllProducts()');
         
@@ -36,6 +44,13 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $allWebProductsFromFrontSystems = $retval->GetProductsResult;
         Mage::log(count($allWebProductsFromFrontSystems->Product) . ' web-products gotten from Front Systems');
         
+        //auth
+        Mage::log('Calling frontSystems->AuthenticateFS()');
+        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $clientAuthenticated = $returnValues[0];
+        $fsKey = $returnValues[1];
+        Mage::log('Front Systems Client authenticated');
+        
         //GetStockCount
         Mage::log('Calling frontSystems->GetStockCount()');
         $retval = $clientAuthenticated->GetStockCount(array('key'=>$fsKey));
@@ -47,7 +62,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 $retval->faultstring . '</i>"<br/><br/>' );
         }
         $allStockCountsFromFrontSystems = $retval->GetStockCountResult;
-        Mage::log('Front Systems stock counts gotten');
+        Mage::log('Collected ' . count($allStockCountsFromFrontSystems->StockCount) . ' StockCounts' );
         
 
         //Match & Store in Magento
@@ -122,18 +137,26 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             //   b) Products that already are configurable, but have no children
             //   SUM: Type no matter, but no parent and no children
             Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-            $allProducts = Mage::getModel('catalog/product')->getCollection();
-            Mage::log('Got all Products from Magento, count:' . count($allProducts->Product));
+            $allProducts = Mage::getResourceModel('catalog/product_collection');
+            Mage::log('Got all Products from Magento, count:' . count($allProducts));
             
             $allProductsWithNoParentAndChildren = array(); 
+            
+            //DEBUG
+            $count = 0;
+            
             foreach ($allProducts as $oneProduct)  
             {   
+                //DEBUG
+                if($oneProduct->Sku == null || substr($oneProduct->Sku,0,2) != '57' )
+                    continue;
+                    
                 //Check for parent
                 if($oneProduct->getTypeId() == "simple") 
                 {
                     $parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($oneProduct->getId());
                     if(!$parentIds)
-                        $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
+                        $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($oneProduct->getId());
                     if(isset($parentIds[0])){
                        //has parent, skip
                        continue;
@@ -152,6 +175,12 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 }
                 
                 //qualified - no parent, no children
+                
+                //DEBUG
+                $count = $count + 1;
+                if($count >= 100)
+                    break;
+                
                 Mage::log('Product with sku ' . $oneProduct->Sku . ' has no parents or children, adding for check');
                 array_push( $allProductsWithNoParentAndChildren, $oneProduct); 
             }
@@ -165,11 +194,15 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $allFSProductsForThisConfigurableProduct = array();
             $allFSStockCountForThisConfigurableProduct = array();
             
+            Mage::log('count($allWebProductsFromFrontSystems):' . count($allWebProductsFromFrontSystems));
+            Mage::log('count($allWebProductsFromFrontSystems->Product):' . count($allWebProductsFromFrontSystems->Product));
+            
             
             foreach ($allProductsWithNoParentAndChildren as $oneMagentoProduct)  
             {   
-                foreach ($allWebProductsFromFrontSystems as $oneFSProduct)  
+                foreach ($allWebProductsFromFrontSystems->Product as $oneFSProduct)  
                 { 
+                    Mage::log('Comparing: $oneMagentoProduct->Sku: ' . $oneMagentoProduct->Sku . ' $oneFSProduct->PRODUCTID: ' . $oneFSProduct->PRODUCTID);
                     if($oneMagentoProduct->Sku != $oneFSProduct->PRODUCTID)
                         continue;
                     
@@ -177,7 +210,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                     Mage::log('Found Magento-product with sku ' . $oneMagentoProduct->Sku . ' in FS-product with PRODUCTID ' . $oneFSProduct->PRODUCTID);
                    
                     //Collect FS-products with this Sku as Identity, i.e. all sizes from FS
-                    foreach ($allWebProductsFromFrontSystems as $key => $value)
+                    foreach ($allWebProductsFromFrontSystems->Product as $key => $value)
                     {
                         if ($oneMagentoProduct->Sku == $value->PRODUCTID)  {
                             array_push( $allFSProductsForThisConfigurableProduct, $value); 
@@ -186,9 +219,11 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                     Mage::log('Collected ' . count($allFSProductsForThisConfigurableProduct) . ' sizes (FS-products) for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
                     
                     //Collect FS-stockcounts for this Sku/Identity in FS
-                    foreach ($allStockCountsFromFrontSystems as $key => $value)
+                    foreach ($allStockCountsFromFrontSystems->StockCount as $value)
                     {
-                        if ($oneMagentoProduct->Sku == $value->PRODUCTID)  {
+                        //Mage::log(get_object_vars($value));
+                        
+                        if (strpos($value->Identity, $oneMagentoProduct->Sku) !== false ? true : false)  {
                             array_push( $allFSStockCountForThisConfigurableProduct, $value); 
                         }
                     }

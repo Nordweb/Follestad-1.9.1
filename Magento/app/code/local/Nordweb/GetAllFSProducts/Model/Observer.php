@@ -22,7 +22,7 @@ class Nordweb_GetAllFSProducts_Model_Observer
             //$_block->addButton($_block->getChild('get_all_fs_products_button')->toHtml());
             
             $_block->addButton('send_notification', array(
-            $message = "Be aware: Importing simple products from FS for all Magento products with a matching Sku ('Varekode'), unless they have been imported before.",
+            $message = "Be aware: Importing simple products from FS for all Magento products with a matching Sku (Varekode), unless they have been imported before.",
             'label'     => Mage::helper('catalog')->__('Get All FS Products'),
             'onclick'   => "confirmSetLocation('{$message}','{$_block->getUrl('/index/getallproducts/')}');",
             //'onclick'   => "setLocation('{$this->getUrl('/index/getproductsfromfsbysku/sku/' . $this->_product->sku . '')}'); return false;",'

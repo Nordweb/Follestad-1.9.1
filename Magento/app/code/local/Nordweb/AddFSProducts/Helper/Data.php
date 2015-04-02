@@ -142,7 +142,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
          //Sum all stockcounts
         Mage::log('Summarizing all stockCounts');
         $stockCountArray = array(); //identity, stockcount
-        foreach ($allFSStockCountForThisConfigurableProduct->StockCount as $stockCount) 
+        foreach ($allFSStockCountForThisConfigurableProduct as $stockCount) 
         {
             Mage::log($stockCount);
             $sum = $stockCountArray[$stockCount->Identity];
@@ -166,17 +166,17 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
 
         // Loop through a pre-populated array of data gathered from the CSV files (or database) of old system.. 
-        Mage::log('Looping through all ' . count($allFSProductsForThisConfigurableProduct->Product) . ' products from Front Systems');
+        Mage::log('Looping through all ' . count($allFSProductsForThisConfigurableProduct) . ' products from Front Systems');
         
         $allFSProductsForThisConfigurableProductArray = array();
-        if(!is_array($allFSProductsForThisConfigurableProduct->Product))
-        {
-            array_push( $allFSProductsForThisConfigurableProductArray, $allFSProductsForThisConfigurableProduct->Product);
-        }
-        else
-        {
-            $allFSProductsForThisConfigurableProductArray = $allFSProductsForThisConfigurableProduct->Product;
-        }
+        //if(!is_array($allFSProductsForThisConfigurableProduct))
+        //{
+        //    array_push( $allFSProductsForThisConfigurableProductArray, $allFSProductsForThisConfigurableProduct);
+        //}
+        //else
+        //{
+            $allFSProductsForThisConfigurableProductArray = $allFSProductsForThisConfigurableProduct;
+        //}
         foreach ($allFSProductsForThisConfigurableProductArray as $oneFSProduct) {
         
                 //$this->prettyPrintArray( $oneFSProduct );

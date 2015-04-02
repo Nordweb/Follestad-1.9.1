@@ -20,7 +20,7 @@ class Nordweb_GetAllFSProducts_Adminhtml_IndexController extends Mage_Adminhtml_
 
         //http://www.dev.follestad.no/index.php/admin/catalog_product/index/key/217886b87872c975a203f1b71f721921/
        
-        $returnURL =  Mage::getBaseUrl (Mage_Core_Model_Store::URL_TYPE_WEB) . 'index.php/admin/catalog_product/index/' . '/key/'. $key . '/';
+        $returnURL =  Mage::getBaseUrl (Mage_Core_Model_Store::URL_TYPE_WEB) . 'index.php/admin/catalog_product/index/key/2e537bae675d54286f4a4363c3c5fc18/';
         
         Mage::log('IndexController: returnURL: ');
         Mage::log($returnURL);
