@@ -145,7 +145,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         //Get configurable product
         Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
         $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurableOrConfigurableToBe);
-            
+        
+        Mage::log('$configurableProductInMagento:');
+        Mage::log(get_object_vars($configurableProductInMagento));
+        
         $configurable_attribute = "size"; 
         $attr_id = 136; 
         $simpleProducts = array(); 
@@ -185,23 +188,29 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('Looping through all ' . count($allFSProductsForThisConfigurableProduct) . ' products from Front Systems');
         
         $allFSProductsForThisConfigurableProductArray = array();
-        //if(!is_array($allFSProductsForThisConfigurableProduct))
-        //{
-        //    array_push( $allFSProductsForThisConfigurableProductArray, $allFSProductsForThisConfigurableProduct);
-        //}
-        //else
-        //{
+        if(!is_array($allFSProductsForThisConfigurableProduct))
+        {
+            array_push( $allFSProductsForThisConfigurableProductArray, $allFSProductsForThisConfigurableProduct);
+        }
+        else
+        {
             $allFSProductsForThisConfigurableProductArray = $allFSProductsForThisConfigurableProduct;
-        //}
-        foreach ($allFSProductsForThisConfigurableProductArray as $oneFSProduct) {
-        
-                //$this->prettyPrintArray( $oneFSProduct );
-                Mage::log(get_object_vars($oneFSProduct));
-                $attr_value = $oneFSProduct->Label;
+        }
+        foreach ($allFSProductsForThisConfigurableProductArray as $oneFSProduct) 
+        {
+                //Mage::log('$oneFSProduct: ');
+                //Mage::log($oneFSProduct);
+                //Mage::log('$oneFSProduct->Label: ');
+                //Mage::log($oneFSProduct->Label);
                 
+                //$this->prettyPrintArray( $oneFSProduct );
+                //Mage::log(get_object_vars($oneFSProduct));
+                $attr_value = $oneFSProduct->Label;
+                //Mage::log('206');
                 //Skip
                 if (empty($attr_value)) 
                 {
+                    //Mage::log('210');
                     continue;
                     //Fallback if label is empty front systems
                     //Mage::log('A label from Front Systems was empty, setting it to "[N/A]"');
@@ -210,74 +219,94 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
                 // Again, I have more logic to determine these fields, but for clarity, I'm still including the variables here hardcoded.. $attr_value = $simple_product_data['size']; 
                 //$attr_id = 136;   
-
+                //Mage::log('219');
                 // We need the actual option ID of the attribute value ("XXL", "Large", etc..) so we can assign it to the product model later.. 
                 // The code for getAttributeOptionValue and addAttributeOption is part of another article (linked below this code snippet) 
-                $configurableAttributeOptionId = $this->getAttributeOptionValue($configurable_attribute, $attr_value); 
+                $configurableAttributeOptionId = $this->getAttributeOptionValue($configurable_attribute, $attr_value);
+               // Mage::log('223');
                 if (!$configurableAttributeOptionId) { 
+                    //Mage::log('225');
                     $configurableAttributeOptionId = $this->addAttributeOption($configurable_attribute, $attr_value); 
                 }   
 
                 $stockCount = 0;
-              
+                
+                //Mage::log('231');
+                //Mage::log('$oneFSProduct->IDENTITY: ');
+                //Mage::log($oneFSProduct->IDENTITY);
                 if(isset( $stockCountArray[$oneFSProduct->IDENTITY] ))
                 {
+                   //Mage::log('234');
                    $stockCount =  $stockCountArray[$oneFSProduct->IDENTITY];
+                   //Mage::log('$stockCount: ');
+                   //Mage::log($stockCount);
                 }
-                
+                //Mage::log('241');
                 // Create the Magento product model 
                 $sProduct = Mage::getModel('catalog/product'); 
-                $sProduct 
-                    ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) 
-                    ->setWebsiteIds(array(1)) 
-                    ->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED) 
-                    ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE) 
-                    ->setData($configurable_attribute, $configurableAttributeOptionId) 
-                    ->setAttributeSetId(4) //ID of a attribute set named 'default'
-                    ->setCreatedAt(strtotime('now')) //product creation time
-                    ->setSku($oneFSProduct->IDENTITY) //SKU
-                    ->setName("[FS] " . $configurableProductInMagento->getName() . "-" . $attr_value) //product name
-                    ->setWeight(1.00)
-                    ->setTaxClassId($configurableProductInMagento->getTaxClassId()) //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
-                    ->setPrice($configurableProductInMagento->getPrice()) //price in form 11.22
-                    ->setDescription($configurableProductInMagento->getDescription())
-                    ->setShortDescription($configurableProductInMagento->getShortDescription())
-                    ->setStockData(
-                        array(
-                            'use_config_manage_stock' => 1, //'Use config settings' checkbox
-                            'is_in_stock' => 1, //Stock Availability
-                            'qty' => $stockCount //qty
-                        )
-                );
+                $sProduct->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE); 
+                $sProduct->setWebsiteIds(array(1)) ; 
+                //Mage::log('246');
+                $sProduct->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED) ; 
+                $sProduct->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_NOT_VISIBLE);  
+                $sProduct->setData($configurable_attribute, $configurableAttributeOptionId) ; 
+                $sProduct->setAttributeSetId(4);  //ID of a attribute set named 'default'
+                //Mage::log('251');
+                $sProduct->setCreatedAt(strtotime('now'));  //product creation time
+                //Mage::log('253');
+                $sProduct->setSku($oneFSProduct->IDENTITY) ; //SKU
+                //Mage::log('255');
+                // Mage::log('$configurableProductInMagento->getName()');
+                //Mage::log($configurableProductInMagento->getName() );
+                // Mage::log('$attr_value');
+                //Mage::log($attr_value);
+                $sProduct->setName("[FS] " . $configurableProductInMagento->getName() . "-" . $attr_value);  //product name
+                //Mage::log('257');
+                $sProduct->setWeight(1.00); 
+                //Mage::log('259');
+                $sProduct->setTaxClassId($configurableProductInMagento->getTaxClassId());  //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
+                $sProduct->setPrice($configurableProductInMagento->getPrice()) ; //price in form 11.22
+                $sProduct->setDescription($configurableProductInMagento->getDescription()); 
+                $sProduct->setShortDescription($configurableProductInMagento->getShortDescription()); 
+                //Mage::log('261');
+                //$sProduct->setStockData(
+                //    array(
+                //        'use_config_manage_stock' => 1, //'Use config settings' checkbox
+                //        'is_in_stock' => 1, //Stock Availability
+                //        'qty' => $stockCount //qty
+                //    )
+                //);
+                
+                //Mage::log('263');
                 
                 
                 
                 
-                //// Check if there is a stock item object
-                //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
-                //$sstockItemData = $sstockItem->getData();
-                //if (empty($sstockItemData)) {
+                // Check if there is a stock item object
+                $sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
+                $sstockItemData = $sstockItem->getData();
+                if (empty($sstockItemData)) {
 
-                //    // Create the initial stock item object
-                //    $sstockItem->setData('stock_id', 1234567);
-                //    $sstockItem->setData('is_in_stock', 1);
-                //    $sstockItem->setData('qty', $stockCount);
-                //    $sstockItem->setData('use_config_manage_stock', 1);
-                //    //$sstockItem->save();
+                    // Create the initial stock item object
+                    $sstockItem->setData('stock_id', 1234567);
+                    $sstockItem->setData('is_in_stock', 1);
+                    $sstockItem->setData('qty', $stockCount);
+                    $sstockItem->setData('use_config_manage_stock', 1);
+                    //$sstockItem->save();
                 
 
-                //    //// Init the object again after it has been saved so we get the full object
-                //    //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
-                //}
-                //else
-                //{
+                    //// Init the object again after it has been saved so we get the full object
+                    //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
+                }
+                else
+                {
 
-                //    // Set the quantity
-                //    $sstockItem->setData('is_in_stock', 1);
-                //    $sstockItem->setData('qty', $stockCount);
-                //    $sstockItem->setData('use_config_manage_stock', 1);
-                //    //$sstockItem->save();
-                //}
+                    // Set the quantity
+                    $sstockItem->setData('is_in_stock', 1);
+                    $sstockItem->setData('qty', $stockCount);
+                    $sstockItem->setData('use_config_manage_stock', 1);
+                    //$sstockItem->save();
+                }
                 
                 
                 
@@ -309,6 +338,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE); 
             $configurableProductInMagento->setCanSaveConfigurableAttributes(true);
             $configurableProductInMagento->setCanSaveCustomOptions(true);
+            $configurableProductInMagento->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED); 
             
             //More
             $configurableProductInMagento->setAttributeSetId(4);
@@ -327,16 +357,16 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $hasSizeAttribute = false;
             $attrbutesInfo = $cProductTypeInstance->getUsedProductAttributeIds($configurableProductInMagento);
             
-            Mage::log('$attrbutesInfo: ');
-            Mage::log($attrbutesInfo);
+            //Mage::log('$attrbutesInfo: ');
+            //Mage::log($attrbutesInfo);
             //Mage::log(get_object_vars($oneFSProduct));
             
             foreach($attrbutesInfo as $oneAttribute)
             {
-                Mage::log('$oneAttribute: ');
-                Mage::log($oneAttribute);
-                Mage::log('$attr_id: ');
-                Mage::log($attr_id);
+                //Mage::log('$oneAttribute: ');
+                //Mage::log($oneAttribute);
+                //Mage::log('$attr_id: ');
+                //Mage::log($attr_id);
                
                 if($oneAttribute == $attr_id)
                 {

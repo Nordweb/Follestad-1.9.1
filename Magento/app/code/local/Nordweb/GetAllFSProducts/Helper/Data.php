@@ -139,10 +139,13 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
             //$allProducts = Mage::getResourceModel('catalog/product_collection');
             $allProductIds = Mage::getModel('catalog/product')->getCollection()->getAllIdsCache();
+            //$db = Mage::getSingleton('core/resource')->getConnection('core_read');
+            //$select = $db->select()->from('follestad_catalog_product_entity');
+            //$allProductIds = $db->fetchAll($select);
             
             Mage::log('Got all Products from Magento, count:' . count($allProductIds));
             
-            $allProductsWithNoParentAndChildren = array(); 
+            $allProductIDsWithNoParentAndChildren = array(); 
             
             //DEBUG
             //$count = 0;
@@ -158,13 +161,13 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //    continue;
                     
                 //Check for parent
-                Mage::log('161');
+                //Mage::log('164');
                 $oneProduct = Mage::getModel('catalog/product')->load($oneProductID);
-               Mage::log('163');
+                //Mage::log('166');
                 
                 if($oneProduct->getTypeId() == "simple") 
                 {
-                    Mage::log('167');
+                    //Mage::log('170');
                     $parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($oneProduct->getId());
                     if(!$parentIds)
                         $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($oneProduct->getId());
@@ -177,13 +180,22 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //Check for children
                 if($oneProduct->getTypeId() == "configurable") 
                 {
-                    Mage::log('180');
-                    $possibleChildren = $oneProduct->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
-                    if(!$possibleChildren && isset($possibleChildren[0]))
-                    {
-                       //has children, skip
-                       continue;
-                    }
+                
+                    try {
+                        //Mage::log('183');
+                        $possibleChildren = Mage::getModel('catalog/product_type_configurable')->getChildrenIds($oneProduct->getId());
+                        if(!$possibleChildren && isset($possibleChildren[0]))
+                        {
+                           //has children, skip
+                           //clear memory
+                           $possibleChildren->clearInstance();
+                           continue;
+                        }
+                     }
+                     catch(Exception $e)
+                     {
+                            Mage::log($e->getMessage());
+                     }
                 }
                 
                 //qualified - no parent, no children
@@ -193,66 +205,86 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //if($count >= 100)
                 //    break;
                 
-                Mage::log('196');
-                Mage::log('Product with sku ' . $oneProduct->Sku . ' has no parents or children, adding for check');
-                array_push( $allProductsWithNoParentAndChildren, $oneProduct); 
+                //Mage::log('196');
+                //Mage::log('Product with sku ' . $oneProduct->Sku . ' has no parents or children, adding for check');
+                array_push( $allProductIDsWithNoParentAndChildren, $oneProduct->getId()); 
                 
+                //Mage::log('$allProductsWithNoParentAndChildren has count:' . count($allProductIDsWithNoParentAndChildren));
                 //clear memory
                 $oneProduct->clearInstance();
-                Mage::log('202');
+                //Mage::log('202');
             }
-            Mage::log('Got all Products With No Parent And Children from Magento, count:' . count($allProductsWithNoParentAndChildren));
+            
+            //Mage::log('206');
+            Mage::log('Got all Products With No Parent And Children from Magento, count:' . count($allProductIDsWithNoParentAndChildren));
       
             
             //2. Loop through all these Simple Products and see if there is a match in the array of web-products from FS
             //   If so, create them like when under a specific product - call that function which modifies the CP and adds the SPs
             //   Also send in StockCount from a seperate array here
             
-            $allFSProductsForThisConfigurableProduct = array();
-            $allFSStockCountForThisConfigurableProduct = array();
-            
+
             Mage::log('count($allWebProductsFromFrontSystems->Product):' . count($allWebProductsFromFrontSystems->Product));
             
             
-            foreach ($allProductsWithNoParentAndChildren as $oneMagentoProduct)  
+            foreach ($allProductIDsWithNoParentAndChildren as $oneMagentoProductID)  
             {   
+                $oneMagentoProduct = Mage::getModel('catalog/product')->load($oneMagentoProductID);
+                $allFSProductsForThisConfigurableProduct = array();
+                $allFSStockCountForThisConfigurableProduct = array();
+            
                 foreach ($allWebProductsFromFrontSystems->Product as $oneFSProduct)  
                 { 
-                    Mage::log('Comparing: $oneMagentoProduct->Sku: ' . $oneMagentoProduct->Sku . ' $oneFSProduct->PRODUCTID: ' . $oneFSProduct->PRODUCTID);
+                    //Mage::log('Comparing: $oneMagentoProduct->Sku: ' . $oneMagentoProduct->Sku . ' $oneFSProduct->PRODUCTID: ' . $oneFSProduct->PRODUCTID);
                     if($oneMagentoProduct->Sku != $oneFSProduct->PRODUCTID)
                         continue;
                     
                     //Match
-                    Mage::log('Found Magento-product with sku ' . $oneMagentoProduct->Sku . ' in FS-product with PRODUCTID ' . $oneFSProduct->PRODUCTID);
+                    //Mage::log('Found Magento-product with sku ' . $oneMagentoProduct->Sku . ' in FS-product with PRODUCTID ' . $oneFSProduct->PRODUCTID);
                    
                     //Collect FS-products with this Sku as Identity, i.e. all sizes from FS
-                    foreach ($allWebProductsFromFrontSystems->Product as $key => $value)
-                    {
-                        if ($oneMagentoProduct->Sku == $value->PRODUCTID)  {
-                            array_push( $allFSProductsForThisConfigurableProduct, $value); 
-                        }
-                    }
-                    Mage::log('Collected ' . count($allFSProductsForThisConfigurableProduct) . ' sizes (FS-products) for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
-                    
-                    //Collect FS-stockcounts for this Sku/Identity in FS
-                    foreach ($allStockCountsFromFrontSystems->StockCount as $value)
-                    {
-                        //Mage::log(get_object_vars($value));
-                        
-                        if (strpos($value->Identity, $oneMagentoProduct->Sku) !== false ? true : false)  {
-                            array_push( $allFSStockCountForThisConfigurableProduct, $value); 
-                        }
-                    }
-                    Mage::log('Collected ' . count($allFSStockCountForThisConfigurableProduct) . ' stockcounts for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
-                    
-                    Mage::helper('addfsproducts')->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($oneProduct->Sku, 
-                        $allFSProductsForThisConfigurableProduct, $allFSStockCountForThisConfigurableProduct);
-                    
-                    //clear
-                    $allFSProductsForThisConfigurableProduct = array();
-                    $allFSStockCountForThisConfigurableProduct = array();
+                    //foreach ($allWebProductsFromFrontSystems->Product as $key => $value)
+                    //{
+                    //    if ($oneMagentoProduct->Sku == $value->PRODUCTID)  {
+                    //        array_push( $allFSProductsForThisConfigurableProduct, $value); 
+                    //    }
+                    //}
+                    //Mage::log('Collected ' . count($allFSProductsForThisConfigurableProduct) . ' sizes (FS-products) for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
+                    array_push( $allFSProductsForThisConfigurableProduct, $oneFSProduct); 
+                       
                 }
+                
+                //Collect FS-stockcounts for this Sku/Identity in FS
+                foreach ($allStockCountsFromFrontSystems->StockCount as $value)
+                {
+                    //Mage::log(get_object_vars($value));
+                        
+                    if (strlen($oneMagentoProduct->Sku) == 6 && (strpos($value->Identity, '00'. $oneMagentoProduct->Sku) !== false ? true : false))  {
+                        array_push( $allFSStockCountForThisConfigurableProduct, $value); 
+                    }
+                }
+                     
+                if(isset($allFSProductsForThisConfigurableProduct) && isset($allFSStockCountForThisConfigurableProduct) 
+                    && count($allFSProductsForThisConfigurableProduct) > 0 && count($allFSStockCountForThisConfigurableProduct) > 0)
+                {
+                     Mage::log('Collected ' . count($allFSProductsForThisConfigurableProduct) . '  FS-Products with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
+                     Mage::log('Collected ' . count($allFSStockCountForThisConfigurableProduct) . ' stockcounts for FS-Product with Identity containing Sku: ' . $oneMagentoProduct->Sku);
+               
+                     Mage::helper('addfsproducts')->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($oneMagentoProduct->Sku, 
+                        $allFSProductsForThisConfigurableProduct, $allFSStockCountForThisConfigurableProduct);
+                }
+                
+    
+                //clear memory
+                unset($oneMagentoProduct);
+                unset($allFSProductsForThisConfigurableProduct);
+                unset($allFSStockCountForThisConfigurableProduct);
+              
+                
             }
+            
+            $allProductIDsWithNoParentAndChildren->clearInstance();
+            $allWebProductsFromFrontSystems->clearInstance();
             
             Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
             Mage::getModel('index/process')->load(9)->reindexEverything();

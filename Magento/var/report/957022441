@@ -1,0 +1,9 @@
+a:5:{i:0;s:61:"Ugyldig: frontsystems/somemodel::callFromCron eksisterer ikke";i:1;s:1250:"#0 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\community\Aoe\Scheduler\Model\Schedule.php(45): Mage::throwException('Ugyldig: fronts...')
+#1 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\community\Aoe\Scheduler\controllers\Adminhtml\CronController.php(89): Aoe_Scheduler_Model_Schedule->runNow(false)
+#2 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Aoe_Scheduler_Adminhtml_CronController->runNowAction()
+#3 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\var\cache\ew\files\69\b9\Mage\Core\Controller\Varien\Router\Standard.php(269): Mage_Core_Controller_Varien_Action->dispatch('runNow')
+#4 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_StandardOverriddenClass->match(Object(Mage_Core_Controller_Request_Http))
+#5 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Model\App.php(354): Mage_Core_Controller_Varien_Front->dispatch()
+#6 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\Mage.php(684): Mage_Core_Model_App->run(Array)
+#7 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\index.php(87): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:66:"/index.php/admin/cron/runNow/key/f990382b1c1a0ccd6e80ab9ff6239d19/";s:11:"script_name";s:10:"/index.php";s:4:"skin";s:5:"admin";}

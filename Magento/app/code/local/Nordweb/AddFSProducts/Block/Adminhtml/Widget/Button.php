@@ -36,7 +36,19 @@ class Nordweb_AddFSProducts_Block_Adminhtml_Widget_Button extends Mage_Adminhtml
      */
     private function _isVisible()
     {
-        return $this->_product->isVisibleInCatalog() && $this->_product->isVisibleInSiteVisibility();
+        //return $this->_product->isVisibleInCatalog() && $this->_product->isVisibleInSiteVisibility();
+        
+        //Not enable button if has parent, then it's part of a parent-configurable and should not have children
+        $parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($this->_product->getId());
+        if(!$parentIds)
+            $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($this->_product->getId());
+        if(isset($parentIds[0])){
+            //has parent, return false
+            return false;
+            
+        }
+        
+        return true; //Default
     }
 }
 

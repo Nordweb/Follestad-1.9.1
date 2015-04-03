@@ -17,9 +17,9 @@
       </getallfsproducts>
     </helpers>
     <models>
-      <nordweb_getallfsproducts>
+      <getallfsproducts>
         <class>Nordweb_GetAllFSProducts_Model</class>
-      </nordweb_getallfsproducts>
+      </getallfsproducts>
     </models>
   </global>
   <admin>
@@ -46,4 +46,18 @@
       </adminhtml_block_html_before>
     </events>
   </adminhtml>
+
+
+  <crontab>
+    <jobs>
+      <nordweb_frontsystems_getallfsproducts>
+        <schedule>
+          <cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr>
+        </schedule>
+        <run>
+          <model>getallfsproducts/observer::callFromCron</model>
+        </run>
+      </nordweb_frontsystems_getallfsproducts>
+    </jobs>
+  </crontab>
 </config>

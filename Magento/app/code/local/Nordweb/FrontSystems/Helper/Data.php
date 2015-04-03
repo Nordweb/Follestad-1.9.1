@@ -140,8 +140,8 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         $saleLines = array();
  
         $order = Mage::getModel("sales/order")->loadByIncrementId($orderInstance->increment_id); 
-        $ordered_items = $order->getAllItems(); 
-        
+        $ordered_items = $order->getAllItems();
+     
       
         $payment = $order->getPayment();
       
@@ -208,14 +208,21 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
             $fsWebCustomer = $this->GetCustomer($orderInstance->customer_email);
         }
         
- 
+        Mage::log('$fsWebCustomer: ');
+        Mage::log($fsWebCustomer);
+        Mage::log('$fsWebCustomer->Addresses: ');
+        Mage::log($fsWebCustomer->Addresses);
+         Mage::log('$fsWebCustomer->Addresses->WebsaleAddress: ');
+        Mage::log($fsWebCustomer->Addresses->WebsaleAddress);
+        Mage::log('$fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID: ');
+        Mage::log($fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID);
         
         $saleObject = array(
                       "Comment"=> "",
                       "CustomerID"=> $fsWebCustomer->CUSTOMERID, 
-                      "DeliveryAddressID"=> $fsWebCustomer->Addresses->ADDRESSID,
+                      "DeliveryAddressID"=> $fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID,
                       "ExtRef"=> "",
-                      "InvoiceAddressID"=> $fsWebCustomer->Addresses->ADDRESSID,
+                      "InvoiceAddressID"=> $fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID,
                       "IsComplete"=> true,
                       "IsVoided"=> false,
                       "PaymentLines"=> $paymentLines,
@@ -250,33 +257,34 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         catch (Exception $e) 
         {
             
+             Mage::log($e->getMessage());
+             
+            //// the message
+            //$msg = $e->getMessage();
+
+            //// use wordwrap() if lines are longer than 70 characters
+            //$msg = wordwrap($msg,70);
             
-            // the message
-            $msg = $e->getMessage();
+            //// To send HTML mail, the Content-type header must be set
+            //$headers  = 'MIME-Version: 1.0' . "\r\n";
+            //$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-            // use wordwrap() if lines are longer than 70 characters
-            $msg = wordwrap($msg,70);
-            
-            // To send HTML mail, the Content-type header must be set
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            //// Additional headers
+            //$headers .= 'To: Rune <rune@nordweb.no>' . "\r\n";
+            //$headers .= 'From: webshop@follestad.com' . "\r\n";
 
-            // Additional headers
-            $headers .= 'To: Rune <rune@nordweb.no>' . "\r\n";
-            $headers .= 'From: rif@rif.no' . "\r\n";
-
-            // send email
-            mail("rune@nordweb.no", "Follestad.no - Exception in AddSale()",$msg, $headers);
+            //// send email
+            //mail("rune@nordweb.no", "Follestad.no - Exception in AddSale()",$msg, $headers);
             
           
 
-            try {
-                $mail->send();
+            //try {
+            //    $mail->send();
               
-            }
-            catch (Exception $e2) {
-               Mage::log($e2->getMessage());
-            }
+            //}
+            //catch (Exception $e2) {
+            //   Mage::log($e2->getMessage());
+            //}
             
             //throw it again
             throw $e;
@@ -321,11 +329,23 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
-        Mage::log('Client authenticated');
-        
-        
-        $billingAddress = $orderInstance->getBillingAddress();
+         $billingAddress = $orderInstance->getBillingAddress();
         $shippingAddress = $orderInstance->getShippingAddress();
+        
+        
+        Mage::log('Client authenticated');
+        Mage::log('$orderInstance->customer->email');
+        Mage::log( $orderInstance->customer->email);
+        Mage::log('$billingAddress->getFirstName()');
+        Mage::log($billingAddress->getFirstName());
+        Mage::log('$shippingAddress->getFirstName()');
+        Mage::log($shippingAddress->getFirstName());
+        Mage::log('$orderInstance->customer_email');
+        Mage::log($orderInstance->customer_email);
+        Mage::log('$orderInstance->customer->firstName');
+        Mage::log($orderInstance->customer->firstName);
+        
+       
 
         $websaleAddressShipping = array(
                       //"ADDRESSID"=> $customer->,
@@ -338,6 +358,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "Name"=> "ShippingAddress",
                       "Phone"=> $shippingAddress->getTelephone(),
                       "Zip"=> $shippingAddress->getPostcode(),
+                      "Email"=> $shippingAddress->getEmail(),
                       
                        );
                        
@@ -352,6 +373,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "Name"=> "BillingAddress",
                       "Phone"=> $billingAddress->getTelephone(),
                       "Zip"=> $billingAddress->getPostcode(),
+                      "Email"=> $billingAddress->getEmail(),
                       
                        );
         $websaleAddresses = array($websaleAddressShipping, $websaleAddressBilling);
@@ -373,9 +395,9 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
                       "DlvName"=> "DeliveryAddress",
                       "DlvPhone"=> $shippingAddress->getTelephone(),
                       "DlvZip"=> $shippingAddress->getPostcode(),
-                      "Email"=> $orderInstance->customer->email,
-                      "FirstName"=> $orderInstance->customer->firstname,
-                      "LastName"=> $orderInstance->customer->lastname,
+                      "Email"=> $billingAddress->getEmail(),
+                      "FirstName"=> $billingAddress->getFirstname(),
+                      "LastName"=> $billingAddress->getLastname(),
                       "Phone"=> $billingAddress->getTelephone(),
                       "StdDiscount"=> 0.00,
                       "Zip"=> $billingAddress->getPostcode(),
@@ -392,6 +414,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::log($retval->faultstring);
             Mage::log($retval->detail);
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+            throw new Exception($retval->faultstring);
         }
         $fsInsertCustomerInt = $retval->InsertCustomerResult;
         Mage::log('Inserted customer successfully in Front Systems');

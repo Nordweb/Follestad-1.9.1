@@ -30,28 +30,17 @@
     <events>
       <sales_order_place_after>
         <observers>
-          <nordweb_frontsystems_observer> 
+          <nordweb_frontsystems_observer>
             <type>singleton</type>
             <class>Nordweb_FrontSystems_Model_SomeModel</class>
-            <method>callFromMagentoWhenSale</method> 
+            <method>callFromMagentoWhenSale</method>
           </nordweb_frontsystems_observer>
         </observers>
       </sales_order_place_after>
-   
+
     </events>
   </global>
 
-  <crontab>
-    <jobs>
-      <Nordweb_FrontSystems>
-        <schedule>
-          <cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr>
-        </schedule>
-        <run>
-          <model>frontsystems/observer::callFromCron</model>
-        </run>
-      </Nordweb_FrontSystems>
-    </jobs>
-  </crontab>
+ 
 
 </config>

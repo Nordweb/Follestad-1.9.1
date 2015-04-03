@@ -48,4 +48,10 @@ class Nordweb_GetAllFSProducts_Model_Observer
             //}
         }
     }
+    
+    
+    public function callFromCron()
+    {
+        Mage::log('********************* Called from cron ***********************');
+    }
 }
