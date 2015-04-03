@@ -137,23 +137,34 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             //   b) Products that already are configurable, but have no children
             //   SUM: Type no matter, but no parent and no children
             Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-            $allProducts = Mage::getResourceModel('catalog/product_collection');
-            Mage::log('Got all Products from Magento, count:' . count($allProducts));
+            //$allProducts = Mage::getResourceModel('catalog/product_collection');
+            $allProductIds = Mage::getModel('catalog/product')->getCollection()->getAllIdsCache();
+            
+            Mage::log('Got all Products from Magento, count:' . count($allProductIds));
             
             $allProductsWithNoParentAndChildren = array(); 
             
             //DEBUG
-            $count = 0;
+            //$count = 0;
             
-            foreach ($allProducts as $oneProduct)  
+          
+            
+            foreach ($allProductIds as $oneProductID)  
             {   
+                
+               
                 //DEBUG
-                if($oneProduct->Sku == null || substr($oneProduct->Sku,0,2) != '57' )
-                    continue;
+                //if($oneProduct->Sku == null || substr($oneProduct->Sku,0,2) != '57' )
+                //    continue;
                     
                 //Check for parent
+                Mage::log('161');
+                $oneProduct = Mage::getModel('catalog/product')->load($oneProductID);
+               Mage::log('163');
+                
                 if($oneProduct->getTypeId() == "simple") 
                 {
+                    Mage::log('167');
                     $parentIds = Mage::getModel('catalog/product_type_grouped')->getParentIdsByChild($oneProduct->getId());
                     if(!$parentIds)
                         $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($oneProduct->getId());
@@ -166,6 +177,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //Check for children
                 if($oneProduct->getTypeId() == "configurable") 
                 {
+                    Mage::log('180');
                     $possibleChildren = $oneProduct->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
                     if(!$possibleChildren && isset($possibleChildren[0]))
                     {
@@ -177,12 +189,17 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //qualified - no parent, no children
                 
                 //DEBUG
-                $count = $count + 1;
-                if($count >= 100)
-                    break;
+                //$count = $count + 1;
+                //if($count >= 100)
+                //    break;
                 
+                Mage::log('196');
                 Mage::log('Product with sku ' . $oneProduct->Sku . ' has no parents or children, adding for check');
                 array_push( $allProductsWithNoParentAndChildren, $oneProduct); 
+                
+                //clear memory
+                $oneProduct->clearInstance();
+                Mage::log('202');
             }
             Mage::log('Got all Products With No Parent And Children from Magento, count:' . count($allProductsWithNoParentAndChildren));
       
@@ -194,7 +211,6 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $allFSProductsForThisConfigurableProduct = array();
             $allFSStockCountForThisConfigurableProduct = array();
             
-            Mage::log('count($allWebProductsFromFrontSystems):' . count($allWebProductsFromFrontSystems));
             Mage::log('count($allWebProductsFromFrontSystems->Product):' . count($allWebProductsFromFrontSystems->Product));
             
             
@@ -227,7 +243,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                             array_push( $allFSStockCountForThisConfigurableProduct, $value); 
                         }
                     }
-                    Mage::log('Collected ' . count($allFSStockCountForThisConfigurableProduct) . ' sizes (FS-products) for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
+                    Mage::log('Collected ' . count($allFSStockCountForThisConfigurableProduct) . ' stockcounts for FS-Product with PRODUCTID = Sku: ' . $oneMagentoProduct->Sku);
                     
                     Mage::helper('addfsproducts')->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($oneProduct->Sku, 
                         $allFSProductsForThisConfigurableProduct, $allFSStockCountForThisConfigurableProduct);
@@ -238,7 +254,8 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 }
             }
             
-            
+            Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
+            Mage::getModel('index/process')->load(9)->reindexEverything();
 
          }
          catch(Exception $e)

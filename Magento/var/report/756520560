@@ -1,0 +1,14 @@
+a:5:{i:0;s:1006:"<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i><b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
+                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
+                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1318-136' for key 'UNQ_follestad_CAT_PRD_SPR_ATTR_PRD_ID_ATTR_ID', query was: INSERT INTO `follestad_catalog_product_super_attribute` (`product_id`, `attribute_id`, `position`) VALUES (?, ?, ?)</i>"<br/><br/></i>"<br/><br/>";i:1;s:1556:"#0 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\local\Nordweb\AddFSProducts\Helper\Data.php(126): Mage::throwException('<b>Vi beklager<...')
+#1 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\local\Nordweb\AddFSProducts\Helper\Data.php(51): Nordweb_AddFSProducts_Helper_Data->HandleSimpleProductsForOneCallingConfigurable('583090', Object(stdClass), Object(stdClass))
+#2 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\local\Nordweb\AddFSProducts\controllers\Adminhtml\IndexController.php(25): Nordweb_AddFSProducts_Helper_Data->GetProductsFromFSBySKU('583090')
+#3 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Controller\Varien\Action.php(418): Nordweb_AddFSProducts_Adminhtml_IndexController->GetProductsFromFSBySKUAction()
+#4 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\var\cache\ew\files\69\b9\Mage\Core\Controller\Varien\Router\Standard.php(269): Mage_Core_Controller_Varien_Action->dispatch('getproductsfrom...')
+#5 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Controller\Varien\Front.php(172): Mage_Core_Controller_Varien_Router_StandardOverriddenClass->match(Object(Mage_Core_Controller_Request_Http))
+#6 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\code\core\Mage\Core\Model\App.php(354): Mage_Core_Controller_Varien_Front->dispatch()
+#7 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\app\Mage.php(684): Mage_Core_Model_App->run(Array)
+#8 C:\projects\runeh\Nordweb\Follestad 1.9.1\Magento\index.php(87): Mage::run('', 'store')
+#9 {main}";s:3:"url";s:102:"/index.php/admin/index/getproductsfromfsbysku/sku/583090/id/1318/key/20fb37c6f1f32179216b2df3993c73a0/";s:11:"script_name";s:10:"/index.php";s:4:"skin";s:5:"admin";}
