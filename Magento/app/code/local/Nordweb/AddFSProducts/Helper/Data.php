@@ -257,6 +257,9 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                    //Mage::log('$stockCount: ');
                    //Mage::log($stockCount);
                 }
+                
+                //if($stockCount == 0)
+                //    continue;
                 //Mage::log('241');
                 // Create the Magento product model 
                 $sProduct = Mage::getModel('catalog/product'); 

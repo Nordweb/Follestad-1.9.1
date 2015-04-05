@@ -63,7 +63,7 @@ class Nordweb_GetAllStockCounts_Model_Observer
         Mage::log('==============================================================');
         Mage::log('==============================================================');
    
-        Mage::helper('getallstockcountss')->GetAllStockCounts();
+        Mage::helper('getallstockcounts')->GetAllStockCounts();
         
         Mage::log('Ending cron-job after calling GetAllStockCounts - Well done.');
         
