@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nordweb_GetAllStockCounts>
+      <version>0.0.1</version>
+    </Nordweb_GetAllStockCounts>
+  </modules>
+  <global>
+    <blocks>
+      <nordweb_getallstockcounts>
+        <class>Nordweb_GetAllStockCounts_Block</class>
+      </nordweb_getallstockcounts>
+    </blocks>
+    <helpers>
+      <getallstockcounts>
+        <class>Nordweb_GetAllStockCounts_Helper</class>
+      </getallstockcounts>
+    </helpers>
+    <models>
+      <getallstockcounts>
+        <class>Nordweb_GetAllStockCounts_Model</class>
+      </getallstockcounts>
+    </models>
+  </global>
+  <admin>
+    <routers>
+      <adminhtml>
+        <args>
+          <modules>
+            <nordweb_getallstockcounts before="Mage_Adminhtml">Nordweb_GetAllStockCounts_Adminhtml</nordweb_getallstockcounts>
+          </modules>
+        </args>
+      </adminhtml>
+    </routers>
+  </admin>
+  <adminhtml>
+    <events>
+      <adminhtml_block_html_before>
+        <observers>
+          <nordweb_getallstockcounts>
+            <type>model</type>
+            <class>Nordweb_GetAllStockCounts_Model_Observer</class>
+            <method>getAllStockCounts</method>
+          </nordweb_getallstockcounts>
+        </observers>
+      </adminhtml_block_html_before>
+    </events>
+  </adminhtml>
+
+
+  <crontab>
+    <jobs>
+      <nordweb_fs_getallstockcounts>
+        <schedule>
+          <!--<cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr>--><!--Every 5 minutes-->
+          <cron_expr>0 0 4 1/1 * ? *</cron_expr> <!--Every night at 04:00 am-->
+          <!--<cron_expr></cron_expr>--><!--Never-->
+          <!--<cron_expr>0 0 12 1 1 ? *</cron_expr>--><!--Yearly-->
+          
+
+        </schedule>
+        <run>
+          <model>getallstockcounts/observer::GetAllStockCountsFromCron</model>
+        </run>
+      </nordweb_fs_getallstockcounts>
+      
+    </jobs>
+  </crontab>
+</config>

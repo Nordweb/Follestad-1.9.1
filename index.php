@@ -75,7 +75,7 @@ if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
 }
 
 ini_set('display_errors', 1);
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '1024M');
 
 umask(0);
 

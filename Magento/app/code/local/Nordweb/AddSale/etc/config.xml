@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nordweb_AddSale>
+      <version>0.1.0</version>
+    </Nordweb_AddSale>
+  </modules>
+  <frontend>
+    <routers>
+      <addSale>
+        <use>standard</use>
+        <args>
+          <module>Nordweb_AddSale</module>
+          <frontName>addSale</frontName>
+        </args>
+      </addSale>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <addSale>
+        <class>Nordweb_AddSale_Helper</class>
+      </addSale>
+    </helpers>
+    <models>
+      <addSale>
+        <class>Nordweb_AddSale_Model</class>
+      </addSale>
+    </models>
+    <events>
+      <sales_order_place_after>
+        <observers>
+          <nordweb_addsale_observer>
+            <type>singleton</type>
+            <class>Nordweb_AddSale_Model_SomeModel</class>
+            <method>callFromMagentoWhenSale</method>
+          </nordweb_addsale_observer>
+        </observers>
+      </sales_order_place_after>
+
+    </events>
+  </global>
+
+ 
+
+</config>

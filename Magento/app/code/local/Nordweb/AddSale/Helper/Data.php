@@ -4,7 +4,7 @@
 //require 'app/Mage.php';
 
 
-class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
+class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
 
 
 
@@ -126,7 +126,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
     
     try {
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -134,7 +134,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
        
         $receipt = null; 
         $saleDateTime = null;
-        $saleGuid = Mage::helper('frontSystems')->getGUID();
+        $saleGuid = Mage::helper('addfsproducts')->getGUID();
         
 
         $saleLines = array();
@@ -251,7 +251,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('New sale Result:' .$fsNewSaleResult);
         
         echo '<br/><br/>New sale Result:';
-        Mage::helper('frontSystems')->prettyPrintArray( $fsNewSaleResult );
+        Mage::helper('addfsproducts')->prettyPrintArray( $fsNewSaleResult );
         
         } 
         catch (Exception $e) 
@@ -297,7 +297,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
     {
         
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -325,7 +325,7 @@ class Nordweb_FrontSystems_Helper_Data extends Mage_Core_Helper_Abstract {
     public function InsertCustomer($orderInstance)
     {
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS("CardTypeEnum");
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS("CardTypeEnum");
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         

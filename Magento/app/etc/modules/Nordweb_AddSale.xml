@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0"?>
 <config>
   <modules>
-    <Nordweb_FrontSystems>
+    <Nordweb_AddSale>
       <!-- This activates the module, flip to false to deactivate -->
       <active>true</active>
       <codePool>local</codePool>
       <!-- Remember we talked about code pools -->
-    </Nordweb_FrontSystems>
+    </Nordweb_AddSale>
   </modules>
 </config>

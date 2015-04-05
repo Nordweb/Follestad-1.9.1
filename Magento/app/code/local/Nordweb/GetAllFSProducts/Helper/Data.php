@@ -10,7 +10,8 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     public function GetAllProducts()
     {
    
-    
+        Mage::log(' ');
+        Mage::log(' ');
         Mage::log('==============================================================');
         Mage::log('==============================================================');
         Mage::log('==============================================================');
@@ -25,7 +26,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     
         //auth
         Mage::log('Calling frontSystems->AuthenticateFS()');
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
@@ -46,7 +47,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
         //auth
         Mage::log('Calling frontSystems->AuthenticateFS()');
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
@@ -68,7 +69,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         //Match & Store in Magento
         $this->StoreProductsForAllProductsNotHavingSimpleProductsChildrenYet($allWebProductsFromFrontSystems, $allStockCountsFromFrontSystems);
         
-      
+        Mage::log('Finished StoreProductsForAllProductsNotHavingSimpleProductsChildrenYet');
      
     }
     
@@ -148,9 +149,9 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $allProductIDsWithNoParentAndChildren = array(); 
             
             //DEBUG
-            //$count = 0;
             
-          
+            
+            
             
             foreach ($allProductIds as $oneProductID)  
             {   
@@ -173,6 +174,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                         $parentIds = Mage::getModel('catalog/product_type_configurable')->getParentIdsByChild($oneProduct->getId());
                     if(isset($parentIds[0])){
                        //has parent, skip
+                       //Mage::log($oneProductID . ' has parent, moving on');
                        continue;
                     }
                 }
@@ -184,22 +186,29 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                     try {
                         //Mage::log('183');
                         $possibleChildren = Mage::getModel('catalog/product_type_configurable')->getChildrenIds($oneProduct->getId());
-                        if(!$possibleChildren && isset($possibleChildren[0]))
+                        //Mage::log('Children IDs:');
+                        //Mage::log($possibleChildren);
+                         
+                        if(isset($possibleChildren[0]))
                         {
                            //has children, skip
                            //clear memory
-                           $possibleChildren->clearInstance();
+                           //$possibleChildren->clearInstance();
+                           //Mage::log($oneProductID . ' has children, skipping');
                            continue;
                         }
                      }
                      catch(Exception $e)
                      {
                             Mage::log($e->getMessage());
+                             //debug
+                            throw $e;
                      }
                 }
                 
                 //qualified - no parent, no children
-                
+                 //Mage::log($oneProductID . ' qualified, no parents and children');
+                 
                 //DEBUG
                 //$count = $count + 1;
                 //if($count >= 100)
@@ -225,7 +234,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             
 
             Mage::log('count($allWebProductsFromFrontSystems->Product):' . count($allWebProductsFromFrontSystems->Product));
-            
+            $updateCount = 0;
             
             foreach ($allProductIDsWithNoParentAndChildren as $oneMagentoProductID)  
             {   
@@ -272,6 +281,8 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                
                      Mage::helper('addfsproducts')->StoreSimpleProductsUnderCallingConfigurableOrConfigurableToBe($oneMagentoProduct->Sku, 
                         $allFSProductsForThisConfigurableProduct, $allFSStockCountForThisConfigurableProduct);
+                        
+                        $updateCount = $updateCount + 1;
                 }
                 
     
@@ -283,16 +294,29 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 
             }
             
-            $allProductIDsWithNoParentAndChildren->clearInstance();
-            $allWebProductsFromFrontSystems->clearInstance();
+             Mage::log('updated ' . $updateCount . '  Magento-products with GetAllFSProducts');
+            
+            //if($allProductIDsWithNoParentAndChildren != null && is_object($allProductIDsWithNoParentAndChildren))
+            //    $allProductIDsWithNoParentAndChildren->clearInstance();
+            //if($allWebProductsFromFrontSystems != null && is_object($allWebProductsFromFrontSystems))
+            //    $allWebProductsFromFrontSystems->clearInstance();
+                
+                
+            Mage::log('Finished looping all products, indexing..');
             
             Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
             Mage::getModel('index/process')->load(9)->reindexEverything();
+            
+             Mage::log('Finished indexing..');
 
          }
          catch(Exception $e)
          {
                 Mage::log($e->getMessage());
+                
+                 //debug
+                throw $e;
+                
                 Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
                 Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
                 <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 

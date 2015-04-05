@@ -11,6 +11,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     {
     
     
+        Mage::log(' ');
+        Mage::log(' ');
         Mage::log('==============================================================');
         Mage::log('==============================================================');
         Mage::log('==============================================================');
@@ -22,11 +24,18 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
    
         Mage::log('Calling Data->GetProductsFromFSBySKU()');
         
+        //Checkin for digits only in SKU
+        if(!is_numeric($SKUOfConfigurableOrConfigurableToBe))
+        {
      
+            Mage::throwException('<b>Sjekk av SKU f&oslash;r innsending</b><br/>SKU p&aring; dette produktet er <i>"' . $SKUOfConfigurableOrConfigurableToBe . '"</i> og inneholder bokstaver, noe som Front Systems ikke liker. Vennligst endre SKU til kun siffer.');
+            return;
+                
+        }
     
         //auth
         Mage::log('Calling frontSystems->AuthenticateFS()');
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
@@ -107,9 +116,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $configurableProductInMagento = Mage::getModel('catalog/product')->loadByAttribute('sku', $SKUOfConfigurableOrConfigurableToBe);
         
         
-            //deleting existing products
-            Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
-            $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
+           
         
            
         
@@ -123,6 +130,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
          catch(Exception $e)
          {
                 Mage::log($e->getMessage());
+                
+                 //debug
+                throw $e;
+                
                 Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
                 Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
                 <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
@@ -148,6 +159,11 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         
         Mage::log('$configurableProductInMagento:');
         Mage::log(get_object_vars($configurableProductInMagento));
+        
+        //delete for both addFsProducts and GetAllFSProducts
+        //deleting (any) existing products
+        Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
+        $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
         
         $configurable_attribute = "size"; 
         $attr_id = 136; 
@@ -267,54 +283,141 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 $sProduct->setTaxClassId($configurableProductInMagento->getTaxClassId());  //tax class (0 - none, 1 - default, 2 - taxable, 4 - shipping)
                 $sProduct->setPrice($configurableProductInMagento->getPrice()) ; //price in form 11.22
                 $sProduct->setDescription($configurableProductInMagento->getDescription()); 
-                $sProduct->setShortDescription($configurableProductInMagento->getShortDescription()); 
+                $sProduct->setShortDescription($configurableProductInMagento->getShortDescription());
                 //Mage::log('261');
-                //$sProduct->setStockData(
-                //    array(
-                //        'use_config_manage_stock' => 1, //'Use config settings' checkbox
-                //        'is_in_stock' => 1, //Stock Availability
-                //        'qty' => $stockCount //qty
-                //    )
-                //);
-                
-                //Mage::log('263');
+                 $sProduct->save();  
+                 $sProduct->load($sProduct->getId());
                 
                 
+                 //Mage::log('Saving simple product with Varekode: ' . $oneFSProduct->IDENTITY);
+                 //$sProduct->save();  
                 
-                
-                // Check if there is a stock item object
-                $sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
-                $sstockItemData = $sstockItem->getData();
-                if (empty($sstockItemData)) {
+                 // $stockQty = 1
+                $stockItem = Mage::getModel('cataloginventory/stock_item');
+                $stockItem->assignProduct($sProduct);
+                $stockItem->setData('is_in_stock', 1);
+                $stockItem->setData('stock_id', 1);
+                $stockItem->setData('store_id', 1);
+                $stockItem->setData('manage_stock', 0);
+                $stockItem->setData('use_config_manage_stock', 1);
+                $stockItem->setData('min_sale_qty', 0);
+                $stockItem->setData('use_config_min_sale_qty', 0);
+                $stockItem->setData('max_sale_qty', 1000);
+                $stockItem->setData('use_config_max_sale_qty', 0);
+                $stockItem->setData('qty', $stockCount);
+                $stockItem->save();
 
-                    // Create the initial stock item object
-                    $sstockItem->setData('stock_id', 1234567);
-                    $sstockItem->setData('is_in_stock', 1);
-                    $sstockItem->setData('qty', $stockCount);
-                    $sstockItem->setData('use_config_manage_stock', 1);
-                    //$sstockItem->save();
+                $sProduct->save();              
+
+                //$stockItem = Mage::getModel('cataloginventory/stock_item');
+               
+                //$stockItem->setData('use_config_manage_stock', 1);
+                //$stockItem->setData('is_in_stock', 1);
+                //$stockItem->setData('qty', $stockCount);
+                
+                //$sProduct->setStockItem($stockItem);
+                //$stockItem->save();
+                
+                // $stockItem->assignProduct($sProduct);
+                // Mage::log('Saving simple product with Varekode: ' . $oneFSProduct->IDENTITY);
+                // $sProduct->save();  
+                //$stockItem->setData('use_config_manage_stock', 1);
+                //    //$stockItem->setData('is_in_stock', 1);
+                //    //$stockItem->setData('qty',$stockCount);
+                //    //$stockItem->save();
+                 
+                //Check if there is a stock item object
+                //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
+                //Mage::log($sstockItem);
+                //Mage::log(get_object_vars($sstockItem));
+                
+                ////$sstockItemData = $sstockItem->getData();
+                //if (empty($sstockItem) || !isset($sstockItem) || $sstockItem == null ) {
+                    
+                //    Mage::log('Stockdata is empty, adding it');
+                   
+                    
+                //    Mage::log('Deleting any Stockdata just in case');
+                //    $sProduct->removeStockData();
+                //    $sProduct->save();
+                     
+                //    $sProduct->setStockData(
+                //        array(
+                //            'use_config_manage_stock' => 1, //'Use config settings' checkbox
+                //            'is_in_stock' => 1, //Stock Availability
+                //            'qty' => $stockCount //qty
+                //        )
+                //    );
+                // }
+                // else
+                // {
+                //    Mage::log('Stockdata exists, updating it');
+                    
+
+
+                //    //Mage::log($sstockItem);
+                //    //Mage::log(get_object_vars($sstockItem));
+                    
+                //    //$sProduct->removeStockData();
+                //    //$sProduct->save();
+                     
+                //    //$sProduct->setStockData(
+                //    //    array(
+                //    //        'use_config_manage_stock' => 1, //'Use config settings' checkbox
+                //    //        'is_in_stock' => 1, //Stock Availability
+                //    //        'qty' => $stockCount //qty
+                //    //    )
+                //    //);
+                //    //$stockItem->setData('use_config_manage_stock', 1);
+                //    //$stockItem->setData('is_in_stock', 1);
+                //    //$stockItem->setData('qty',$stockCount);
+                //    //$stockItem->save();
+                // }
+                
+                // Mage::log('Adding stockinfo on simple product with Varekode: ' . $oneFSProduct->IDENTITY . ' and Quantity: ' . $stockCount);
+                // $sProduct->save();
+                ////Mage::log('263');
+                
+                
+                
+                
+                //// Check if there is a stock item object
+                //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
+                //$sstockItemData = $sstockItem->getData();
+                //if (empty($sstockItemData)) {
+
+                //    // Create the initial stock item object
+                //    $sstockItem->setData('stock_id', 1); //1234567
+                //    $sstockItem->setData('is_in_stock', 1);
+                //    $sstockItem->setData('qty', $stockCount);
+                //    $sstockItem->setData('use_config_manage_stock', 1);
+                //    Mage::log('Not exisitng stockData, adding one');
+                //    //$sstockItem->save();
                 
 
-                    //// Init the object again after it has been saved so we get the full object
-                    //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
-                }
-                else
-                {
+                //    //// Init the object again after it has been saved so we get the full object
+                //    //$sstockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($sProduct->getId());
+                //}
+                //else
+                //{
 
-                    // Set the quantity
-                    $sstockItem->setData('is_in_stock', 1);
-                    $sstockItem->setData('qty', $stockCount);
-                    $sstockItem->setData('use_config_manage_stock', 1);
-                    //$sstockItem->save();
-                }
+                //    // Set the quantity
+                //    $sstockItem->setData('is_in_stock', 1);
+                //    $sstockItem->setData('qty', $stockCount);
+                //    $sstockItem->setData('use_config_manage_stock', 1);
+                //    Mage::log('Has existing stockData, setting it');
+                //    //$sstockItem->save();
+                //}
                 
+                //$sProduct->setStockItem($sstockItem);
+                //$sProduct->setStockData($$sstockItemData);
                 
                 
                 
             
-                Mage::log('Saving simple product with Varekode: ' . $oneFSProduct->IDENTITY . ' and Quantity: ' . $stockCount);
-                $sProduct->save();   
+               
 
+                 Mage::log('324');
                 // Store some data for later once we've created the configurable product, so we can 
                 // associate this simple product to it later.. 
                 array_push( 
@@ -331,15 +434,19 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
   
             }
+             Mage::log('404');
        
         
             /******************************** Configurable stuff ********************************/
             
-            $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE); 
+            $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE);
+             Mage::log('410');
             $configurableProductInMagento->setCanSaveConfigurableAttributes(true);
+             Mage::log('412');
             $configurableProductInMagento->setCanSaveCustomOptions(true);
+             Mage::log('414');
             $configurableProductInMagento->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED); 
-            
+            Mage::log('416');
             //More
             $configurableProductInMagento->setAttributeSetId(4);
             
@@ -384,7 +491,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 $cProductTypeInstance->setUsedProductAttributeIds(array($_attributeIds[$configurable_attribute]));
             }
             
-            
+            Mage::log('394');
             
 
             // Now we need to get the information back in Magento's own format, and add bits of data to what it gives us.. 
@@ -401,6 +508,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             }   
 
             // Add it back to the configurable product.. 
+             Mage::log('setConfigurableAttributesData on configurable');
             $configurableProductInMagento->setConfigurableAttributesData($attributes_array);   
 
             // Remember that $simpleProducts array we created earlier? Now we need that data.. 
@@ -421,6 +529,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             }   
 
             // This tells Magento to associate the given simple products to this configurable product.. 
+            Mage::log('associate the given simple products to this configurable product');
             $configurableProductInMagento->setConfigurableProductsData($dataArray);   
 
             // Check if there is a stock item object
@@ -447,21 +556,29 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             //$stockItem->setData('product_id',$configurableProductInMagento->getId());
             //$stockItem->save();
             
-            
+             Mage::log('setting stockdata on configurable');
             $stock_item = Mage::getModel('cataloginventory/stock_item')->loadByProduct($configurableProductInMagento->getId());
             if (!$stock_item->getId()) {
                 $stock_item->setData('product_id', $configurableProductInMagento->getId());
                 $stock_item->setData('stock_id', 1); 
             }
 
+            $stock_item->setData('qty', 1); // is 0 or 1
             $stock_item->setData('is_in_stock', 1); // is 0 or 1
             $stock_item->setData('manage_stock', 1); // should be 1 to make something out of stock
             $stock_item->save();
-           
+            
+            
+            //removing old custom options
+             Mage::log('removing old custome options on configurable');
+            $configurableProductInMagento = $this->removeOptions($configurableProductInMagento);
+            //$configurableProductInMagento->setCanSaveCustomOptions(false);
+            //$configurableProductInMagento->setHasOptions(0); //->save();
            
             Mage::log('Saving Configurable product with all connected simple products');
             $configurableProductInMagento->save();
             
+             Mage::log('Saved Configurable product with all connected simple products');
            
         
          }
@@ -469,6 +586,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
          catch(Exception $e)
          {
                 Mage::log($e->getMessage());
+                
+                //debug
+                throw $e;
+                
                 Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
                 Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
                 <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
@@ -510,6 +631,52 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $attribute->save();   
         
         return $this->getAttributeOptionValue($arg_attribute, $arg_value); 
+    }
+    
+    public function removeOptions( $product) 
+    {
+        Mage::log('removing custom options');
+        
+        //$resource = Mage::getSingleton('core/resource');
+        //$writeConnection = $resource->getConnection('core_write');
+        //$table = 'follestad_catalog_product_option O JOIN follestad_catalog_product_option_type_value V on O.option_id=V.option_id';
+        //$query = "DELETE O, V FROM {$table}
+        
+         $resource = Mage::getSingleton('core/resource');
+        $writeConnection = $resource->getConnection('core_write');
+        //$table = 'UPDATE follestad_catalog_product_option SET is_require = 0 WHERE product_id = '. (int)$product->getId().'';
+        $query = 'UPDATE follestad_catalog_product_option SET is_require = 0 WHERE product_id = '. (int)$product->getId().'';
+        $writeConnection->query($query);
+        
+        //UPDATE `catalog_product_option` SET `is_require` = 0 WHERE 1
+
+        //$product = Mage::getModel('catalog/product')->load($product_id);
+        //$options = $product->getOptions();
+        //$optionsArray = array();
+        //foreach($options as $option) 
+        //{
+
+        //    //if(strtolower($option->getTitle()) == $option_name) 
+        //    //{
+        //        Mage::log('removing custom option: ');
+        //        Mage::log($option->getTitle());
+        //        $optionsData = $option->getData();
+        //        $optionsData['is_delete'] = 1;
+
+        //        array_push($optionsArray, array($option->getId() => $optionsData));
+               
+                
+        //        //$product->save();
+        //    //}
+
+        //}
+        
+        //$product->setProductOptions($optionsArray);
+       
+        
+        
+        return $product;
+
     }
     
     public function deleteAllExistingSimpleProductsBelongingToThis($_product) { 

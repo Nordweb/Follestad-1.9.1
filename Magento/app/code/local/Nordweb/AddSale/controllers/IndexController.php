@@ -4,7 +4,7 @@
 <?php
 
 
-class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Action {
+class Nordweb_AddSale_IndexController extends Mage_Core_Controller_Front_Action {
 
     
 
@@ -13,7 +13,7 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
     {
         
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -33,12 +33,12 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
         //echo '' + $fsWebProducts->Product[0]->PRODUCTID; 
         
         
-        Mage::helper('frontSystems')->prettyPrintArray( $fsWebProducts );
+        Mage::helper('addfsproducts')->prettyPrintArray( $fsWebProducts );
         //echo '<br/><br/>';
         
         //Test - Store in Magento
         Mage::log('Calling Magento to store');
-        Mage::helper('frontSystems')->StoreProduct($fsWebProducts);
+        Mage::helper('addfsproducts')->StoreProduct($fsWebProducts);
         
      
     }
@@ -48,7 +48,7 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
     {
     
         Mage::log('IndexController: Calling helpers "AddNewSale" to send in Sale');
-        Mage::helper('frontSystems')->AddNewSale();
+        Mage::helper('addsale')->AddNewSale();
         
     }
     
@@ -57,7 +57,7 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
     {
         
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -77,12 +77,12 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
         //echo '' + $fsWebProducts->Product[0]->PRODUCTID; 
         
         
-        Mage::helper('frontSystems')->prettyPrintArray( $fsCustomers );
+        Mage::helper('addfsproducts')->prettyPrintArray( $fsCustomers );
         //echo '<br/><br/>';
         
         ////Test - Store in Magento
         //Mage::log('Calling Magento to store');
-        //Mage::helper('frontSystems')->StoreProduct($fsWebProducts);
+        //Mage::helper('addFSProducts')->StoreProduct($fsWebProducts);
         
         
     }
@@ -91,7 +91,7 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
     {
         
         //auth
-        $returnValues = Mage::helper('frontSystems')->AuthenticateFS();
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         
@@ -113,7 +113,7 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
         echo '<br/>$GetStockCountByProductIDResult:';
         print_r($GetStockCountByProductIDResult);
         
-        Mage::helper('frontSystems')->prettyPrintArray( $GetStockCountByProductIDResult );
+        Mage::helper('addfsproducts')->prettyPrintArray( $GetStockCountByProductIDResult );
         echo '<br/><br/>';
 
 
@@ -127,11 +127,11 @@ class Nordweb_FrontSystems_IndexController extends Mage_Core_Controller_Front_Ac
         //Mage::log(get_class_methods($sProduct));
         //Mage::helper('fsGetProducts')->prettyPrintArray( $sProduct );
         
-        $myModel = Mage::getModel('frontSystems/SomeModel');
+        $myModel = Mage::getModel('addSale/SomeModel');
         print_r($myModel);
         
         
-        //Mage::helper('frontSystems')->prettyPrintArray( $sProduct->getAttributes() );
+        //Mage::helper('addFSProducts')->prettyPrintArray( $sProduct->getAttributes() );
         //Mage::log(get_object_vars($sProduct->getData()));
         
         
