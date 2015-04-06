@@ -43,16 +43,14 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
         
+        $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
         
         //GetFullProductInfo
         Mage::log('Calling frontSystems->GetFullProductInfo()');
         $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurableOrConfigurableToBe));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $retval->faultstring . '</i>"<br/><br/>' );
+             Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
         }
         $allFSProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
         Mage::log('Front Systems products & stockCount gotten by SKU');
@@ -77,21 +75,20 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                          "soap_defencoding"=>'UTF-8');
         
         
-        $client = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParams);
-        //Mage::log('$client: ' .get_object_vars($client));
+       
+        $url = Mage::getStoreConfig('nordweb/nordweb_group/frontsystemsapi_input',Mage::app()->getStore());
+        $user = Mage::getStoreConfig('nordweb/nordweb_group/apiuser_input',Mage::app()->getStore());
+        $pwd = Mage::getStoreConfig('nordweb/nordweb_group/apipwd_input',Mage::app()->getStore());
         
+        $client = new SoapClient($url,$headerParams);
+        $retval = $client->Logon(array('username'=>$user, 'password'=>$pwd));
         
-        //Logon
-        $retval = $client->Logon(array('username'=>'follestadwebshop', 'password'=>'2*3er6'));
-        //Mage::log('$retval: ' .get_object_vars($retval));
+        $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
         
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>' . 
-                '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
-        
+             Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
+        }
         $fsKey = $retval->LogonResult;
 
         //Declare some paramaters for our soapclient and create it.
@@ -137,10 +134,10 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                  //debug
                 throw $e;
                 
-                Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $e->getMessage() . '</i>"<br/><br/>' );
+                $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+                
+                
+                Mage::throwException($errorMsg . '"<i>' . $e->getMessage() . '</i>"<br/><br/>' );
          }
         
            
@@ -265,6 +262,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //    continue;
                 //Mage::log('241');
                 // Create the Magento product model 
+                $prefix = Mage::getStoreConfig('nordweb/nordweb_group/prefix_input',Mage::app()->getStore());
+                
                 $sProduct = Mage::getModel('catalog/product'); 
                 $sProduct->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE); 
                 $sProduct->setWebsiteIds(array(1)) ; 
@@ -282,7 +281,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //Mage::log($configurableProductInMagento->getName() );
                 // Mage::log('$attr_value');
                 //Mage::log($attr_value);
-                $sProduct->setName("[FS] " . $configurableProductInMagento->getName() . "-" . $attr_value);  //product name
+                $sProduct->setName($prefix . ' ' . $configurableProductInMagento->getName() . "-" . $attr_value);  //product name
                 //Mage::log('257');
                 $sProduct->setWeight(1.00); 
                 //Mage::log('259');
@@ -596,10 +595,11 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //debug
                 throw $e;
                 
-                Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $e->getMessage() . '</i>"<br/><br/>' );
+                 $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+                
+                 Mage::throwException($errorMsg . '"<i>' . $e->getMessage() . '</i>"<br/><br/>' );
+                
+               
          }
         
            

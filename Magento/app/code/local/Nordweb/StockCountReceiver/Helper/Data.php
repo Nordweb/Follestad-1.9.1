@@ -145,6 +145,8 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('Front Systems Client authenticated');
         
         
+        $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+        
        
         
         //registerStockCountNotification
@@ -152,10 +154,7 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
         $retval = $clientAuthenticated->registerStockCountNotification(array('key'=>$fsKey, 'fromDate'=>strtotime('now'), 'URL'=>$url));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $retval->faultstring . '</i>"<br/><br/>' );
+             Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
         }
         
         Mage::log('Response: ');     

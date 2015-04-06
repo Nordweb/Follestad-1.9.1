@@ -32,15 +32,15 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('Front Systems Client authenticated');
         
         
+        $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+        
+                 
         //GetProducts
         Mage::log('Calling frontSystems->GetProducts()');
         $retval = $clientAuthenticated->GetProducts(array('key'=>$fsKey));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $retval->faultstring . '</i>"<br/><br/>' );
+            Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
         }
         $allWebProductsFromFrontSystems = $retval->GetProductsResult;
         Mage::log(count($allWebProductsFromFrontSystems->Product) . ' web-products gotten from Front Systems');
@@ -57,10 +57,9 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $retval = $clientAuthenticated->GetStockCount(array('key'=>$fsKey));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $retval->faultstring . '</i>"<br/><br/>' );
+              
+            Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
+        
         }
         $allStockCountsFromFrontSystems = $retval->GetStockCountResult;
         Mage::log('Collected ' . count($allStockCountsFromFrontSystems->StockCount) . ' StockCounts' );
@@ -84,20 +83,20 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                          "soap_defencoding"=>'UTF-8');
         
         
-        $client = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParams);
-        //Mage::log('$client: ' .get_object_vars($client));
         
+        $url = Mage::getStoreConfig('nordweb/nordweb_group/frontsystemsapi_input',Mage::app()->getStore());
+        $user = Mage::getStoreConfig('nordweb/nordweb_group/apiuser_input',Mage::app()->getStore());
+        $pwd = Mage::getStoreConfig('nordweb/nordweb_group/apipwd_input',Mage::app()->getStore());
         
-        //Logon
-        $retval = $client->Logon(array('username'=>'follestadwebshop', 'password'=>'2*3er6'));
-        //Mage::log('$retval: ' .get_object_vars($retval));
+        $client = new SoapClient($url,$headerParams);
+        $retval = $client->Logon(array('username'=>$user, 'password'=>$pwd));
+        
+         $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+
         
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
-             Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $retval->faultstring . '</i>"<br/><br/>' );
+            Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
         }
         $fsKey = $retval->LogonResult;
 
@@ -317,10 +316,10 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                  //debug
                 throw $e;
                 
-                Mage::throwException('<b>Vi beklager</b><br/>Det har oppst&aring;tt en feil ved henting av produkter fra Front Systems. 
-                Vennligst sjekk teknisk feilmelding og pr&oslash;v igjen. <br/>Hvis ikke det fungerer, kontakt support p&aring;: 
-                <a href="mailto:rune@nordweb.no">rune@nordweb.no</a><br/><br/><b>Feilmelding fra teknisk system:</b><br/>"<i>' . 
-                $e->getMessage() . '</i>"<br/><br/>' );
+                 $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+        
+        Mage::throwException($errorMsg . '"<i>' . $e->getMessage() . '</i>"<br/><br/>' );
+               
          }
         
            

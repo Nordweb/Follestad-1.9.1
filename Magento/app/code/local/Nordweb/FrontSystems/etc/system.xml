@@ -27,7 +27,7 @@
           <fields>
             <frontsystemsapi_input translate="label">
               <label>Front Systems API: </label>
-              <comment></comment>
+              <comment><![CDATA[https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl]]></comment>
               <frontend_type>text</frontend_type>
               <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
@@ -36,7 +36,7 @@
             </frontsystemsapi_input>
             <apiuser_input translate="label">
               <label>API Bruker: </label>
-              <comment></comment>
+              <comment>follestadwebshop</comment>
               <frontend_type>text</frontend_type>
               <sort_order>11</sort_order>
               <show_in_default>1</show_in_default>
@@ -45,22 +45,14 @@
             </apiuser_input>
             <apipwd_input translate="label">
               <label>API Passord: </label>
-              <comment></comment>
+              <comment>2*3er6</comment>
               <frontend_type>text</frontend_type>
               <sort_order>12</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </apipwd_input>
-            <apipwd_input translate="label">
-              <label>API Passord: </label>
-              <comment></comment>
-              <frontend_type>text</frontend_type>
-              <sort_order>12</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </apipwd_input>
+           
           </fields>
         </nordweb_group>
         <nordweb_group2 translate="label" module="frontsystems">
@@ -75,7 +67,7 @@
           
             <prefix_input translate="label">
               <label>Prefiks enkeltprodukter: </label>
-              <comment></comment>
+              <comment>[FS]</comment>
               <frontend_type>text</frontend_type>
               <sort_order>12</sort_order>
               <show_in_default>1</show_in_default>

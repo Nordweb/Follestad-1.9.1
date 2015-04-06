@@ -20,12 +20,12 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                          "soap_defencoding"=>'UTF-8');
         
         
-        $client = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParams);
-        //Mage::log('$client: ' .get_object_vars($client));
+        $url = Mage::getStoreConfig('nordweb/nordweb_group/frontsystemsapi_input',Mage::app()->getStore());
+        $user = Mage::getStoreConfig('nordweb/nordweb_group/apiuser_input',Mage::app()->getStore());
+        $pwd = Mage::getStoreConfig('nordweb/nordweb_group/apipwd_input',Mage::app()->getStore());
         
-        
-        //Logon
-        $retval = $client->Logon(array('username'=>'follestadwebshop', 'password'=>'2*3er6'));
+        $client = new SoapClient($url,$headerParams);
+        $retval = $client->Logon(array('username'=>$user, 'password'=>$pwd));
         //Mage::log('$retval: ' .get_object_vars($retval));
         
         if (is_soap_fault($retval)) {

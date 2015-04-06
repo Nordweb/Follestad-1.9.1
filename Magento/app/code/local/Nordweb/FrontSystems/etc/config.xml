@@ -49,8 +49,7 @@
       </nordweb_group>
       <nordweb_group2>
         <prefix_input>[FS]</prefix_input>
-        <apiuser_input>follestadwebshop</apiuser_input>    
-      </nordweb_group2>
+       </nordweb_group2>
       <nordweb_group3>
         <feilmeldingbruker_input>
           &lt;b&gt;Vi beklager&lt;/b&gt;&lt;br/&gt;Det har oppstått en feil ved henting av produkter fra Front Systems.
