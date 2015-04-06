@@ -423,7 +423,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             
                
 
-                 Mage::log('324');
+                 //Mage::log('324');
                 // Store some data for later once we've created the configurable product, so we can 
                 // associate this simple product to it later.. 
                 array_push( 
@@ -440,19 +440,19 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
 
   
             }
-             Mage::log('404');
+             //Mage::log('404');
        
         
             /******************************** Configurable stuff ********************************/
             
             $configurableProductInMagento->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE);
-             Mage::log('410');
+             //Mage::log('410');
             $configurableProductInMagento->setCanSaveConfigurableAttributes(true);
-             Mage::log('412');
+             //Mage::log('412');
             $configurableProductInMagento->setCanSaveCustomOptions(true);
-             Mage::log('414');
+             //Mage::log('414');
             $configurableProductInMagento->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED); 
-            Mage::log('416');
+            //Mage::log('416');
             //More
             $configurableProductInMagento->setAttributeSetId(4);
             
@@ -497,7 +497,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 $cProductTypeInstance->setUsedProductAttributeIds(array($_attributeIds[$configurable_attribute]));
             }
             
-            Mage::log('394');
+            //Mage::log('394');
             
 
             // Now we need to get the information back in Magento's own format, and add bits of data to what it gives us.. 

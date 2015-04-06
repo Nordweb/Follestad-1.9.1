@@ -135,7 +135,7 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
    
         Mage::log('Calling Data->RegisteringForStockCountPush()');
       
-        $url = 'http://www.dev.follestad.no/stockCountReceiver/Index/ReceiveStockCountPush';
+        $url = Mage::getBaseUrl (Mage_Core_Model_Store::URL_TYPE_WEB) . 'stockCountReceiver/Index/ReceiveStockCountPush';
     
         //auth
         Mage::log('Calling frontSystems->AuthenticateFS()');

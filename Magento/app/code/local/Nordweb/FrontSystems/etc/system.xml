@@ -8,7 +8,7 @@
   </tabs>
   <sections>
     <nordweb translate="label" module="frontsystems">
-      <label>Generelle innstillinger</label>
+      <label>Innstillinger</label>
       <tab>nordweb</tab>
       <sort_order>1000</sort_order>
       <show_in_default>1</show_in_default>
@@ -17,7 +17,7 @@
 
       <groups>
         <nordweb_group translate="label" module="frontsystems">
-          <label>Generelle innstillinger</label>
+          <label>API innstillinger</label>
           <frontend_type>text</frontend_type>
           <sort_order>1000</sort_order>
           <show_in_default>1</show_in_default>
@@ -27,23 +27,91 @@
           <fields>
             <frontsystemsapi_input translate="label">
               <label>Front Systems API: </label>
-              <comment>Adresse til API-et</comment>
+              <comment></comment>
               <frontend_type>text</frontend_type>
-              <sort_order>20</sort_order>
+              <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </frontsystemsapi_input>
-            <feilmeldingbruker_input translate="label">
-              <label>Front Systems API: </label>
-              <comment>Adresse til API-et</comment>
+            <apiuser_input translate="label">
+              <label>API Bruker: </label>
+              <comment></comment>
               <frontend_type>text</frontend_type>
+              <sort_order>11</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </apiuser_input>
+            <apipwd_input translate="label">
+              <label>API Passord: </label>
+              <comment></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </apipwd_input>
+            <apipwd_input translate="label">
+              <label>API Passord: </label>
+              <comment></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </apipwd_input>
+          </fields>
+        </nordweb_group>
+        <nordweb_group2 translate="label" module="frontsystems">
+          <label>Produkt-innstillinger</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>2000</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+
+          <fields>
+          
+            <prefix_input translate="label">
+              <label>Prefiks enkeltprodukter: </label>
+              <comment></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>12</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </prefix_input>
+           
+          </fields>
+        </nordweb_group2>
+        <nordweb_group3 translate="label" module="frontsystems">
+          <label>Feilhåndtering</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>3000</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+
+          <fields>
+            <feilmeldingbruker_input translate="label">
+              <label>Feilmelding bruker: </label>
+              <comment></comment>
+              <frontend_type>textarea</frontend_type>
               <sort_order>20</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </feilmeldingbruker_input>
-            <!--<nordweb_select translate="label">
+           
+          </fields>
+        </nordweb_group3>
+      </groups>
+    </nordweb>
+  </sections>
+</config>
+
+<!--<nordweb_select translate="label">
               <label>My Dropdown: </label>
               <comment>Source model provider Magento's default Yes/No values</comment>
               <frontend_type>select</frontend_type>
@@ -53,9 +121,3 @@
               <show_in_store>1</show_in_store>
               <source_model>adminhtml/system_config_source_yesno</source_model>
             </nordweb_select>-->
-          </fields>
-        </nordweb_group>
-      </groups>
-    </nordweb>
-  </sections>
-</config>
