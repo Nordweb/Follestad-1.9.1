@@ -51,6 +51,11 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
         //Match & Store in Magento
         $this->UpdateStockCountsForAllProducts($allStockCountsFromFrontSystems);
         
+        
+        
+        //Now registering for StockCountPush immediately
+        Mage::helper('stockcountreceiver')->RegisteringForStockCountPush();
+        
       
      
     }
@@ -116,6 +121,8 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
             //Getting all simple products that directly match Identity of stockcount. 
             //Also update parent-configurable to be "på lager"
             $count = 0;
+            
+            $UpdateStockNotReplace = false; //GetAllStockCount is a full replace, unlike Push notifications
            
             foreach ($allProductIds as $oneMagentoProductID) 
             {   
@@ -146,7 +153,7 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
                      
                      Mage::log('Collected ' . count($allFSStockCountForThisProduct) . ' stockcounts for FS-Product with Identity containing Sku: ' . $oneMagentoProduct->Sku);
                
-                     $this->UpdateStockCountsForThisProduct($oneMagentoProduct->Sku, $allFSStockCountForThisProduct);
+                     $this->UpdateStockCountsForThisProduct($oneMagentoProduct->Sku, $allFSStockCountForThisProduct, $UpdateStockNotReplace);
                      
                       Mage::log('Updated stockcounts for this product, clearing variables');
                       $count = $count + 1;
@@ -183,7 +190,7 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
            
     }
     
-     public function UpdateStockCountsForThisProduct($SKUOfProduct, $allFSStockCountForThisProduct)
+     public function UpdateStockCountsForThisProduct($SKUOfProduct, $allFSStockCountForThisProduct, $UpdateStockNotReplace)
     {
     
      try {
@@ -203,32 +210,53 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
          //Sum all stockcounts
         //Mage::log('Summarizing all stockCounts');
         $stockCount = 0; //identity, stockcount
-        foreach ($allFSStockCountForThisProduct as $oneStockCount) 
+        
+        $allFSStockCountForThisProductArray = array();
+        if(!is_array($allFSStockCountForThisProduct))
+        {
+            array_push( $allFSStockCountForThisProductArray, $allFSStockCountForThisProduct);
+        }
+        else
+        {
+            $allFSStockCountForThisProductArray = $allFSStockCountForThisProduct;
+        }
+        
+        foreach ($allFSStockCountForThisProductArray as $oneStockCount) 
         {
             
             $stockCount = $stockCount + $oneStockCount->Qty;
      
         }
+        
+        $qty = 0;
+        if($UpdateStockNotReplace) //StockItem should exist, only add/subtract stockcount, not replace
+        {
+            $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simpleProductInMagento->getId());
+            $stockItem->setData('qty', $stockItem->getQty() + $stockCount);
             
-       
-                   
-
+        }
+        else
+        {
             $stockItem = Mage::getModel('cataloginventory/stock_item');
-            $stockItem->assignProduct($simpleProductInMagento);
-            $stockItem->setData('is_in_stock', 1);
-            $stockItem->setData('stock_id', 1);
-            $stockItem->setData('store_id', 1);
-            $stockItem->setData('manage_stock', 0);
-            $stockItem->setData('use_config_manage_stock', 1);
-            $stockItem->setData('min_sale_qty', 0);
-            $stockItem->setData('use_config_min_sale_qty', 0);
-            $stockItem->setData('max_sale_qty', 1000);
-            $stockItem->setData('use_config_max_sale_qty', 0);
             $stockItem->setData('qty', $stockCount);
-            $stockItem->save();
+           
+        }
 
-            $simpleProductInMagento->save();              
-
+        
+        $stockItem->assignProduct($simpleProductInMagento);
+        $stockItem->setData('is_in_stock', 1);
+        $stockItem->setData('stock_id', 1);
+        $stockItem->setData('store_id', 1);
+        $stockItem->setData('manage_stock', 0);
+        $stockItem->setData('use_config_manage_stock', 1);
+        $stockItem->setData('min_sale_qty', 0);
+        $stockItem->setData('use_config_min_sale_qty', 0);
+        $stockItem->setData('max_sale_qty', 1000);
+        $stockItem->setData('use_config_max_sale_qty', 0);
+        $stockItem->save();
+        
+        $simpleProductInMagento->save();              
+        
   
 
           

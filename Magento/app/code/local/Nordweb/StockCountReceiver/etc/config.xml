@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Nordweb_StockCountReceiver>
+      <version>0.0.1</version>
+    </Nordweb_StockCountReceiver>
+  </modules>
+  <frontend>
+    <routers>
+      <stockCountReceiver>
+        <use>standard</use>
+        <args>
+          <module>Nordweb_StockCountReceiver</module>
+          <frontName>stockCountReceiver</frontName>
+        </args>
+      </stockCountReceiver>
+    </routers>
+  </frontend>
+  <global>
+    <helpers>
+      <stockcountreceiver>
+        <class>Nordweb_StockCountReceiver_Helper</class>
+      </stockcountreceiver>
+    </helpers>
+    <models>
+      <stockCountReceiver>
+        <class>Nordweb_StockCountReceiver_Model</class>
+      </stockCountReceiver>
+    </models>
+  </global>
+ 
+
+
+</config>

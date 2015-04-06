@@ -1,0 +1,57 @@
+<config>
+  <modules>
+    <Nordweb_FrontSystems>
+      <version>0.1.0</version>
+    </Nordweb_FrontSystems>
+  </modules>
+  <global>
+    <models>
+      <frontsystems>
+        <class>Nordweb_FrontSystems_Model</class>
+      </frontsystems>
+    </models>
+    <helpers>
+      <frontsystems>
+        <class>Nordweb_FrontSystems_Helper</class>
+      </frontsystems>
+    </helpers>
+  </global>
+  <adminhtml>
+    <acl>
+      <resources>
+        <all>
+          <title>Allow Everything</title>
+        </all>
+        <admin>
+          <children>
+            <system>
+              <children>
+                <config>
+                  <children>
+                    <nordweb>
+                      <title>Nordweb - All</title>
+                    </nordweb>
+                  </children>
+                </config>
+              </children>
+            </system>
+          </children>
+        </admin>
+      </resources>
+    </acl>
+  </adminhtml>
+  <default>
+    <nordweb>
+      <nordweb_group>
+        <frontsystemsapi_input>https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl</frontsystemsapi_input>
+        <feilmeldingbruker_input>
+          &lt;b&gt;Vi beklager&lt;/b&gt;&lt;br/&gt;Det har oppstått en feil ved henting av produkter fra Front Systems.
+          Vennligst sjekk teknisk feilmelding og prøv igjen. &lt;br/&gt;Hvis ikke det fungerer, kontakt support på:
+          &lt;a href="mailto:rune@nordweb.no"&gt;rune@nordweb.no&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Feilmelding fra teknisk system:&lt;/b&gt;&lt;br/&gt;
+        </feilmeldingbruker_input>
+      </nordweb_group>
+    </nordweb>
+  </default>
+  
+</config>
+

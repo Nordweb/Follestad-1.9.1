@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <tabs>
+    <nordweb translate="label" module="frontsystems">
+      <label>Front Systems</label>
+      <sort_order>100</sort_order>
+    </nordweb>
+  </tabs>
+  <sections>
+    <nordweb translate="label" module="frontsystems">
+      <label>Generelle innstillinger</label>
+      <tab>nordweb</tab>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+
+      <groups>
+        <nordweb_group translate="label" module="frontsystems">
+          <label>Generelle innstillinger</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>1000</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+
+          <fields>
+            <frontsystemsapi_input translate="label">
+              <label>Front Systems API: </label>
+              <comment>Adresse til API-et</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </frontsystemsapi_input>
+            <feilmeldingbruker_input translate="label">
+              <label>Front Systems API: </label>
+              <comment>Adresse til API-et</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </feilmeldingbruker_input>
+            <!--<nordweb_select translate="label">
+              <label>My Dropdown: </label>
+              <comment>Source model provider Magento's default Yes/No values</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+            </nordweb_select>-->
+          </fields>
+        </nordweb_group>
+      </groups>
+    </nordweb>
+  </sections>
+</config>
