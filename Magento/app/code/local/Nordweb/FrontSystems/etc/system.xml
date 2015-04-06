@@ -27,7 +27,7 @@
           <fields>
             <frontsystemsapi_input translate="label">
               <label>Front Systems API: </label>
-              <comment><![CDATA[https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl]]></comment>
+              <comment></comment>
               <frontend_type>text</frontend_type>
               <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
@@ -36,7 +36,7 @@
             </frontsystemsapi_input>
             <apiuser_input translate="label">
               <label>API Bruker: </label>
-              <comment>follestadwebshop</comment>
+              <comment></comment>
               <frontend_type>text</frontend_type>
               <sort_order>11</sort_order>
               <show_in_default>1</show_in_default>
@@ -45,7 +45,7 @@
             </apiuser_input>
             <apipwd_input translate="label">
               <label>API Passord: </label>
-              <comment>2*3er6</comment>
+              <comment></comment>
               <frontend_type>text</frontend_type>
               <sort_order>12</sort_order>
               <show_in_default>1</show_in_default>
@@ -67,7 +67,7 @@
           
             <prefix_input translate="label">
               <label>Prefiks enkeltprodukter: </label>
-              <comment>[FS]</comment>
+              <comment></comment>
               <frontend_type>text</frontend_type>
               <sort_order>12</sort_order>
               <show_in_default>1</show_in_default>

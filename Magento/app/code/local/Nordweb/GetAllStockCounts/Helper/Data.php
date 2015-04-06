@@ -231,16 +231,19 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
         if($UpdateStockNotReplace) //StockItem should exist, only add/subtract stockcount, not replace
         {
             $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simpleProductInMagento->getId());
-            $stockItem->setData('qty', $stockItem->getQty() + $stockCount);
+            $qty = $stockItem->getQty() + $stockCount;
+            $stockItem->setData('qty', $qty);
+           
             
         }
         else
         {
             $stockItem = Mage::getModel('cataloginventory/stock_item');
-            $stockItem->setData('qty', $stockCount);
+            $qty = $stockCount;
+            $stockItem->setData('qty', $qty);
            
         }
-
+         Mage::log('Updating Stockcount to ' . $qty . ' for SKU ' . $simpleProductInMagento->Sku);
         
         $stockItem->assignProduct($simpleProductInMagento);
         $stockItem->setData('is_in_stock', 1);
