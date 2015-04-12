@@ -59,7 +59,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         $allFSProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
         Mage::log('Front Systems products & stockCount gotten by SKU');
-        
+        //Mage::log($allFSProductsAndStockCountForThisConfigurableProduct);
 
         //Store in Magento
         $this->HandleSimpleProductsForOneCallingConfigurable($SKUOfConfigurableOrConfigurableToBe, $allFSProductsAndStockCountForThisConfigurableProduct->Products, 
@@ -555,7 +555,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             if(!$hasSizeAttribute)
             {
                 Mage::log('Attribute Size not on configurable product, adding it');
-                $_attributeIds = array("size" => $attr_id);   
+                $_attributeIds = array($configurable_attribute => $attr_id);   
                 //$cProductTypeInstance->setUsedProductAttributeIds($_attributeIds);
                 $cProductTypeInstance->setUsedProductAttributeIds(array($_attributeIds[$configurable_attribute]));
             }
