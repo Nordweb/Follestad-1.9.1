@@ -53,7 +53,7 @@
       <nordweb_fs_getallstockcounts>
         <schedule>
           <!--<cron_expr>0,5,10,15,20,25,30,35,40,45,50,55 * * * *</cron_expr>--><!--Every 5 minutes-->
-          <cron_expr>0 0 4 1/1 * ? *</cron_expr> <!--Every night at 04:00 am-->
+          <cron_expr>0 4 * * *</cron_expr> <!--Every night at 04:00 am-->
           <!--<cron_expr></cron_expr>--><!--Never-->
           <!--<cron_expr>0 0 12 1 1 ? *</cron_expr>--><!--Yearly-->
           

@@ -17,7 +17,7 @@ class Nordweb_AddFSProducts_Block_Adminhtml_Widget_Button extends Mage_Adminhtml
         //$currentURL = urlencode(Mage::helper('core/url')->getCurrentUrl());
         $this->setData(array(
             $message = "Be aware: Importing products from FS will delete all existing simple products belonging to this configurable product.",
-            'label'     => Mage::helper('catalog')->__('Add FS Products'),
+            'label'     => Mage::helper('catalog')->__('Hent Front-produkter'),
             'onclick'   => "confirmSetLocation('{$message}','{$this->getUrl('/index/getproductsfromfsbysku/sku/' . $this->_product->sku . '/id/' . $this->_product->getId() . '')}');",
             //'onclick'   => "setLocation('{$this->getUrl('/index/getproductsfromfsbysku/sku/' . $this->_product->sku . '')}'); return false;",'
             //'onclick'   => Mage::helper('addfsproducts')->GetProductsFromFSBySKU($this->_product->sku), //Find SKU
@@ -25,7 +25,7 @@ class Nordweb_AddFSProducts_Block_Adminhtml_Widget_Button extends Mage_Adminhtml
             'disabled'  => !$this->_isVisible(),
             'title' => (!$this->_isVisible())?
                 Mage::helper('catalog')->__('Product is not configurable and can not get products from FS'):
-                Mage::helper('catalog')->__('Add FS Products')
+                Mage::helper('catalog')->__('Hent Front-produkter')
         ));
     }
 

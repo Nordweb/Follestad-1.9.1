@@ -10,7 +10,12 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
     public function GetProductsFromFSBySKU($SKUOfConfigurableOrConfigurableToBe)
     {
     
-    
+        /***** Comment in if need to check StockIDs ********/
+        ///***** Usually not commented in unless chanages in Stocks (lager) *******/
+        //$this->GetAllStockIDsCommentedIn();
+        //return;
+        /***** END Section for getting StockIDs ********/
+         
         Mage::log(' ');
         Mage::log(' ');
         Mage::log('==============================================================');
@@ -61,6 +66,52 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             $allFSProductsAndStockCountForThisConfigurableProduct->StockCounts);
         
       
+     
+    }
+    
+    
+    public function GetAllStockIDsCommentedIn()
+    {
+    
+    
+        Mage::log(' ');
+        Mage::log(' ');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('=== STARTING A CALL TO GET ALL STOCK IDS, NOT USED NORMALLY ==');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        
+        //$addFSProductsConfig = Mage::getStoreConfig('design/my_or_their_group/my_config');
+        //Mage::log('$addFSProductsConfig: ');
+        //Mage::log($addFSProductsConfig);
+   
+        Mage::log('Calling Data->GetAllStockIDsCommentedIn()');
+        
+       
+    
+        //auth
+        Mage::log('Calling frontSystems->AuthenticateFS()');
+        $returnValues = Mage::helper('addfsproducts')->AuthenticateFS();
+        $clientAuthenticated = $returnValues[0];
+        $fsKey = $returnValues[1];
+        Mage::log('Front Systems Client authenticated');
+        
+        $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
+        
+        //GetFullProductInfo
+        Mage::log('Calling frontSystems->GetStocks()');
+        $retval = $clientAuthenticated->GetStocks(array('key'=>$fsKey));
+        if (is_soap_fault($retval)) {
+            trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
+             Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
+        }
+        $ArrayOfStock = $retval->GetStocksResult;
+        Mage::log('All Front Systems stocks gotten:');
+        Mage::log($ArrayOfStock);
+        
      
     }
     
@@ -165,21 +216,34 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log('Calling Data->deleteAllExistingSimpleProductsBelongingToThis()');
         $this->deleteAllExistingSimpleProductsBelongingToThis($configurableProductInMagento);
         
-        $configurable_attribute = "size"; 
-        $attr_id = 136; 
+        $configurable_attribute = Mage::getStoreConfig('nordweb/nordweb_group2/configurable_attribute_name',Mage::app()->getStore());
+        $attr_id = (int) Mage::getStoreConfig('nordweb/nordweb_group2/configurable_attribute_id',Mage::app()->getStore());
         $simpleProducts = array(); 
         
          //Sum all stockcounts
         Mage::log('Summarizing all stockCounts');
         $stockCountArray = array(); //identity, stockcount
+        
+        $stockIDsToOmitArray = $this->GetStockIDsToOmit();
+        
         foreach ($allFSStockCountForThisConfigurableProduct as $stockCount) 
         {
             //Mage::log('$stockCount: ');
             //Mage::log($stockCount);
             //Mage::log('$stockCount->Identity: '.$stockCount->Identity);
             
+            //Ommit "Ordre_"-stocks
+            if (in_array($stockCount->StockID, $stockIDsToOmitArray))
+                continue;
+            
             if(isset($stockCountArray[$stockCount->Identity]))
+            {
                 $sum = $stockCountArray[$stockCount->Identity];
+            }
+            else
+            {
+                $sum = 0;
+            }
                 
             if(!empty($sum) && $sum > 0)
             {
@@ -262,7 +326,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 //    continue;
                 //Mage::log('241');
                 // Create the Magento product model 
-                $prefix = Mage::getStoreConfig('nordweb/nordweb_group/prefix_input',Mage::app()->getStore());
+                $prefix = Mage::getStoreConfig('nordweb/nordweb_group2/prefix_input',Mage::app()->getStore());
                 
                 $sProduct = Mage::getModel('catalog/product'); 
                 $sProduct->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE); 
@@ -603,6 +667,20 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
          }
         
            
+    }
+    
+    public function GetStockIDsToOmit() { 
+        $stockIDsToOmitString = Mage::getStoreConfig('nordweb/nordweb_group4/stockids_to_omit',Mage::app()->getStore());
+        $stockIDsToOmitArray = $this->multiexplode(array(","," "),$stockIDsToOmitString);
+        Mage::log('GetStockIDsToOmit:');
+        Mage::log($stockIDsToOmitArray);
+        return $stockIDsToOmitArray;
+    }
+    
+    function multiexplode ($delimiters,$string) {
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
     }
     
     public function getAttributeOptionValue($arg_attribute, $arg_value) { 

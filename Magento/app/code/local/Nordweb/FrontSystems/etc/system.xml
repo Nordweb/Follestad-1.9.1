@@ -55,6 +55,37 @@
            
           </fields>
         </nordweb_group>
+        <nordweb_group4 translate="label" module="frontsystems">
+          <label>Lager-innstillinger</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>1500</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+
+          <fields>
+          
+            <stockids_to_omit translate="label">
+              <label>Lager-ID-er å ekskludere</label>
+              <comment>Komma-separert liste over Lager-ID-er fra Front Systems å ikke telle med i Magento</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </stockids_to_omit>
+            <stockid_for_purchase translate="label">
+              <label>Lager-ID for alle kjøp</label>
+              <comment>ID til webshop ("174") hvis det skal låses til det, ellers "0" for dynamisk valg etter tilgjengelighet</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>110</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </stockid_for_purchase>
+           
+          </fields>
+        </nordweb_group4>
         <nordweb_group2 translate="label" module="frontsystems">
           <label>Produkt-innstillinger</label>
           <frontend_type>text</frontend_type>
@@ -64,7 +95,24 @@
           <show_in_store>1</show_in_store>
 
           <fields>
-          
+            <configurable_attribute_name translate="label">
+              <label>Konfigurerbart attributt-navn: </label>
+              <comment></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </configurable_attribute_name>
+            <configurable_attribute_id translate="label">
+              <label>Konfigurerbart attributt-ID: </label>
+              <comment></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>11</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </configurable_attribute_id>
             <prefix_input translate="label">
               <label>Prefiks enkeltprodukter: </label>
               <comment></comment>
@@ -74,7 +122,10 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </prefix_input>
-           
+
+          
+
+
           </fields>
         </nordweb_group2>
         <nordweb_group3 translate="label" module="frontsystems">

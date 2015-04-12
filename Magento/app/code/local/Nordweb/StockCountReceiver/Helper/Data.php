@@ -48,6 +48,7 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
         Mage::log($dateTime);
         Mage::log($stockCounts);
         
+        $stockIDsToOmitArray = Mage::helper('addfsproducts')->GetStockIDsToOmit();
         
          
         $allStockCountChangesArray = array();
@@ -99,6 +100,12 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
         {
             if(!isset($stockCount->Identity))
                 continue;
+                
+                
+            //Ommit "Ordre_"-stocks
+            if (in_array($stockCount->StockID, $stockIDsToOmitArray))
+                continue;   
+                
             $oneStockCountChangesArray = array();
             array_push($oneStockCountChangesArray, $stockCount);
             

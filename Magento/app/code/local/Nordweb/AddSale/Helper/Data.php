@@ -117,7 +117,7 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
             
         endif;
 
-        Mage::log('138');
+     
     }
     
     
@@ -169,6 +169,18 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
  
          
         Foreach($ordered_items as $item){     
+        
+            //Mage::log('$item: ');
+            //Mage::log($item);
+            Mage::log('$item->getOrderItem(): ');
+            Mage::log($item->getOrderItem());
+            //if ($item->getProductType() == "configurable") {
+            //    continue;
+            //}
+            $price = $item->getPriceInclTax();
+            if (empty($price) || $price == 0) {
+                continue;
+            }
              
             Mage::log('*************************** $salesitem ****************************');
             Mage::log('$item->getSku(): ' . $item->getSku());
@@ -181,15 +193,22 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                       "Price"=> $item->getPriceInclTax(),
                       "Qty"=> $item->getQtyOrdered(),
                       "ShipmentExtId"=> "",
-                      //"StockID"=> $item->getSku(),
+                      "StockID"=> Mage::getStoreConfig('nordweb/nordweb_group4/stockid_for_purchase',Mage::app()->getStore()),
                       "Text"=> $item->getName(),
                        );
             array_push($saleLines, $saleLine);
         } 
        
+        Mage::log('*************************** $shipment ****************************');
+        Mage::log('$order->getShippingMethod(): ');
+        Mage::log($order->getShippingMethod());
+        Mage::log('$order->getShippingPrice(): ');
+        Mage::log($order->getShippingPrice());
+        Mage::log('$order->getShippingDescription(): ');
+        Mage::log($order->getShippingDescription());
 
          $shipment = array(
-                      "ExtID"=> $order->getShippingMethod()->method_title,
+                      "ExtID"=> $order->getShippingMethod(),
                       "Price"=> $order->getShippingPrice(), 
                       "Provider"=> $order->getShippingDescription(), 
                       //"RegisteredDateTime"=> "",
@@ -232,6 +251,16 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                       "SalesLines"=> $saleLines,
                       "Shipments"=> $shipments,
                        );
+                       
+                       
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('================ FULL SALE BEING SENT TO FRONT ===============');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log('==============================================================');
+        Mage::log($saleObject);
         
         $retval = $clientAuthenticated->NewSale(array('key'=>$fsKey, 'sale'=>$saleObject));
         

@@ -120,6 +120,8 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
             //Also update parent-configurable to be "på lager"
             $count = 0;
             
+            $stockIDsToOmitArray = Mage::helper('addfsproducts')->GetStockIDsToOmit();
+            
             $UpdateStockNotReplace = false; //GetAllStockCount is a full replace, unlike Push notifications
            
             foreach ($allProductIds as $oneMagentoProductID) 
@@ -132,6 +134,9 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
                 foreach ($allStockCountsFromFrontSystems->StockCount as $oneStockCount)
                 {
                 
+                    //Ommit "Ordre_"-stocks
+                    if (in_array($oneStockCount->StockID, $stockIDsToOmitArray))
+                        continue;
 
                     //math on simple product
                     if($oneMagentoProduct->getTypeId() == "simple" && $oneMagentoProduct->Sku == $oneStockCount->Identity) 
@@ -238,12 +243,12 @@ class Nordweb_GetAllStockCounts_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         else
         {
-            $stockItem = Mage::getModel('cataloginventory/stock_item');
+            $stockItem = Mage::getModel('cataloginventory/stock_item')->loadByProduct($simpleProductInMagento->getId());
             $qty = $stockCount;
             $stockItem->setData('qty', $qty);
            
         }
-         Mage::log('Updating Stockcount to ' . $qty . ' for SKU ' . $simpleProductInMagento->Sku);
+        Mage::log('Updating Stockcount to ' . $qty . ' for SKU ' . $simpleProductInMagento->Sku);
         
         $stockItem->assignProduct($simpleProductInMagento);
         $stockItem->setData('is_in_stock', 1);

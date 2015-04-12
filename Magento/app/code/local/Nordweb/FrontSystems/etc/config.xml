@@ -49,6 +49,8 @@
       </nordweb_group>
       <nordweb_group2>
         <prefix_input>[FS]</prefix_input>
+        <configurable_attribute_name>size</configurable_attribute_name>
+        <configurable_attribute_id>136</configurable_attribute_id>
        </nordweb_group2>
       <nordweb_group3>
         <feilmeldingbruker_input>
@@ -57,8 +59,11 @@
           &lt;a href="mailto:rune@nordweb.no"&gt;rune@nordweb.no&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Feilmelding fra teknisk system:&lt;/b&gt;&lt;br/&gt;
         </feilmeldingbruker_input>
       </nordweb_group3>
+      <nordweb_group4>
+        <stockids_to_omit>126,127,128,129,130,199,218,221,223,190</stockids_to_omit>
+        <stockid_for_purchase>174</stockid_for_purchase>
+      </nordweb_group4>
     </nordweb>
   </default>
-  
 </config>
 

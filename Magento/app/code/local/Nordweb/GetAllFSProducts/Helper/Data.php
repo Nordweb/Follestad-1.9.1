@@ -147,9 +147,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             
             $allProductIDsWithNoParentAndChildren = array(); 
             
-            //DEBUG
-            
-            
+            $stockIDsToOmitArray = Mage::helper('addfsproducts')->GetStockIDsToOmit();
             
             
             foreach ($allProductIds as $oneProductID)  
@@ -266,6 +264,8 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 foreach ($allStockCountsFromFrontSystems->StockCount as $value)
                 {
                     //Mage::log(get_object_vars($value));
+                    if (in_array($value->StockID, $stockIDsToOmitArray))
+                        continue;
                         
                     if (strlen($oneMagentoProduct->Sku) == 6 && (strpos($value->Identity, '00'. $oneMagentoProduct->Sku) !== false ? true : false))  {
                         array_push( $allFSStockCountForThisConfigurableProduct, $value); 
@@ -306,7 +306,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::getResourceSingleton('cataloginventory/stock')->updateSetOutOfStock();
             Mage::getModel('index/process')->load(9)->reindexEverything();
             
-             Mage::log('Finished indexing..');
+            Mage::log('Finished indexing..');
 
          }
          catch(Exception $e)
