@@ -59,7 +59,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         $allFSProductsAndStockCountForThisConfigurableProduct = $retval->GetFullProductInfoResult;
         Mage::log('Front Systems products & stockCount gotten by SKU');
-        //Mage::log($allFSProductsAndStockCountForThisConfigurableProduct);
+        Mage::log($allFSProductsAndStockCountForThisConfigurableProduct);
 
         //Store in Magento
         $this->HandleSimpleProductsForOneCallingConfigurable($SKUOfConfigurableOrConfigurableToBe, $allFSProductsAndStockCountForThisConfigurableProduct->Products, 
@@ -111,6 +111,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $ArrayOfStock = $retval->GetStocksResult;
         Mage::log('All Front Systems stocks gotten:');
         Mage::log($ArrayOfStock);
+        
+      
         
      
     }
@@ -367,8 +369,8 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                 $stockItem->setData('is_in_stock', 1);
                 $stockItem->setData('stock_id', 1);
                 $stockItem->setData('store_id', 1);
-                $stockItem->setData('manage_stock', 0);
-                $stockItem->setData('use_config_manage_stock', 1);
+                $stockItem->setData('manage_stock', 1); 
+                $stockItem->setData('use_config_manage_stock', 0);
                 $stockItem->setData('min_sale_qty', 0);
                 $stockItem->setData('use_config_min_sale_qty', 0);
                 $stockItem->setData('max_sale_qty', 1000);

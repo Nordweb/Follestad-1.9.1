@@ -170,6 +170,14 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
          
         Foreach($ordered_items as $item){     
         
+        
+            if(strlen($item->getSku()) < 6)
+            {
+                continue;
+            }
+            
+            
+            
             //Mage::log('$item: ');
             //Mage::log($item);
             Mage::log('$item->getOrderItem(): ');
@@ -187,6 +195,8 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
             Mage::log('$item->getPrice(): ' . $item->getPriceInclTax());
             Mage::log('$item->getQtyOrdered(): ' . $item->getQtyOrdered());
             Mage::log('$item->getName(): ' . $item->getName());
+            
+            
 
             $saleLine = array(
                       "Identitiy"=> $item->getSku(), 
@@ -198,6 +208,9 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                        );
             array_push($saleLines, $saleLine);
         } 
+        
+        if(!isset($saleLines) || !count($saleLines) > 0)
+           return;
        
         Mage::log('*************************** $shipment ****************************');
         Mage::log('$order->getShippingMethod(): ');
