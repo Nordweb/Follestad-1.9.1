@@ -40,7 +40,7 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                         "soap_defencoding"=>'UTF-8',
                         'key'=>$fsKey,
                        );
-        $clientAuthenticated = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParamsAuth);
+        $clientAuthenticated = new SoapClient($url,$headerParamsAuth);
         return array ($clientAuthenticated, $fsKey);
     }
     
@@ -253,7 +253,7 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
                       "Comment"=> "",
                       "CustomerID"=> $fsWebCustomer->CUSTOMERID, 
                       "DeliveryAddressID"=> $fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID,
-                      "ExtRef"=> "",
+                      "ExtRef"=> $order->getId(),
                       "InvoiceAddressID"=> $fsWebCustomer->Addresses->WebsaleAddress->ADDRESSID,
                       "IsComplete"=> true,
                       "IsVoided"=> false,

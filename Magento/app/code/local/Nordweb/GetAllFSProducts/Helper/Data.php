@@ -107,7 +107,7 @@ class Nordweb_GetAllFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                         "soap_defencoding"=>'UTF-8',
                         'key'=>$fsKey,
                        );
-        $clientAuthenticated = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParamsAuth);
+        $clientAuthenticated = new SoapClient($url,$headerParamsAuth);
         return array ($clientAuthenticated, $fsKey);
     }
     

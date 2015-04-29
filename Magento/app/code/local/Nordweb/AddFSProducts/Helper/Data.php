@@ -47,11 +47,14 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
+      
         
         $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
         
         //GetFullProductInfo
         Mage::log('Calling frontSystems->GetFullProductInfo()');
+        Mage::log('key: ' . $fsKey);
+        Mage::log('productid: ' . $SKUOfConfigurableOrConfigurableToBe);
         $retval = $clientAuthenticated->GetFullProductInfo(array('key'=>$fsKey, 'productid'=>$SKUOfConfigurableOrConfigurableToBe));
         if (is_soap_fault($retval)) {
             trigger_error("SOAP Fault: (faultcode: {$retval->faultcode}, faultstring: {$retval->faultstring})", E_USER_ERROR);
@@ -98,6 +101,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $clientAuthenticated = $returnValues[0];
         $fsKey = $returnValues[1];
         Mage::log('Front Systems Client authenticated');
+        Mage::log('$fsKey: ' . $fsKey);
         
         $errorMsg = Mage::getStoreConfig('nordweb/nordweb_group/feilmeldingbruker_input',Mage::app()->getStore());
         
@@ -133,6 +137,11 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
         $user = Mage::getStoreConfig('nordweb/nordweb_group/apiuser_input',Mage::app()->getStore());
         $pwd = Mage::getStoreConfig('nordweb/nordweb_group/apipwd_input',Mage::app()->getStore());
         
+        Mage::log('Authentication:');
+        Mage::log('$url: ' . $url);
+        Mage::log('$user: ' . $user);
+        Mage::log('$pwd: ' . $pwd);
+        
         $client = new SoapClient($url,$headerParams);
         $retval = $client->Logon(array('username'=>$user, 'password'=>$pwd));
         
@@ -151,7 +160,7 @@ class Nordweb_AddFSProducts_Helper_Data extends Mage_Core_Helper_Abstract {
                         "soap_defencoding"=>'UTF-8',
                         'key'=>$fsKey,
                        );
-        $clientAuthenticated = new SoapClient('https://dinbutikkdev.frontsystems.no/webshop/WebshopIntegration.svc?wsdl',$headerParamsAuth);
+        $clientAuthenticated = new SoapClient($url,$headerParamsAuth);
         return array ($clientAuthenticated, $fsKey);
     }
     
