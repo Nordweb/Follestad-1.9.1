@@ -164,11 +164,11 @@ class Nordweb_StockCountReceiver_Helper_Data extends Mage_Core_Helper_Abstract {
              Mage::throwException($errorMsg . '"<i>' . $retval->faultstring . '</i>"<br/><br/>' );
         }
         
-        Mage::log('Response: ');     
+        //Mage::log('Response: ');     
         Mage::log($retval);
         
         $registerStockCountNotification = $retval->registerStockCountNotificationResult;
-        Mage::log('Result: ');     
+        //Mage::log('Result: ');     
         Mage::log($registerStockCountNotification);
      
     }

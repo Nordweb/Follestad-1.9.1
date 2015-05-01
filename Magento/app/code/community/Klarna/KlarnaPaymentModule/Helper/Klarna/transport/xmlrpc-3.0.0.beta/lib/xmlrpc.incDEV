@@ -1617,8 +1617,8 @@
 					curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $keypass);
 				}
 				// whether to verify cert's common name (CN); 0 for no, 1 to verify that it exists, and 2 to verify that it matches the hostname used
-				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->verifyhost);
-				//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+				//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->verifyhost);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
 			}
 
 			// proxy info
