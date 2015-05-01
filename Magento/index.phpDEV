@@ -74,16 +74,7 @@ if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
 }
 
-if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
-        Mage::setIsDeveloperMode(true);
-}
-
-
-ini_set('display_errors', 1);
-ini_set('memory_limit', '1024M');
-
-#ini_set('error_reporting', E_ERROR); register_shutdown_function("fatal_handler"); function fatal_handler() { $error = error_get_last(); echo(""); print_r($error); }
-#short_open_tag = On;
+#ini_set('display_errors', 1);
 
 umask(0);
 
