@@ -171,7 +171,7 @@ class Nordweb_AddSale_Helper_Data extends Mage_Core_Helper_Abstract {
         Foreach($ordered_items as $item){     
         
         
-            if(strlen($item->getSku()) < 6)
+            if(strlen($item->getSku()) < 12)
             {
                 continue;
             }
